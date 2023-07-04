@@ -1,6 +1,5 @@
 package cda.greta94.planexam.service;
 
-import cda.greta94.planexam.controller.AdminController;
 import cda.greta94.planexam.dao.EtablissementRepository;
 import cda.greta94.planexam.dto.EtablissementDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
@@ -17,7 +16,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 import java.util.Optional;
-
 
 @Component()
 public class EtablissementService {
@@ -42,7 +40,7 @@ public class EtablissementService {
       if (etablissement == null) etablissement = new Etablissement();
     }
     etablissement.setNom(etablissementDto.getNom());
-    etablissement.setCcf(etablissementDto.getCcf());
+    etablissement.setPonctuel(etablissementDto.getPonctuel());
     etablissement.setRne(etablissementDto.getRne());
     etablissement.setCode(etablissementDto.getCode());
     etablissement.setVille(villeService.getById(etablissementDto.getIdVille()));
@@ -56,7 +54,7 @@ public class EtablissementService {
 
   public EtablissementDto findEtablissementDtoById(long id) {
     Etablissement etab = etablissementRepository.findById(id).orElseThrow(NotFoundEntityException::new);
-    return new EtablissementDto(etab.getId(), etab.getNom(), etab.getRne(), etab.getCode(),etab.getCcf(), (etab.getVille() != null) ? etab.getVille().getId() : null);
+    return new EtablissementDto(etab.getId(), etab.getNom(), etab.getRne(), etab.getCode(),etab.getPonctuel(), (etab.getVille() != null) ? etab.getVille().getId() : null);
   }
 
   public Optional<Etablissement> findById(Long id) {
@@ -69,10 +67,9 @@ public class EtablissementService {
 
   public void importEtablissementFromCSVFile(MultipartFile file) throws IOException {
     Reader in = new InputStreamReader(file.getInputStream());
-    // l'entête : "id","Nom","Ville","RNE","Codification","CCF","CCF 2016"
-    Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("id", "Nom", "Ville", "RNE", "Codification", "CCF", "CCF 2016").parse(in);
-//      Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
-//      Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader().withSkipHeaderRecord().parse();
+    Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("id", "Nom", "Ville", "RNE", "Code", "Ponctuel").withDelimiter(';').parse(in);
+    // Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
+    // Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader().withSkipHeaderRecord().parse(in);
     int nbLigne = 0;
     for (CSVRecord record : records) {
       nbLigne++;
@@ -81,7 +78,7 @@ public class EtablissementService {
 
       Long idVille = villeService.getOrCreate(record.get("Ville").toUpperCase());
 
-      EtablissementDto etabDto = new EtablissementDto(null, record.get("Nom"), record.get("RNE"), record.get("Codification"), record.get("CCF"), idVille);
+      EtablissementDto etabDto = new EtablissementDto(null, record.get("Nom"), record.get("RNE"), record.get("Code"), record.get("Ponctuel").startsWith("x") ? true : false, idVille);
 
       // TODO appliquer la validation par injection du Validator
       logger.info("Établissement à importer : " + etabDto);
@@ -89,5 +86,8 @@ public class EtablissementService {
       this.saveEtablissementFromEtablissementDto(etabDto);
     }
   }
-  
+
+  public void delete(Long id) {
+    etablissementRepository.deleteById(id);
+  }
 }

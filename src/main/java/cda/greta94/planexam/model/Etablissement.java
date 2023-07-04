@@ -23,8 +23,7 @@ public class Etablissement {
   private String code;
 
   @Basic
-  private String ccf;
-  // TODO Boolean ou Enum ???
+  private Boolean ponctuel;
 
   @ManyToOne
   private Ville ville;
@@ -72,12 +71,12 @@ public class Etablissement {
     this.code = code;
   }
 
-  public String getCcf() {
-    return ccf;
+  public Boolean getPonctuel() {
+    return ponctuel;
   }
 
-  public void setCcf(String ccf) {
-    this.ccf = ccf;
+  public void setPonctuel(Boolean ponctuel) {
+    this.ponctuel = ponctuel;
   }
 
   public Ville getVille() {
@@ -87,7 +86,6 @@ public class Etablissement {
   public void setVille(Ville ville) {
     this.ville = ville;
   }
-
 
  // codes générés par JPA Utilities...
  // à voir, car la logique du equals n'est pas la même que celle du hash...
@@ -107,7 +105,6 @@ public class Etablissement {
 
  // fin codes générés par JPA Utilities...
 
-
   @Override
   public String toString() {
     return getClass().getSimpleName() + "(" +
@@ -115,7 +112,7 @@ public class Etablissement {
             "nom = " + nom + ", " +
             "rne = " + rne + ", " +
             "code = " + code + ", " +
-            "ccf = " + ccf + ", " +
+            "ponctuel = " + ponctuel + ", " +
             "ville = " + ((ville != null) ? ville.getNom() : "N/A") +
             ")";
   }

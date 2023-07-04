@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -18,10 +17,32 @@
       <form action="#"  th:action="@{/admin/etablissement}" th:object="${etablissementDto}"
             method="post">
         <input type="hidden" th:field="${etablissementDto.id}">
+        <input type="hidden" th:field="${etablissementDto.idVille}">
         <div class="mb-4">
           <label for="name" class="form-label">Nom</label>
-          <input type="text" th:field="*{nom}" id="name" required placeholder="name" class="form-control">
+          <input type="text" th:field="*{nom}" id="name" required placeholder="Name" class="form-control">
           <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="validation-message"></span>
+
+          <!-- TODO: input avec datalist pour les villes de france (API) -->
+
+          <div class="my-2">
+            <label for="rne" class="form-label">RNE</label>
+            <input type="text" th:field="*{rne}" id="rne" required placeholder="RNE" class="form-control">
+            <span th:if="${#fields.hasErrors('rne')}" th:errors="*{rne}" class="validation-message"></span>
+          </div>
+
+          <div class="my-2">
+            <label for="code" class="form-label">Code</label>
+            <input type="text" th:field="*{code}" id="code" required placeholder="Code" class="form-control">
+            <span th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="validation-message"></span>
+          </div>
+
+          <!-- TODO: si uncheck ponctuel retirer de la liste -->
+          <div class="my-2">
+            <label for="ponctuel" class="form-label">Ponctuel</label>
+            <input type="checkbox" th:field="*{ponctuel}" id="ponctuel">
+            <span th:if="${#fields.hasErrors('ponctuel')}" th:errors="*{ponctuel}" class="validation-message"></span>
+          </div>
         </div>
         <hr>
 

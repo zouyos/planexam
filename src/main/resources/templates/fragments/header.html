@@ -29,20 +29,20 @@
 <div th:fragment="menu">
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Top navbar</a>
+    <a class="navbar-brand" href="#" th:href="@{/}">PlanExam</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item" >
-          <a class="nav-link" href="#"  th:href="@{/}" th:classappend="${activeTab == 'home' ? 'active' : null}" aria-current="page" >Home</a>
+          <a class="nav-link" href="#" th:href="@{/}" th:classappend="${activeTab == 'home' ? 'active' : null}" aria-current="page" >Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" th:href="@{/admin/sessions}" th:classappend="${activeTab == 'sessions' ? 'active' : null}" >Sessions</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" th:href="@{/admin/etablissements}" th:classappend="${activeTab == 'etablissements' ? 'active' : null}" >Etablissements</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
         </li>
       </ul>
       <form class="d-flex" role="search">

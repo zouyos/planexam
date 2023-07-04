@@ -12,6 +12,9 @@ import java.util.List;
 @Service
 public class ProfesseurService {
     private ProfesseurRepository professeurRepository;
+
+    //Constructeur vide ?
+
     @Autowired
     public ProfesseurService(ProfesseurRepository professeurRepository) {
         this.professeurRepository = professeurRepository;
@@ -25,11 +28,6 @@ public class ProfesseurService {
         return professeurRepository.findById(id).orElseThrow(NotFoundEntityException::new);
     }
 
-    public Professeur save(ProfesseurDto professeurDto){
-        ///TODO
-        return professeurRepository.save(new Professeur());
-    }
-
     public Professeur toProf(ProfesseurDto professeurDto){
         //TODO
         return new Professeur();
@@ -40,4 +38,8 @@ public class ProfesseurService {
         return new ProfesseurDto();
     }
 
+    public Professeur save(ProfesseurDto professeurDto){
+        //TODO
+        return professeurRepository.save(new Professeur());
+    }
 }

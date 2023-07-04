@@ -1,15 +1,7 @@
 package cda.greta94.planexam.dto;
 
-import cda.greta94.planexam.model.Etablissement;
-import cda.greta94.planexam.model.Ville;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 public class ProfesseurDto {
     private Long id;
@@ -24,4 +16,60 @@ public class ProfesseurDto {
     private Long idVille;
     private Long idEtablissement;
     private Long idSpecialite;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getIdVille() {
+        return idVille;
+    }
+
+    public void setIdVille(Long idVille) {
+        this.idVille = idVille;
+    }
+
+    public Long getIdEtablissement() {
+        return idEtablissement;
+    }
+
+    public void setIdEtablissement(Long idEtablissement) {
+        this.idEtablissement = idEtablissement;
+    }
+
+    public Long getIdSpecialite() {
+        return idSpecialite;
+    }
+
+    public void setIdSpecialite(Long idSpecialite) {
+        this.idSpecialite = idSpecialite;
+    }
 }

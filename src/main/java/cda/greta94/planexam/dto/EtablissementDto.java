@@ -10,23 +10,22 @@ public class EtablissementDto {
   @Size(min = 3, max = 30, message = "Longueur incorrecte")
   private String nom;
 
-//  @NotBlank(message = "RNE établissement requis")
-//  @Size(min = 6, max = 8, message = "Longueur incorrecte")
+  //  @NotBlank(message = "RNE établissement requis")
+  //  @Size(min = 6, max = 8, message = "Longueur incorrecte")
   private String rne;
 
   private String code;
 
-  private String ccf;
-  // TODO Boolean ou Enum ???
+  private Boolean ponctuel;
 
   private Long idVille;
 
-  public EtablissementDto(Long id, String nom, String rne, String code, String ccf, Long idVille) {
+  public EtablissementDto(Long id, String nom, String rne, String code, Boolean ponctuel, Long idVille) {
     this.id = id;
     this.nom = nom;
     this.rne = rne;
     this.code = code;
-    this.ccf = ccf;
+    this.ponctuel = ponctuel;
     this.idVille = idVille;
   }
 
@@ -65,12 +64,12 @@ public class EtablissementDto {
     this.code = code;
   }
 
-  public String getCcf() {
-    return ccf;
+  public Boolean getPonctuel() {
+    return ponctuel;
   }
 
-  public void setCcf(String ccf) {
-    this.ccf = ccf;
+  public void setPonctuel(Boolean ponctuel) {
+    this.ponctuel = ponctuel;
   }
 
   public Long getIdVille() {
@@ -88,7 +87,7 @@ public class EtablissementDto {
             ", nom='" + nom + '\'' +
             ", rne='" + rne + '\'' +
             ", code='" + code + '\'' +
-            ", ccf='" + ccf + '\'' +
+            ", ponctuel='" + ponctuel + '\'' +
             ", idVille=" + idVille +
             '}';
   }

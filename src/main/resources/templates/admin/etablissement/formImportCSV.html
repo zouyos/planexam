@@ -15,12 +15,13 @@
     </div>
 
     <div class="card-body">
-      <p>Attention structure attendue : "id","Nom","Ville","RNE","Codification","CCF","CCF 2016" </p>
+      <p>Attention structure attendue : "id","Nom","Ville","RNE","Code","Ponctuel"</p>
+      <p>NB: Si ponctuel (établissement accueillant des jurys) remplir avec une croix ("x")</p>
       <form action="#"  th:action="@{/admin/etablissement/import}"
             enctype="multipart/form-data"
             method="post">
         <input type="file" name="file" /><br/><br/>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Importer" />
       </form>
     </div>
   </div>
