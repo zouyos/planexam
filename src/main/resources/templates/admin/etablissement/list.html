@@ -34,10 +34,17 @@
           <td th:text="${etab.rne}"></td>
           <td th:text="${etab.code}"></td>
           <td th:text="${etab.ponctuel}? Oui : Non"></td>
-          <td><a th:href="@{/admin/etablissement/edit/{id} (id=${etab.id})}" class="btn btn-primary">Edit</a></td>
+          <td><a th:href="@{/admin/etablissement/edit/{id} (id=${etab.id})}" class="btn btn-primary">Modifier</a></td>
           <td>
             <form th:action="@{/admin/etablissement/delete/{id} (id=${etab.id})}" method="post">
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button
+                type="submit"
+                class="btn btn-danger"
+                th:data-confirm-delete="|Êtes-vous sûr de vouloir supprimer cet établisement : ${etab.nom}?|"
+                onclick="return confirm(this.getAttribute('data-confirm-delete'))"
+              >
+                Supprimer
+              </button>
             </form>
           </td>
         </tr>

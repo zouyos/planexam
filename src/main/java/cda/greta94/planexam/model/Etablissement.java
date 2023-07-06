@@ -28,18 +28,18 @@ public class Etablissement {
   @ManyToOne
   private Ville ville;
 
-    @OneToMany(mappedBy = "etablissement", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Professeur> professeurs = new ArrayList<>();
+  @OneToMany(mappedBy = "etablissement", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  private List<Professeur> professeurs = new ArrayList<>();
 
-    public List<Professeur> getProfesseurs() {
+  public List<Professeur> getProfesseurs() {
         return professeurs;
     }
 
-    public void setProfesseurs(List<Professeur> professeurs) {
+  public void setProfesseurs(List<Professeur> professeurs) {
         this.professeurs = professeurs;
     }
 
-    public Long getId() {
+  public Long getId() {
     return id;
   }
 

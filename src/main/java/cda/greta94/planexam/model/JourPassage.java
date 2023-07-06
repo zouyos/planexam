@@ -13,15 +13,15 @@ import java.sql.Date;
     private Date datePassage;
 
     @ManyToOne
-    @JoinColumn(name = "session_id")
-    private Session session;
+    @JoinColumn(name = "session_e5_id")
+    private SessionE5 sessionE5;
 
-    public Session getSession() {
-      return session;
+    public SessionE5 getSession() {
+      return sessionE5;
     }
 
-    public void setSession(Session session) {
-      this.session = session;
+    public void setSession(SessionE5 sessionE5) {
+      this.sessionE5 = sessionE5;
     }
 
     public Long getId() {

@@ -76,14 +76,16 @@ public class EtablissementService {
       // saute la première ligne d'entête si elle existe
       if (nbLigne == 1 && record.get("Ville").equals("Ville") && record.get("Nom").equals("Nom")) continue;
 
-      Long idVille = villeService.getOrCreate(record.get("Ville").toUpperCase());
+      Long idVille = villeService.getOrCreate(record.get("Ville"));
 
       EtablissementDto etabDto = new EtablissementDto(null, record.get("Nom"), record.get("RNE"), record.get("Code"), record.get("Ponctuel").startsWith("x") ? true : false, idVille);
 
       // TODO appliquer la validation par injection du Validator
+
       logger.info("Établissement à importer : " + etabDto);
 
       this.saveEtablissementFromEtablissementDto(etabDto);
+//      System.out.println(etabDto.getNom() + idVille);
     }
   }
 

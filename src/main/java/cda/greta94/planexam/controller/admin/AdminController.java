@@ -1,7 +1,6 @@
-package cda.greta94.planexam.controller;
+package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dto.EtablissementDto;
-import cda.greta94.planexam.dto.SessionDto;
 import cda.greta94.planexam.service.EtablissementService;
 import cda.greta94.planexam.service.SessionService;
 import cda.greta94.planexam.service.VilleService;
@@ -24,12 +23,9 @@ public class AdminController {
   private EtablissementService etablissementService;
   private VilleService villeService;
 
-  private SessionService sessionService;
-
-  public AdminController(EtablissementService etablissementService, VilleService villeService, SessionService sessionService) {
+  public AdminController(EtablissementService etablissementService, VilleService villeService) {
     this.etablissementService = etablissementService;
     this.villeService = villeService;
-    this.sessionService = sessionService;
   }
 
   @GetMapping(value = "/etablissements")
@@ -40,7 +36,7 @@ public class AdminController {
 
   @GetMapping(value = "/etablissement")
   public String pushFormEtab(@ModelAttribute EtablissementDto etablissementDto) {
-    return "etablissement/form";
+    return "admin/etablissement/form";
   }
 
   @PostMapping(value = "/etablissement")
@@ -78,7 +74,7 @@ public class AdminController {
     try {
       etablissementService.importEtablissementFromCSVFile(file);
     } catch (Exception e) {
-      redirAttrs.addFlashAttribute("errorMessage", /* e.getMessage() */ "Un problème est survenu" );
+      redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
       return "redirect:/admin/etablissement/import";
     }
     // ok
@@ -90,13 +86,5 @@ public class AdminController {
   public String delete(@PathVariable(name = "id") Long id) {
     etablissementService.delete(id);
     return "redirect:/admin/etablissements";
-  }
-
-  //SESSION
-
-  @GetMapping(value = "/sessions")
-  public String indexSession(Model model) {
-    model.addAttribute("sessions", sessionService.getAll());
-    return "admin/session/index.html";
   }
 }

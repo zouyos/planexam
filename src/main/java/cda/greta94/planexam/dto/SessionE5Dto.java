@@ -1,30 +1,35 @@
-package cda.greta94.planexam.model;
+package cda.greta94.planexam.dto;
 
-import jakarta.persistence.*;
+import cda.greta94.planexam.model.JourPassage;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Session {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id", nullable = false)
+public class SessionE5Dto {
   private Long id;
 
+  @NotBlank(message = "Un libellé est requis")
   private String libelle;
+
+  @NotNull
   private Date dateDebut;
+
+  @NotNull
   private Date dateFin;
 
-  @OneToMany(mappedBy = "session", orphanRemoval = true)
   private List<JourPassage> jourPassages = new ArrayList<>();
 
-  public List<JourPassage> getJourPassages() {
-    return jourPassages;
+  public SessionE5Dto() {
   }
 
-  public void setJourPassages(List<JourPassage> jourPassages) {
+  public SessionE5Dto(Long id, String libelle, @NotNull Date dateDebut, @NotNull Date dateFin, List<JourPassage> jourPassages) {
+    this.id = id;
+    this.libelle = libelle;
+    this.dateDebut = dateDebut;
+    this.dateFin = dateFin;
     this.jourPassages = jourPassages;
   }
 

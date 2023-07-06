@@ -2,9 +2,9 @@ package cda.greta94.planexam.service;
 
 import cda.greta94.planexam.dao.JourPassageRepository;
 import cda.greta94.planexam.dao.SessionRepository;
-import cda.greta94.planexam.dto.SessionDto;
+import cda.greta94.planexam.dto.SessionE5Dto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
-import cda.greta94.planexam.model.Session;
+import cda.greta94.planexam.model.SessionE5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,30 +25,39 @@ public class SessionService {
     this.jourPassageRepository = jourPassageRepository;
   }
 
-  public List<Session> getAll() {
+  public List<SessionE5> getAll() {
     return sessionRepository.findAll();
   }
 
-  public Session show(Long id) {
+  public SessionE5Dto findSessionDtoById(Long id) {
+    SessionE5 sessionE5 = sessionRepository.findById(id).orElseThrow(NotFoundEntityException::new);
+    return new SessionE5Dto(sessionE5.getId(), sessionE5.getLibelle(), sessionE5.getDateDebut(), sessionE5.getDateFin(), (sessionE5.getJourPassages() != null) ? sessionE5.getJourPassages() : null);
+  }
+
+  public SessionE5 show(Long id) {
     return sessionRepository.findById(id).orElseThrow(NotFoundEntityException::new);
   }
 
-  public Session toSession(SessionDto sessionDto) {
-    Session session = sessionRepository.findById(sessionDto.getId()).orElse(new Session());
-    session.setLibelle(sessionDto.getLibelle());
-    session.setDateDebut((Date) sessionDto.getDateDebut());
-    session.setDateFin((Date) sessionDto.getDateFin());
-    //TODO
-    return sessionRepository.save(new Session());
+  public void saveSessionFromSessionDto(SessionE5Dto sessionE5Dto) {
+    SessionE5 sessionE5 = null;
+    if (sessionE5Dto.getId() != null) {
+      sessionE5 = sessionRepository.findById(sessionE5Dto.getId()).orElseThrow(NotFoundEntityException::new);
+    } else {
+     if (sessionE5 == null) sessionE5 = new SessionE5();
+    }
+    sessionE5.setLibelle(sessionE5Dto.getLibelle());
+    sessionE5.setDateDebut((Date) sessionE5Dto.getDateDebut());
+    sessionE5.setDateFin((Date) sessionE5Dto.getDateFin());
+    // TODO instancier les jourPassages entre dateDebut et dateFin
+    sessionRepository.save(sessionE5);
   }
 
-  public SessionDto toDto(Session session){
+  public SessionE5Dto toDto(SessionE5 sessionE5){
     //TODO
-    return new SessionDto();
+    return new SessionE5Dto();
   }
 
-  public Session save(SessionDto sessionDto){
-    //TODO
-    return sessionRepository.save(new Session());
+  public void delete(Long id) {
+    sessionRepository.deleteById(id);
   }
 }
