@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: header-css(title='Ajouter un Enseignant')}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: menu}"/>
+
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Ajouter un Enseignant</h2>
+        </div>
+        <div class="card-body">
+            <form th:object="${prof}" th:action="@{/admin/enseignant}" method="post">
+                <input type="hidden" th:field="${prof.id}">
+                <div class="my-2">
+                    <label for="nomProf">Nom</label>
+                    <input type="text" id="nomProf" th:field="*{nom}" class="form-control">
+                    <p th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="validation-message"></p>
+                </div>
+                <div class="my-2">
+                    <label for="prenomProf">Prénom</label>
+                    <input type="text" id="prenomProf" th:field="*{prenom}" class="form-control">
+                    <p th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" class="validation-message"></p>
+                </div>
+                <div class="my-2">
+                    <label for="emailProf">Email</label>
+                    <input type="email" id="emailProf" th:field="*{email}" class="form-control">
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></p>
+                </div>
+                <hr>
+                <div class="my-2">
+                    <a th:href="@{/admin/enseignants}" class="btn btn-secondary">Retour</a>
+                    <span th:if="${prof.id != null}">
+                        <button type="submit" class="btn btn-primary me-1">Mettre à jour</button>
+                    </span>
+                    <span th:if="${prof.id == null}">
+                        <button type="submit" class="btn btn-primary me-1">Ajouter</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- /.container -->
+
+<div th:replace="~{fragments/footer.html :: footer}"/>
+
+</body>
+</html>
+
+

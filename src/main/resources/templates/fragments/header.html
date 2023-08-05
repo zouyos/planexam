@@ -44,6 +44,12 @@
         <li class="nav-item">
           <a class="nav-link" href="#" th:href="@{/admin/etablissements}" th:classappend="${activeTab == 'etablissements' ? 'active' : null}" >Etablissements</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" th:href="@{/admin/enseignants}" th:classappend="${activeTab == 'enseignants' ? 'active' : null}" >Enseignants</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" th:href="@{/admin/specialites}" th:classappend="${activeTab == 'specialites' ? 'active' : null}" >Spécialités</a>
+        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -54,6 +60,7 @@
 </nav>
   <div>
     <p th:if="${errorMessage != null}" th:text="${errorMessage}" class="alert alert-danger"></p>
+    <p th:if="${warningMessage != null}" th:text="${warningMessage}" class="alert alert-warning"></p>
     <p th:if="${successMessage != null}" th:text="${successMessage}" class="alert alert-success"></p>
   </div>
 </div>

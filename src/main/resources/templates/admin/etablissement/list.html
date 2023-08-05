@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <div th:replace="~{fragments/header :: header-css}"/>
+  <div th:replace="~{fragments/header :: header-css(title='Etablissements')}"/>
 </head>
 <body>
 
@@ -11,8 +11,8 @@
 
   <h1>Etablissements</h1>
 
-  <a class="btn btn-lg btn-primary" href="#" th:href="@{/admin/etablissement}" role="button">Ajouter un établissement</a>
-  <a class="btn btn-lg btn-primary" href="#" th:href="@{/admin/etablissement/import}" role="button">Importer une liste d'établissements</a>
+  <a class="btn btn-primary" href="#" th:href="@{/admin/etablissement}" role="button">Ajouter un établissement</a>
+  <a class="btn btn-primary" href="#" th:href="@{/admin/etablissement/import}" role="button">Importer une liste d'établissements</a>
 
   <div th:switch="${etablissements}">
     <h2 th:case="null">Aucun établissement!</h2>

@@ -78,7 +78,7 @@ public class AdminController {
       return "redirect:/admin/etablissement/import";
     }
     // ok
-    redirAttrs.addFlashAttribute("errorMessage", "Importation en cours d'implémentation !");
+    redirAttrs.addFlashAttribute("warningMessage", "Importation en cours d'implémentation !");
     return "redirect:/admin/etablissements";
   }
 

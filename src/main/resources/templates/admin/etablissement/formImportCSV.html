@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <div th:replace="~{fragments/header :: header-css}"/>
+  <div th:replace="~{fragments/header :: header-css(title='Importer Etablissements')}"/>
 </head>
 <body>
 
@@ -11,7 +11,7 @@
 <main class="container">
   <div class="card">
     <div class="card-header">
-      <p>Import liste d'établissements en CSV</p>
+      <h2>Import liste d'établissements en CSV</h2>
     </div>
 
     <div class="card-body">

@@ -16,9 +16,6 @@ public class SessionService {
   private SessionRepository sessionRepository;
   private JourPassageRepository jourPassageRepository;
 
-  public SessionService() {
-  }
-
   @Autowired
   public SessionService(SessionRepository sessionRepository, JourPassageRepository jourPassageRepository) {
     this.sessionRepository = sessionRepository;
@@ -29,13 +26,13 @@ public class SessionService {
     return sessionRepository.findAll();
   }
 
+  public SessionE5 findById(Long id) {
+    return sessionRepository.findById(id).orElseThrow(NotFoundEntityException::new);
+  }
+
   public SessionE5Dto findSessionDtoById(Long id) {
     SessionE5 sessionE5 = sessionRepository.findById(id).orElseThrow(NotFoundEntityException::new);
     return new SessionE5Dto(sessionE5.getId(), sessionE5.getLibelle(), sessionE5.getDateDebut(), sessionE5.getDateFin(), (sessionE5.getJourPassages() != null) ? sessionE5.getJourPassages() : null);
-  }
-
-  public SessionE5 show(Long id) {
-    return sessionRepository.findById(id).orElseThrow(NotFoundEntityException::new);
   }
 
   public void saveSessionFromSessionDto(SessionE5Dto sessionE5Dto) {

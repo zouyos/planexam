@@ -1,13 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <div th:replace="~{fragments/header :: header-css}"/>
+  <div th:replace="~{fragments/header :: header-css(title='Sessions')}"/>
 </head>
 <body>
 
 <div th:replace="~{fragments/header :: menu(activeTab='sessions')}"/>
 
 <main class="container">
+  <h1 class="text-center">Liste des Sessions</h1>
   <a th:href="@{/admin/session/create}" class="btn btn-primary my-2">Ajouter une session</a>
   <table class="table table-striped">
     <thead>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <div th:replace="~{fragments/header :: header-css}"/>
+  <div th:replace="~{fragments/header :: header-css(title='Ajouter un Etablissement')}"/>
 </head>
 <body>
 
@@ -10,7 +10,7 @@
 <main class="container">
   <div class="card">
     <div class="card-header">
-      <p>Etablissement</p>
+      <p>Ajouter un Etablissement</p>
     </div>
 
     <div class="card-body">
@@ -19,8 +19,8 @@
         <input type="hidden" th:field="${etablissementDto.id}">
         <input type="hidden" th:field="${etablissementDto.idVille}">
         <div class="mb-4">
-          <label for="name" class="form-label">Nom</label>
-          <input type="text" th:field="*{nom}" id="name" required placeholder="Name" class="form-control">
+          <label for="etabNom" class="form-label">Nom</label>
+          <input type="text" th:field="*{nom}" id="etabNom" required placeholder="Name" class="form-control">
           <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="validation-message"></span>
 
           <!-- TODO: input avec datalist pour les villes de france (API) -->

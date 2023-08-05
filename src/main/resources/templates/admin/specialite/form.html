@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: header-css(title='Ajouter une Spécialité')}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: menu}"/>
+
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Ajouter une Spécialité</h2>
+        </div>
+        <div class="card-body">
+            <form th:object="${spec}" th:action="@{/admin/specialite}" method="post">
+                <input type="hidden" th:field="${spec.id}">
+                <div class="my-2">
+                    <label for="libSpec">Libellé</label>
+                    <input type="text" id="libSpec" th:field="*{libelle}" class="form-control">
+                    <p th:if="${#fields.hasErrors('libelle')}" th:errors="*{libelle}" class="validation-message"></p>
+                </div>
+                <div class="my-2">
+                    <label for="listeProf">Liste des Enseigants</label>
+                    <select name="listeProf" id="listeProf">
+                        <option value="Selectionner"></option>
+                    </select>
+                </div>
+                <hr>
+                <div class="my-2">
+                    <a th:href="@{/admin/specialites}" class="btn btn-secondary">Retour</a>
+                    <span th:if="${spec.id != null}">
+                        <button type="submit" class="btn btn-primary me-1">Mettre à jour</button>
+                    </span>
+                    <span th:if="${spec.id == null}">
+                        <button type="submit" class="btn btn-primary me-1">Ajouter</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<!-- /.container -->
+
+<div th:replace="~{fragments/footer.html :: footer}"/>
+
+</body>
+</html>
+
+

@@ -20,17 +20,39 @@ public class ProfesseurService {
         this.professeurRepository = professeurRepository;
     }
 
-    public List<Professeur> index(){
+    public List<Professeur> getAll(){
         return professeurRepository.findAll();
     }
 
-    public Professeur show(Long id){
+    public Professeur findById(Long id){
         return professeurRepository.findById(id).orElseThrow(NotFoundEntityException::new);
     }
 
-    public Professeur toProf(ProfesseurDto professeurDto){
-        //TODO
-        return new Professeur();
+    public ProfesseurDto findProfDtoById(Long id) {
+        Professeur professeur = professeurRepository.findById(id).orElseThrow(NotFoundEntityException::new);
+        return new ProfesseurDto(
+          professeur.getId(),
+          professeur.getNom(),
+          professeur.getPrenom(),
+          professeur.getEmail(),
+          (professeur.getVille() != null) ? professeur.getVille().getId() : null,
+          (professeur.getEtablissement() != null) ? professeur.getEtablissement().getId() : null,
+          (professeur.getSpecialite() != null) ? professeur.getSpecialite().getId() : null
+        );
+    }
+
+    public void saveProfFromDto(ProfesseurDto professeurDto) {
+        Professeur professeur = null;
+        if (professeurDto.getId() != null) {
+            professeur = professeurRepository.findById(professeurDto.getId()).orElseThrow(NotFoundEntityException::new);
+        } else {
+            if (professeur == null) professeur = new Professeur();
+        }
+        professeur.setNom(professeurDto.getNom());
+        professeur.setPrenom(professeurDto.getPrenom());
+        professeur.setEmail(professeurDto.getEmail());
+        //TODO instancier Ville/Etab/Spec
+        professeurRepository.save(professeur);
     }
 
     public ProfesseurDto toDto(Professeur professeur){
@@ -38,8 +60,5 @@ public class ProfesseurService {
         return new ProfesseurDto();
     }
 
-    public Professeur save(ProfesseurDto professeurDto){
-        //TODO
-        return professeurRepository.save(new Professeur());
-    }
+    public void delete(Long id) { professeurRepository.deleteById(id); }
 }

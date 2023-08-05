@@ -85,7 +85,6 @@ public class EtablissementService {
       logger.info("Établissement à importer : " + etabDto);
 
       this.saveEtablissementFromEtablissementDto(etabDto);
-//      System.out.println(etabDto.getNom() + idVille);
     }
   }
 

@@ -4,11 +4,25 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public class ProfesseurDto {
+
+    public ProfesseurDto() {
+    }
+
+    public ProfesseurDto(Long id, String nom, String prenom, String email, Long idVille, Long idEtablissement, Long idSpecialite) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.idVille = idVille;
+        this.idEtablissement = idEtablissement;
+        this.idSpecialite = idSpecialite;
+    }
+
     private Long id;
-    @NotBlank(message = "Prenom est requis")
-    private String prenom;
     @NotBlank(message = "Nom est requis")
     private String nom;
+    @NotBlank(message = "Prenom est requis")
+    private String prenom;
     @NotBlank(message = "Email est requis")
     @Email(message = "Email n'est pas valide")
     private String email;

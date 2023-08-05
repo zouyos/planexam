@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class SessionE5 {
@@ -58,5 +59,17 @@ public class SessionE5 {
 
   public void setDateFin(Date dateFin) {
     this.dateFin = dateFin;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof SessionE5 sessionE5)) return false;
+    return Objects.equals(getId(), sessionE5.getId()) && Objects.equals(getLibelle(), sessionE5.getLibelle());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId(), getLibelle());
   }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <div th:replace="~{fragments/header :: header-css}"/>
+  <div th:replace="~{fragments/header :: header-css(title='Ajouter une Session')}"/>
 </head>
 <body>
 
@@ -10,24 +10,24 @@
 <main class="container">
   <div class="card">
     <div class="card-header">
-      <p>Session</p>
+      <h2>Ajouter une Session</h2>
     </div>
     <div class="card-body">
       <form th:object="${sessionE5Dto}" th:action="@{/admin/session}" method="post">
         <input type="hidden" th:field="${sessionE5Dto.id}">
         <div class="my-2">
           <label for="libelle">Libellé</label>
-          <input name="libelle" id="libelle" type="text" th:field="${sessionE5Dto.libelle}" class="form-control">
+          <input id="libelle" type="text" th:field="${sessionE5Dto.libelle}" class="form-control">
           <p th:if="${#fields.hasErrors('libelle')}" th:errors="${sessionE5Dto.libelle}" class="validation-message"></p>
         </div>
         <div class="my-2">
           <label for="sessionDateDebut">Date début</label>
-          <input name="sessionDateDebut" id="sessionDateDebut" type="date" th:field="*{dateDebut}" class="form-control">
+          <input id="sessionDateDebut" type="date" th:field="*{dateDebut}" class="form-control">
           <p th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}" class="validation-message"></p>
         </div>
         <div class="my-2">
           <label for="sessionDateFin">Date fin</label>
-          <input name="sessionDateFin" id="sessionDateFin" type="date" th:field="*{dateFin}" class="form-control">
+          <input id="sessionDateFin" type="date" th:field="*{dateFin}" class="form-control">
           <p th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}" class="validation-message"></p>
         </div>
         <hr>

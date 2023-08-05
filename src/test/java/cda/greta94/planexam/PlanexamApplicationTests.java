@@ -36,7 +36,7 @@ class PlanexamApplicationTests {
 	void createNewEtablissement(){
 		Long idVille = villeService.getOrCreate("PARIS");
 
-		EtablissementDto etabDto = new EtablissementDto(null, "NomA", "RNEA", "CodificationA", "CCFA", idVille);
+		EtablissementDto etabDto = new EtablissementDto(null, "NomA", "RNEA", "CodificationA", true, idVille);
 
 		logger.info("etabDto.id : " + etabDto.getId());
 		assertNull(etabDto.getId());
