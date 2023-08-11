@@ -13,11 +13,12 @@ import java.util.List;
 public class ProfesseurService {
     private ProfesseurRepository professeurRepository;
 
-    //Constructeur vide ?
+    private SpecialiteService specialiteService;
 
     @Autowired
-    public ProfesseurService(ProfesseurRepository professeurRepository) {
+    public ProfesseurService(ProfesseurRepository professeurRepository, SpecialiteService specialiteService) {
         this.professeurRepository = professeurRepository;
+        this.specialiteService = specialiteService;
     }
 
     public List<Professeur> getAll(){
@@ -37,7 +38,7 @@ public class ProfesseurService {
           professeur.getEmail(),
           (professeur.getVille() != null) ? professeur.getVille().getId() : null,
           (professeur.getEtablissement() != null) ? professeur.getEtablissement().getId() : null,
-          (professeur.getSpecialite() != null) ? professeur.getSpecialite().getId() : null
+          professeur.getSpecialite().getId()
         );
     }
 
@@ -51,7 +52,7 @@ public class ProfesseurService {
         professeur.setNom(professeurDto.getNom());
         professeur.setPrenom(professeurDto.getPrenom());
         professeur.setEmail(professeurDto.getEmail());
-        //TODO instancier Ville/Etab/Spec
+        professeur.setSpecialite(specialiteService.getById(professeurDto.getIdSpecialite()));
         professeurRepository.save(professeur);
     }
 

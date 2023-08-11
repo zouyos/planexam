@@ -1,7 +1,12 @@
 package cda.greta94.planexam.dto;
 
+import cda.greta94.planexam.model.JourPassage;
+import cda.greta94.planexam.model.Specialite;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfesseurDto {
 
@@ -13,9 +18,9 @@ public class ProfesseurDto {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
+        this.idSpecialite = idSpecialite;
         this.idVille = idVille;
         this.idEtablissement = idEtablissement;
-        this.idSpecialite = idSpecialite;
     }
 
     private Long id;
@@ -27,9 +32,11 @@ public class ProfesseurDto {
     @Email(message = "Email n'est pas valide")
     private String email;
 
-    private Long idVille;
-    private Long idEtablissement;
     private Long idSpecialite;
+
+    private Long idVille;
+
+    private Long idEtablissement;
 
     public Long getId() {
         return id;
@@ -63,6 +70,14 @@ public class ProfesseurDto {
         this.email = email;
     }
 
+    public Long getIdSpecialite() {
+        return idSpecialite;
+    }
+
+    public void setIdSpecialite(Long idSpecialite) {
+        this.idSpecialite = idSpecialite;
+    }
+
     public Long getIdVille() {
         return idVille;
     }
@@ -77,13 +92,5 @@ public class ProfesseurDto {
 
     public void setIdEtablissement(Long idEtablissement) {
         this.idEtablissement = idEtablissement;
-    }
-
-    public Long getIdSpecialite() {
-        return idSpecialite;
-    }
-
-    public void setIdSpecialite(Long idSpecialite) {
-        this.idSpecialite = idSpecialite;
     }
 }

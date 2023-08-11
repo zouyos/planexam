@@ -22,6 +22,7 @@
       <tr th:each="spec : ${specs}">
         <td th:text="${spec.libelle}"></td>
         <!-- TODO: Liste des profs -->
+        <td></td>
         <td><a th:href="@{/admin/specialite/edit/{id} (id=${spec.id})}" class="btn btn-primary">Modifier</a></td>
         <td>
           <form th:action="@{/admin/specialite/delete/{id} (id=${spec.id})}" method="post">

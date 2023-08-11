@@ -16,6 +16,7 @@
         <th>Nom</th>
         <th>Prénom</th>
         <th>Email</th>
+        <th>Spécialité</th>
         <th colspan="2">Opérations</th>
       </tr>
     </thead>
@@ -24,6 +25,7 @@
         <td th:text="${prof.nom}"></td>
         <td th:text="${prof.prenom}"></td>
         <td th:text="${prof.email}"></td>
+        <td th:text="${prof.specialite.libelle}"></td>
         <td><a th:href="@{/admin/enseignant/edit/{id} (id=${prof.id})}" class="btn btn-primary">Modifier</a></td>
         <td>
           <form th:action="@{/admin/enseignant/delete/{id} (id=${prof.id})}" method="post">

@@ -10,18 +10,23 @@ public class Professeur {
     private Long id;
     @Basic(optional = false)
     private String prenom;
+
     @Basic(optional = false)
     private String nom;
+
     @Basic(optional = false)
     @Column(nullable = false,unique = true)
     private String email;
+
     @ManyToOne
     @JoinColumn(name = "ville_id")
     private Ville ville;
+
     @ManyToOne
     @JoinColumn(name = "etablissement_id")
     private Etablissement etablissement;
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "specialite_id")
     private Specialite specialite;
 
@@ -33,9 +38,11 @@ public class Professeur {
     public void setSpecialite(Specialite specialite) {
         this.specialite = specialite;
     }
+
     public Etablissement getEtablissement() {
         return etablissement;
     }
+
     public void setEtablissement(Etablissement etablissement) {
         this.etablissement = etablissement;
     }
