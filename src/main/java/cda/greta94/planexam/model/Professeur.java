@@ -26,7 +26,7 @@ public class Professeur {
     @JoinColumn(name = "etablissement_id")
     private Etablissement etablissement;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "specialite_id")
     private Specialite specialite;
 
