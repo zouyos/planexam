@@ -1,6 +1,7 @@
 package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dto.EtablissementDto;
+import cda.greta94.planexam.dto.VilleDto;
 import cda.greta94.planexam.service.EtablissementService;
 import cda.greta94.planexam.service.SessionService;
 import cda.greta94.planexam.service.VilleService;
@@ -35,7 +36,7 @@ public class AdminController {
   }
 
   @GetMapping(value = "/etablissement")
-  public String pushFormEtab(@ModelAttribute EtablissementDto etablissementDto) {
+  public String pushFormEtab(@ModelAttribute EtablissementDto etablissementDto, @ModelAttribute VilleDto villeDto) {
     return "admin/etablissement/form";
   }
 

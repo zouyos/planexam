@@ -31,19 +31,12 @@
                     <input type="email" id="emailProf" th:field="*{email}" class="form-control">
                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></p>
                 </div>
-                <fieldset class="my-2">
-                    <!--TODO: lier ces field à des vrais id specs-->
-                    <legend>Choix Spécialité</legend>
-                    <br>
-                    <label for="specProf1">SISR</label>
-                    <input type="radio" id="specProf1" value="1" th:field="*{idSpecialite}">
-                    <br>
-                    <label for="specProf2">SLAM</label>
-                    <input type="radio" id="specProf2" value="2" th:field="*{idSpecialite}">
-                    <br>
-                    <label for="specProf3">Autre</label>
-                    <input type="radio" id="specProf3" value="3" th:field="*{idSpecialite}">
-                </fieldset>
+                <div class="my-2">
+                    <label for="specProf">Spécialité</label>
+                    <select id="specProf" class="form-control" th:field="*{idSpecialite}">
+                        <option th:each="specialite : ${specs}" th:value="${specialite.id}" th:text="${specialite.libelle}"></option>
+                    </select>
+                </div>
                 <p th:if="${#fields.hasErrors('idSpecialite')}" th:errors="*{idSpecialite}" class="validation-message"></p>
                 <hr>
                 <div class="my-2">

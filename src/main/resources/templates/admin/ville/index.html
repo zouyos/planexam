@@ -1,0 +1,54 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: header-css(title= 'Villes')}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: menu(activeTab='villes')}"/>
+
+<main class="container">
+    <h1 class="text-center">Villes</h1>
+    <a href="#"></a>
+
+    <div th:switch="${villes}">
+        <h2 th:case="null">Aucune villes!</h2>
+        <div th:case="*">
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Etablissements</th>
+                    <th>Professeurs</th>
+                    <th>Opérations</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="ville : ${villes}">
+                    <td th:text="${ville.nom}"></td>
+                    <td th:text="TODO"></td>
+                    <td th:text="TODO"></td>
+                    <td>
+                        <a th:href="@{/admin/ville/edit/{id} (id=${ville.id})}" class="btn btn-primary">Modifier</a>
+                        <form th:action="@{/admin/ville/delete/{id} (id=${ville.id})}" method="post" style="display: inline">
+                            <button
+                                    type="submit"
+                                    class="btn btn-danger"
+                                    th:data-confirm-delete="|Êtes-vous sûr de vouloir supprimer cette ville : ${ville.nom} ?|"
+                                    onclick="return confirm(this.getAttribute('data-confirm-delete'))"
+                            >
+                                Supprimer
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer.html :: footer}"/>
+
+</body>
+</html>

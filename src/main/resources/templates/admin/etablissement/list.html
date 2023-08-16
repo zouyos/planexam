@@ -22,21 +22,23 @@
         <thead>
         <tr>
           <th>Nom</th>
+          <th>Ville</th>
           <th>RNE</th>
           <th>Code</th>
           <th>Ponctuel</th>
-          <th colspan="2">Opérations</th>
+          <th>Opérations</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="etab : ${etablissements}">
           <td th:text="${etab.nom}"></td>
+          <td th:text="${etab.ville.nom}"></td>
           <td th:text="${etab.rne}"></td>
           <td th:text="${etab.code}"></td>
           <td th:text="${etab.ponctuel}? Oui : Non"></td>
-          <td><a th:href="@{/admin/etablissement/edit/{id} (id=${etab.id})}" class="btn btn-primary">Modifier</a></td>
           <td>
-            <form th:action="@{/admin/etablissement/delete/{id} (id=${etab.id})}" method="post">
+            <a th:href="@{/admin/etablissement/edit/{id} (id=${etab.id})}" class="btn btn-primary">Modifier</a>
+            <form th:action="@{/admin/etablissement/delete/{id} (id=${etab.id})}" method="post" style="display: inline">
               <button
                 type="submit"
                 class="btn btn-danger"

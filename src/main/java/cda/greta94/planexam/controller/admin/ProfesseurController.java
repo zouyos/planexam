@@ -24,21 +24,22 @@ public class ProfesseurController {
   @GetMapping("/enseignants")
   public String index(Model model) {
     model.addAttribute("profs", professeurService.getAll());
-    model.addAttribute("specs", specialiteService.getAll());
     return "admin/professeur/index";
   }
 
   @GetMapping("/enseignant/create")
-  public String create(@ModelAttribute(name="prof") ProfesseurDto professeurDto, @ModelAttribute(name="spec") SpecialiteDto specialiteDto) {
+  public String create(@ModelAttribute(name="prof") ProfesseurDto professeurDto, Model model) {
+    model.addAttribute("specs", specialiteService.getAll());
     return "admin/professeur/form";
   }
 
   @GetMapping("/enseignant/edit/{id}")
   public String edit(@PathVariable("id") Long id, Model model) {
     ProfesseurDto professeurDto = professeurService.findProfDtoById(id);
-    SpecialiteDto specialiteDto = specialiteService.findSpecialiteDtoById(id);
     model.addAttribute("prof", professeurDto);
+    SpecialiteDto specialiteDto = specialiteService.findSpecialiteDtoById(id);
     model.addAttribute("spec", specialiteDto);
+    model.addAttribute("specs", specialiteService.getAll());
     return "admin/professeur/form";
   }
 

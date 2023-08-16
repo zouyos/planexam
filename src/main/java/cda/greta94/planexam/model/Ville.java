@@ -18,7 +18,7 @@ public class Ville {
   private String nom;
 
    @OneToMany(mappedBy = "ville")
-  private List<Etablissement> etablissements;
+   private List<Etablissement> etablissements;
 
     @OneToMany(mappedBy = "ville", orphanRemoval = true)
     private List<Professeur> professeurs = new ArrayList<>();

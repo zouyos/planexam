@@ -17,7 +17,7 @@
         <th>Prénom</th>
         <th>Email</th>
         <th>Spécialité</th>
-        <th colspan="2">Opérations</th>
+        <th>Opérations</th>
       </tr>
     </thead>
     <tbody>
@@ -26,10 +26,17 @@
         <td th:text="${prof.prenom}"></td>
         <td th:text="${prof.email}"></td>
         <td th:text="${prof.specialite.libelle}"></td>
-        <td><a th:href="@{/admin/enseignant/edit/{id} (id=${prof.id})}" class="btn btn-primary">Modifier</a></td>
         <td>
-          <form th:action="@{/admin/enseignant/delete/{id} (id=${prof.id})}" method="post">
-            <button type="submit" class="btn btn-danger">Supprimer</button>
+          <a th:href="@{/admin/enseignant/edit/{id} (id=${prof.id})}" class="btn btn-primary">Modifier</a>
+          <form th:action="@{/admin/enseignant/delete/{id} (id=${prof.id})}" method="post" style="display: inline">
+            <button
+                    type="submit"
+                    class="btn btn-danger"
+                    th:data-confirm-delete="|Êtes-vous sûr de vouloir supprimer cet établisement : ${prof.nom} ${prof.prenom} ?|"
+                    onclick="return confirm(this.getAttribute('data-confirm-delete'))"
+            >
+              Supprimer
+            </button>
           </form>
         </td>
       </tr>

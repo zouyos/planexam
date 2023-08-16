@@ -15,7 +15,7 @@
       <tr>
         <th>Libéllé</th>
         <th>Liste des enseignants</th>
-        <th colspan="2">Opérations</th>
+        <th>Opérations</th>
       </tr>
     </thead>
     <tbody>
@@ -23,10 +23,17 @@
         <td th:text="${spec.libelle}"></td>
         <!-- TODO: Liste des profs -->
         <td></td>
-        <td><a th:href="@{/admin/specialite/edit/{id} (id=${spec.id})}" class="btn btn-primary">Modifier</a></td>
         <td>
-          <form th:action="@{/admin/specialite/delete/{id} (id=${spec.id})}" method="post">
-            <button type="submit" class="btn btn-danger">Supprimer</button>
+          <a th:href="@{/admin/specialite/edit/{id} (id=${spec.id})}" class="btn btn-primary me-1">Modifier</a>
+          <form th:action="@{/admin/specialite/delete/{id} (id=${spec.id})}" method="post" style="display: inline">
+            <button
+                    type="submit"
+                    class="btn btn-danger"
+                    th:data-confirm-delete="|Êtes-vous sûr de vouloir supprimer cette spécialite : ${spec.libelle} ?|"
+                    onclick="return confirm(this.getAttribute('data-confirm-delete'))"
+            >
+              Supprimer
+            </button>
           </form>
         </td>
       </tr>

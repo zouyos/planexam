@@ -17,7 +17,7 @@
       <th>Date début</th>
       <th>Date fin</th>
       <th>Jours Passage</th>
-      <th colspan="2">Opérations</th>
+      <th>Opérations</th>
     </tr>
     </thead>
     <tbody>
@@ -27,9 +27,9 @@
       <td th:text="${sessionE5.dateDebut}"></td>
       <td th:text="${sessionE5.dateFin}"></td>
       <td>TODO</td>
-      <td><a th:href="@{/admin/session/edit/{id} (id=${sessionE5.id})}" class="btn btn-primary">Modifier</a></td>
       <td>
-        <form th:action="@{/admin/session/delete/{id} (id=${sessionE5.id})}" method="post">
+        <a th:href="@{/admin/session/edit/{id} (id=${sessionE5.id})}" class="btn btn-primary">Modifier</a>
+        <form th:action="@{/admin/session/delete/{id} (id=${sessionE5.id})}" method="post" style="display: inline">
           <button
             type="submit"
             class="btn btn-danger"
