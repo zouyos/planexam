@@ -15,7 +15,6 @@
         <div class="card-body">
             <form th:object="${prof}" th:action="@{/admin/enseignant}" method="post">
                 <input type="hidden" th:field="${prof.id}">
-                <input type="hidden" th:field="${spec.id}">
                 <div class="my-2">
                     <label for="nomProf">Nom</label>
                     <input type="text" id="nomProf" th:field="*{nom}" class="form-control">
@@ -37,7 +36,17 @@
                         <option th:each="specialite : ${specs}" th:value="${specialite.id}" th:text="${specialite.libelle}"></option>
                     </select>
                 </div>
-                <p th:if="${#fields.hasErrors('idSpecialite')}" th:errors="*{idSpecialite}" class="validation-message"></p>
+                <div class="my-2">
+                    <label for="villeProf">Ville</label>
+                    <select id="villeProf" class="form-control" th:field="*{idVille}">
+                        <option
+                                th:each="ville : ${villes}"
+                                th:value="${ville.id}"
+                                th:text="${ville.nom}"
+                        >
+                        </option>
+                    </select>
+                </div>
                 <hr>
                 <div class="my-2">
                     <a th:href="@{/admin/enseignants}" class="btn btn-secondary">Retour</a>

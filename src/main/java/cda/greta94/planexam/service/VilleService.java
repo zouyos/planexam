@@ -43,13 +43,13 @@ public class VilleService {
     return villeRepository.findById(idVille).orElseThrow(NotFoundEntityException::new);
   }
 
-  public VilleDto getVilleDtoById(Long idVille) {
-    Ville ville = villeRepository.findById(idVille).orElseThrow(NotFoundEntityException::new);
+  public VilleDto getVilleDtoById(Long id) {
+    Ville ville = villeRepository.findById(id).orElseThrow(NotFoundEntityException::new);
     return new VilleDto(
             ville.getId(),
             ville.getNom(),
-            (ville.getEtablissements() != null ? ville.getEtablissements() : null),
-            (ville.getProfesseurs() != null ? ville.getProfesseurs() : null)
+            (ville.getEtablissements() != null) ? ville.getEtablissements() : null,
+            (ville.getProfesseurs() != null) ? ville.getProfesseurs() : null
     );
   }
 

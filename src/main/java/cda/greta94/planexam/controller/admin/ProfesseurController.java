@@ -2,8 +2,10 @@ package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dto.ProfesseurDto;
 import cda.greta94.planexam.dto.SpecialiteDto;
+import cda.greta94.planexam.model.Professeur;
 import cda.greta94.planexam.service.ProfesseurService;
 import cda.greta94.planexam.service.SpecialiteService;
+import cda.greta94.planexam.service.VilleService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class ProfesseurController {
   private ProfesseurService professeurService;
   private SpecialiteService specialiteService;
+  private VilleService villeService;
 
-  public ProfesseurController(ProfesseurService professeurService, SpecialiteService specialiteService) {
+  public ProfesseurController(ProfesseurService professeurService, SpecialiteService specialiteService, VilleService villeService) {
     this.professeurService = professeurService;
     this.specialiteService = specialiteService;
+    this.villeService = villeService;
   }
 
   @GetMapping("/enseignants")
@@ -30,6 +34,7 @@ public class ProfesseurController {
   @GetMapping("/enseignant/create")
   public String create(@ModelAttribute(name="prof") ProfesseurDto professeurDto, Model model) {
     model.addAttribute("specs", specialiteService.getAll());
+    model.addAttribute("villes", villeService.getAll());
     return "admin/professeur/form";
   }
 
@@ -37,9 +42,8 @@ public class ProfesseurController {
   public String edit(@PathVariable("id") Long id, Model model) {
     ProfesseurDto professeurDto = professeurService.findProfDtoById(id);
     model.addAttribute("prof", professeurDto);
-    SpecialiteDto specialiteDto = specialiteService.findSpecialiteDtoById(id);
-    model.addAttribute("spec", specialiteDto);
     model.addAttribute("specs", specialiteService.getAll());
+    model.addAttribute("villes", villeService.getAll());
     return "admin/professeur/form";
   }
 

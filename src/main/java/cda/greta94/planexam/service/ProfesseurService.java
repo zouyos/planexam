@@ -15,10 +15,13 @@ public class ProfesseurService {
 
     private SpecialiteService specialiteService;
 
+    private VilleService villeService;
+
     @Autowired
-    public ProfesseurService(ProfesseurRepository professeurRepository, SpecialiteService specialiteService) {
+    public ProfesseurService(ProfesseurRepository professeurRepository, SpecialiteService specialiteService, VilleService villeService) {
         this.professeurRepository = professeurRepository;
         this.specialiteService = specialiteService;
+        this.villeService = villeService;
     }
 
     public List<Professeur> getAll(){
@@ -36,9 +39,9 @@ public class ProfesseurService {
           professeur.getNom(),
           professeur.getPrenom(),
           professeur.getEmail(),
-          (professeur.getVille() != null) ? professeur.getVille().getId() : null,
-          (professeur.getEtablissement() != null) ? professeur.getEtablissement().getId() : null,
-          professeur.getSpecialite().getId()
+          professeur.getSpecialite().getId(),
+          professeur.getVille().getId(),
+          (professeur.getEtablissement() != null) ? professeur.getEtablissement().getId() : null
         );
     }
 
@@ -53,6 +56,7 @@ public class ProfesseurService {
         professeur.setPrenom(professeurDto.getPrenom());
         professeur.setEmail(professeurDto.getEmail());
         professeur.setSpecialite(specialiteService.getById(professeurDto.getIdSpecialite()));
+        professeur.setVille(villeService.getById(professeurDto.getIdVille()));
         professeurRepository.save(professeur);
     }
 

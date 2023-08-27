@@ -10,10 +10,15 @@
 <main class="container">
     <div class="card">
         <div class="card-header">
-            <h2>Ajouter une ville</h2>
+            <span th:if="${ville.id != null}">
+                <h2>Éditer une ville</h2>
+            </span>
+            <span th:if="${ville.id == null}">
+                <h2>Ajouter une ville</h2>
+            </span>
         </div>
         <div class="card-body">
-            <form th:object="${ville}" th:action="@{/admin/specialite}" method="post">
+            <form th:object="${ville}" th:action="@{/admin/ville}" method="post">
                 <input type="hidden" th:field="${ville.id}">
                 <div class="my-2">
                     <label for="nomVille">Nom</label>

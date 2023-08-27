@@ -2,6 +2,7 @@ package cda.greta94.planexam.dto;
 
 import cda.greta94.planexam.model.Etablissement;
 import cda.greta94.planexam.model.Professeur;
+import cda.greta94.planexam.model.Ville;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
@@ -58,4 +59,5 @@ public class VilleDto {
     public void setProfesseurs(List<Professeur> professeurs) {
         this.professeurs = professeurs;
     }
+
 }

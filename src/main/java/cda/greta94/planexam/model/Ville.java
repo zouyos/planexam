@@ -20,7 +20,7 @@ public class Ville {
    @OneToMany(mappedBy = "ville")
    private List<Etablissement> etablissements;
 
-    @OneToMany(mappedBy = "ville", orphanRemoval = true)
+    @OneToMany(mappedBy = "ville")
     private List<Professeur> professeurs = new ArrayList<>();
 
     public List<Professeur> getProfesseurs() {
