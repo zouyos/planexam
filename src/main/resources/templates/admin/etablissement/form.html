@@ -17,13 +17,19 @@
       <form action="#"  th:action="@{/admin/etablissement}" th:object="${etablissementDto}"
             method="post">
         <input type="hidden" th:field="${etablissementDto.id}">
-        <input type="hidden" th:field="${etablissementDto.idVille}">
         <div class="mb-4">
           <label for="etabNom" class="form-label">Nom</label>
           <input type="text" th:field="*{nom}" id="etabNom" required placeholder="Name" class="form-control">
           <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="validation-message"></span>
 
           <!-- TODO: input avec datalist pour les villes de france (API) -->
+
+          <div class="my-2">
+            <label for="villeEtab">Ville</label>
+            <select id="villeEtab" class="form-control" th:field="*{idVille}">
+              <option th:each="ville : ${villes}" th:value="${ville.id}" th:text="${ville.nom}"></option>
+            </select>
+          </div>
 
           <div class="my-2">
             <label for="rne" class="form-label">RNE</label>
@@ -37,7 +43,6 @@
             <span th:if="${#fields.hasErrors('code')}" th:errors="*{code}" class="validation-message"></span>
           </div>
 
-          <!-- TODO: si uncheck ponctuel retirer de la liste -->
           <div class="my-2">
             <label for="ponctuel" class="form-label">Ponctuel</label>
             <input type="checkbox" th:field="*{ponctuel}" id="ponctuel">

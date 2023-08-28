@@ -36,7 +36,8 @@ public class AdminController {
   }
 
   @GetMapping(value = "/etablissement")
-  public String pushFormEtab(@ModelAttribute EtablissementDto etablissementDto, @ModelAttribute VilleDto villeDto) {
+  public String pushFormEtab(@ModelAttribute EtablissementDto etablissementDto, Model model) {
+    model.addAttribute("villes", villeService.getAll());
     return "admin/etablissement/form";
   }
 
@@ -56,6 +57,7 @@ public class AdminController {
   public String pushFormEtab(@PathVariable("id") long id, Model model) {
     EtablissementDto etablissementDto = etablissementService.findEtablissementDtoById(id);
     model.addAttribute("etablissementDto", etablissementDto);
+    model.addAttribute("villes", villeService.getAll());
     return "admin/etablissement/form";
   }
 
