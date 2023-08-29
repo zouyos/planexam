@@ -40,7 +40,7 @@ public class ProfesseurService {
           professeur.getPrenom(),
           professeur.getEmail(),
           professeur.getSpecialite().getId(),
-          professeur.getVille().getId(),
+          (professeur.getVille() != null) ? professeur.getVille().getId() : null,
           (professeur.getEtablissement() != null) ? professeur.getEtablissement().getId() : null
         );
     }
