@@ -47,6 +47,12 @@
                         </option>
                     </select>
                 </div>
+                <div class="my-2">
+                    <label for="etabProf">Établissment</label>
+                    <select id="etabProf" class="form-control" th:field="*{idEtablissement}">
+                        <option th:each="etab : ${etabs}" th:value="${etab.id}" th:text="${etab.nom}"></option>
+                    </select>
+                </div>
                 <hr>
                 <div class="my-2">
                     <a th:href="@{/admin/enseignants}" class="btn btn-secondary">Retour</a>

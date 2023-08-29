@@ -3,6 +3,7 @@ package cda.greta94.planexam.controller.admin;
 import cda.greta94.planexam.dto.ProfesseurDto;
 import cda.greta94.planexam.dto.SpecialiteDto;
 import cda.greta94.planexam.model.Professeur;
+import cda.greta94.planexam.service.EtablissementService;
 import cda.greta94.planexam.service.ProfesseurService;
 import cda.greta94.planexam.service.SpecialiteService;
 import cda.greta94.planexam.service.VilleService;
@@ -20,11 +21,17 @@ public class ProfesseurController {
   private ProfesseurService professeurService;
   private SpecialiteService specialiteService;
   private VilleService villeService;
+  private EtablissementService etablissementService;
 
-  public ProfesseurController(ProfesseurService professeurService, SpecialiteService specialiteService, VilleService villeService) {
+  public ProfesseurController(ProfesseurService professeurService,
+                              SpecialiteService specialiteService,
+                              VilleService villeService,
+                              EtablissementService etablissementService
+  ) {
     this.professeurService = professeurService;
     this.specialiteService = specialiteService;
     this.villeService = villeService;
+    this.etablissementService = etablissementService;
   }
 
   @GetMapping("/enseignants")
@@ -37,6 +44,7 @@ public class ProfesseurController {
   public String create(@ModelAttribute(name="prof") ProfesseurDto professeurDto, Model model) {
     model.addAttribute("specs", specialiteService.getAll());
     model.addAttribute("villes", villeService.getAll());
+    model.addAttribute("etabs", etablissementService.getAll());
     return "admin/professeur/form";
   }
 
@@ -46,6 +54,7 @@ public class ProfesseurController {
     model.addAttribute("prof", professeurDto);
     model.addAttribute("specs", specialiteService.getAll());
     model.addAttribute("villes", villeService.getAll());
+    model.addAttribute("etabs", etablissementService.getAll());
     return "admin/professeur/form";
   }
 

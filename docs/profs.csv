@@ -1,3 +1,3 @@
-id;Prénom;Nom;Email;Ville;RNE;Spécialité
-1;Hamza;Benketaf;hamza.benketaf@mail.com;Ormesson;GRETA888;SISR;
-2;Dinah;Razanamparany;dinah.razanamparany@gmail.com;Champigny;GRETA888;Français;
+id;Prénom;Nom;Email;Ville;Etablissement;Spécialité
+1;Hamza;Benketaf;hamza.benketaf@mail.com;Ormesson;GRETA;SISR;
+2;Dinah;Razanamparany;dinah.razanamparany@gmail.com;Champigny;GRETA;Français;

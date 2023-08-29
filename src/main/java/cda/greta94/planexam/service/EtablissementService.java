@@ -95,9 +95,6 @@ public class EtablissementService {
       etab.setNom(nom);
       //TODO
       etab.setRne("XXXXXXXX");
-      etab.setCode("TODO");
-      etab.setVille(null);
-      etab.setPonctuel(false);
       etablissementRepository.save(etab);
     }
     return etab.getId();

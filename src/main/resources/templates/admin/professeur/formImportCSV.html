@@ -14,7 +14,7 @@
     </div>
 
     <div class="card-body">
-      <p>Attention structure attendue : "id","Prénom","Nom","Email","Ville","RNE","Spécialité"</p>
+      <p>Attention structure attendue : "id","Prénom","Nom","Email","Ville","Etablissement","Spécialité"</p>
       <form th:action="@{/admin/enseignants/import}" enctype="multipart/form-data" method="post">
         <input type="file" name="file" class="my-2 form-control" />
         <button type="submit" class="btn btn-success">Importer</button>
