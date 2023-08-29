@@ -47,7 +47,7 @@ id;Nom;Ville;RNE;Code;Ponctuel
 47;Lycee Parc des Loges;Evry;0911251R;EVRY;
 48;GRETA Vilgenis;Massy;0911768C;GT91;
 49;ITIS;Evry;0911864G;ITIS;x
-50;CFA Faculté des métiers;Massy;0912263R;FDM;x
+50;CFA FacultÃ© des mÃ©tiers;Massy;0912263R;FDM;x
 51;ISCIO Orsay;;0919303T;ISCIO;
 52;Lycee Paul Lapie;Courbevoie;0920138A;COUR;
 53;Lycee Saint Gabriel;Bagneux;0920894X;GAB;
@@ -62,10 +62,10 @@ id;Nom;Ville;RNE;Code;Ponctuel
 63;ECTEI;Paris;0755560L;ECTE;
 64;Lycee Louis Armand Nogent;Nogent;0940118T;LANOLD;
 65;Lycee Maximilien Sorre;Cachan;0940580V;SOR;
-66;Lycee Prive St Michel St Mande;Saint Mandé;0940882Y;STMI;
+66;Lycee Prive St Michel St Mande;Saint MandÃ©;0940882Y;STMI;
 67;GRETA Tertiaire 94;;094306SY;GT94;
 68;ITIN Cergy;Cergy;095000SH;ITIN;
-69;Lycee René Cassin;Gonesse;0950646L;GONE;
+69;Lycee RenÃ© Cassin;Gonesse;0950646L;GONE;
 70;Lycee JJ Rousseau;Montmorancy;0950648N;ROUS;
 71;Lycee de l'Hautil;Jouy le moutier;0951824S;HAUT;
 72;IFCP;St Ouen L'aumone;0952242W;IFCP;x
@@ -75,10 +75,10 @@ id;Nom;Ville;RNE;Code;Ponctuel
 76;MEDIANET;Paris;0755472R;MEDIA;
 77;UFA PARC DE VILGENIS;;0911708M;CGILG;
 78;CFA EVE;Evry;0912119J;CEVE;x
-79;Lycée René Auffray;Clichy;0922149L;LRA;
-80;EDUCATEL Créteil;;094201SK;EDU94;
+79;LycÃ©e RenÃ© Auffray;Clichy;0922149L;LRA;
+80;EDUCATEL CrÃ©teil;;094201SK;EDU94;
 81;EDUCATEL PARIS;Paris;075201ST;EDU75;
-82;CFI Ecole Connectée Montigny;St Quentin;0781809T;DLOR;
+82;CFI Ecole ConnectÃ©e Montigny;St Quentin;0781809T;DLOR;
 83;RISE St Quentin;St Quentin;078188SS;RISE78;
 84;GRETA de la Defense;Reuil Malmaison;0929303M;GT92;
 85;Lycee Jacques Prevert;Combs la Ville;0771997C;COMBS;x
@@ -86,7 +86,7 @@ id;Nom;Ville;RNE;Code;Ponctuel
 87;OIIO;Paris;075345SV;OIIO;
 88;CNFP;Paris;075888SS;CNFP;
 89;EFICOM;Montrouge;0922698H;EFIC;
-90;RISE Défense;La Défense;092781SM;RISED;
+90;RISE DÃ©fense;La DÃ©fense;092781SM;RISED;
 91;IP Formation;Paris;075712SL;IPF;
 92;CECI;Paris;0759312P;CECI;
 93;Antiope Formation;;0780503Y;ANTIO;
@@ -101,7 +101,7 @@ id;Nom;Ville;RNE;Code;Ponctuel
 102;ISMI;Paris;0755577E;ISMI;x
 103;IRIS;Paris;0755748R;IRIS;x
 105;CFA ACE;PARIS;0754674Y;ACE;
-106;Lycée Paul Bert;Maison Alfort;0941355M;LPB;x
+106;LycÃ©e Paul Bert;Maison Alfort;0941355M;LPB;x
 107;Ecole SORNAS;Paris;0754101A;SORN;x
 108;IPSSI;Paris;0755724P;IPSS;x
 109;Centre Form Gest Conseil;Paris;0755828C;CFGC;
@@ -119,7 +119,7 @@ id;Nom;Ville;RNE;Code;Ponctuel
 121;CARCADO SAISSEVAL PARIS;;0754029X;CSP;
 122;JEAN LURCAT;;0753268V;JLPP;
 123;EMMANUEL MOUNIER;;0920135X;EMCM;
-125;Cours Privé Diderot Paris 11;Paris;0755559K;DID;x
+125;Cours PrivÃ© Diderot Paris 11;Paris;0755559K;DID;x
 126;UFA Valentin HAUY 75;Paris;0755311R;VAL;
 127;ELITECH-PARIS;Paris;0756027U;ELI;
 128;Educatel 77;;077203SB;ED77;x
@@ -127,8 +127,8 @@ id;Nom;Ville;RNE;Code;Ponctuel
 131;APEP SUP;Paris;0755775V;APEP;x
 132;France For Paris;Paris;075205SC;FFP;
 134;Elyon Company;;0922873Y;ELYC;x
-135;Lycée Fénelon Sup La Pleine Monceau;Paris;0754037F;LFS;x
-136;Ecole Santé et Juridique;;0922856E;ESJ;x
+135;LycÃ©e FÃ©nelon Sup La Pleine Monceau;Paris;0754037F;LFS;x
+136;Ecole SantÃ© et Juridique;;0922856E;ESJ;x
 137;IMIE Paris;;0922863M;IMIP;x
 138;ENSUP CERGY;Cergy;9500024;ENSUPC;
 139;INSTA;Paris;0755294X;INSTA;x

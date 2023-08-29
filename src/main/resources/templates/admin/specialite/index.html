@@ -14,15 +14,12 @@
     <thead>
       <tr>
         <th>Libéllé</th>
-        <th>Liste des enseignants</th>
         <th>Opérations</th>
       </tr>
     </thead>
     <tbody>
       <tr th:each="spec : ${specs}">
         <td th:text="${spec.libelle}"></td>
-        <!-- TODO: Liste des profs -->
-        <td></td>
         <td>
           <a th:href="@{/admin/specialite/edit/{id} (id=${spec.id})}" class="btn btn-primary me-1">Modifier</a>
           <form th:action="@{/admin/specialite/delete/{id} (id=${spec.id})}" method="post" style="display: inline">

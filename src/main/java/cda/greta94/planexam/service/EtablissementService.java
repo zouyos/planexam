@@ -61,7 +61,7 @@ public class EtablissementService {
     return etablissementRepository.findById(id);
   }
 
-  public Optional<Etablissement>  findByNom(String nomVille) {
+  public Optional<Etablissement> findByNom(String nomVille) {
     return etablissementRepository.findByNom(nomVille);
   }
 
@@ -86,6 +86,21 @@ public class EtablissementService {
 
       this.saveEtablissementFromEtablissementDto(etabDto);
     }
+  }
+
+  public Long getOrCreate(String nom) {
+    Etablissement etab = etablissementRepository.findByNom(nom).orElse(null);
+    if (etab == null) {
+      etab = new Etablissement();
+      etab.setNom(nom);
+      //TODO
+      etab.setRne("XXXXXXXX");
+      etab.setCode("TODO");
+      etab.setVille(null);
+      etab.setPonctuel(false);
+      etablissementRepository.save(etab);
+    }
+    return etab.getId();
   }
 
   public void delete(Long id) {

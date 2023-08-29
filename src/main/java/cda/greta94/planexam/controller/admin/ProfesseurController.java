@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
@@ -59,6 +61,23 @@ public class ProfesseurController {
   @PostMapping("/enseignant/delete/{id}")
   public String delete(@PathVariable("id") Long id) {
     professeurService.delete(id);
+    return "redirect:/admin/enseignants";
+  }
+
+  @GetMapping(value = "/enseignants/import")
+  public String formImportCSV() { return "admin/professeur/formImportCSV"; }
+
+  @PostMapping(value = "/enseignants/import")
+  public String importCSV(@RequestParam("file")MultipartFile file, RedirectAttributes redirAttrs) {
+    if (file.isEmpty()) {
+      redirAttrs.addFlashAttribute("errorMessage", "Please select a file to upload");
+      return "redirect:/admin/enseignants/import";
+    }
+    try {
+      professeurService.importProfFromCSV(file);
+    } catch(Exception e) {
+      redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
+    }
     return "redirect:/admin/enseignants";
   }
 

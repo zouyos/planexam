@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <div th:replace="~{fragments/header :: header-css(title='Importer Etablissements')}"/>
+  <div th:replace="~{fragments/header :: header-css(title='Importer Liste Enseignants')}"/>
 </head>
 <body>
 
@@ -10,15 +10,12 @@
 <main class="container">
   <div class="card">
     <div class="card-header">
-      <h2>Import liste d'établissements en CSV</h2>
+      <h2>Import liste d'enseignants en CSV</h2>
     </div>
 
     <div class="card-body">
-      <p>Attention structure attendue : "id","Nom","Ville","RNE","Code","Ponctuel"</p>
-      <p>NB: Si ponctuel (établissement accueillant des jurys) remplir avec une croix ("x")</p>
-      <form th:action="@{/admin/etablissement/import}"
-            enctype="multipart/form-data"
-            method="post">
+      <p>Attention structure attendue : "id","Prénom","Nom","Email","Ville","RNE","Spécialité"</p>
+      <form th:action="@{/admin/enseignants/import}" enctype="multipart/form-data" method="post">
         <input type="file" name="file" class="my-2 form-control" />
         <button type="submit" class="btn btn-success">Importer</button>
       </form>

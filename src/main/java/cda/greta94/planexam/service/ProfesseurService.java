@@ -4,9 +4,15 @@ import cda.greta94.planexam.dao.ProfesseurRepository;
 import cda.greta94.planexam.dto.ProfesseurDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
 import cda.greta94.planexam.model.Professeur;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 
 @Service
@@ -16,12 +22,15 @@ public class ProfesseurService {
     private SpecialiteService specialiteService;
 
     private VilleService villeService;
+    private EtablissementService etablissementService;
+
 
     @Autowired
-    public ProfesseurService(ProfesseurRepository professeurRepository, SpecialiteService specialiteService, VilleService villeService) {
+    public ProfesseurService(ProfesseurRepository professeurRepository, SpecialiteService specialiteService, VilleService villeService, EtablissementService etablissementService) {
         this.professeurRepository = professeurRepository;
         this.specialiteService = specialiteService;
         this.villeService = villeService;
+        this.etablissementService = etablissementService;
     }
 
     public List<Professeur> getAll(){
@@ -58,6 +67,25 @@ public class ProfesseurService {
         professeur.setSpecialite(specialiteService.getById(professeurDto.getIdSpecialite()));
         professeur.setVille(villeService.getById(professeurDto.getIdVille()));
         professeurRepository.save(professeur);
+    }
+
+    public void importProfFromCSV(MultipartFile file) throws IOException {
+        Reader in = new InputStreamReader(file.getInputStream());
+        Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("id", "Prénom", "Nom", "Email", "Ville", "RNE", "Spécialité").withDelimiter(';').parse(in);
+
+        int nbLigne = 0;
+        for (CSVRecord record : records) {
+            nbLigne++;
+            if(nbLigne == 1 && record.get("Prénom").equals("Prénom") && record.get("Nom").equals("Nom")) continue;
+
+            Long idVille = villeService.getOrCreate(record.get("Ville"));
+            Long idEtab = etablissementService.getOrCreate(record.get("RNE"));
+            Long idSpec = specialiteService.getOrCreate(record.get("Spécialité"));
+
+            ProfesseurDto profDto = new ProfesseurDto(null, record.get("Prénom"), record.get("Nom"), record.get("Email"), idVille, idEtab, idSpec);
+
+            this.saveProfFromDto(profDto);
+        }
     }
 
     public ProfesseurDto toDto(Professeur professeur){

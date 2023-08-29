@@ -19,14 +19,12 @@
                 <tr>
                     <th>Nom</th>
                     <th>Etablissements</th>
-                    <th>Professeurs</th>
                     <th>Opérations</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="ville : ${villes}">
                     <td th:text="${ville.nom}"></td>
-                    <td th:text="TODO"></td>
                     <td th:text="TODO"></td>
                     <td>
                         <a th:href="@{/admin/ville/edit/{id} (id=${ville.id})}" class="btn btn-primary">Modifier</a>
