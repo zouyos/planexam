@@ -88,13 +88,12 @@ public class EtablissementService {
     }
   }
 
-  public Long getOrCreate(String nom) {
-    Etablissement etab = etablissementRepository.findByNom(nom).orElse(null);
+  public Long getOrCreate(String rne) {
+    Etablissement etab = etablissementRepository.findByRne(rne).orElse(null);
     if (etab == null) {
       etab = new Etablissement();
-      etab.setNom(nom);
-      //TODO
-      etab.setRne("XXXXXXXX");
+      etab.setRne(rne);
+      etab.setNom("TODO");
       etablissementRepository.save(etab);
     }
     return etab.getId();

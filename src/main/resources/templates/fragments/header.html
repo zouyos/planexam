@@ -38,6 +38,20 @@
         <li class="nav-item" >
           <a class="nav-link" th:href="@{/}" th:classappend="${activeTab == 'home' ? 'active' : null}" aria-current="page" >Accueil</a>
         </li>
+        <li class="nav-item" >
+          <a class="nav-link" th:href="@{/inscription}" th:classappend="${activeTab == 'inscription' ? 'active' : null}" >Inscription</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" th:href="@{/login}" th:classappend="${activeTab == 'login' ? 'active' : null}" >Login</a>
+        </li>
+        <!--    TODO: if prof is connected    -->
+        <li class="nav-item" >
+          <a class="nav-link" th:href="@{/prof/dashboard}" th:classappend="${activeTab == 'dashboard' ? 'active' : null}" >Dashboard</a>
+        </li>
+        <!--    TODO: if admin is connected    -->
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/admin/enseignants}" th:classappend="${activeTab == 'enseignants' ? 'active' : null}" >Enseignants</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/admin/sessions}" th:classappend="${activeTab == 'sessions' ? 'active' : null}" >Sessions</a>
         </li>
@@ -46,9 +60,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/admin/villes}" th:classappend="${activeTab == 'villes' ? 'active' : null}" >Villes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/enseignants}" th:classappend="${activeTab == 'enseignants' ? 'active' : null}" >Enseignants</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" th:href="@{/admin/specialites}" th:classappend="${activeTab == 'specialites' ? 'active' : null}" >Spécialités</a>

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: header-css}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: menu(activeTab='inscription')}"/>
+
+<main class="container">
+    <h1 class="text-center">Inscription</h1>
+    <form action="/inscription" method="post" th:object="${utilisateur}" class="form-control">
+        <div><label for="email">Email</label><input id="email" name="email" th:field="*{email}" type="email" class="form-control">
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></p>
+        </div>
+        <div><label for="mdp1">Mot de passe</label><input id="mdp1" name="mdp1NonEncoder" th:field="*{mdp1NonEncoder}" type="password" class="form-control">
+            <p th:if="${#fields.hasErrors('mdp1NonEncoder')}" th:errors="*{mdp1NonEncoder}" class="validation-message"></p>
+        </div>
+        <div><label for="mdp2">Confirmer mot de passe</label><input id="mdp2" name="mdp2NonEncoder" th:field="*{mdp2NonEncoder}" type="password" class="form-control">
+            <p th:if="${#fields.hasErrors('mdp2NonEncoder')}" th:errors="*{mdp2NonEncoder}" class="validation-message"></p>
+        </div>
+        <button class="btn btn-primary my-2">Envoyer</button>
+    </form>
+</main>
+
+<div th:replace="~{fragments/footer.html :: footer}"/>
+
+</body>
+</html>
