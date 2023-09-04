@@ -26,6 +26,7 @@ public class VilleController {
     @GetMapping("/villes")
     public String index(Model model) {
         model.addAttribute("villes", villeService.getAll());
+        model.addAttribute("etabs", etablissementService.getAll());
         return "admin/ville/index";
     }
 
