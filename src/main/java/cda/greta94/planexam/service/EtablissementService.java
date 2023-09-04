@@ -1,9 +1,11 @@
 package cda.greta94.planexam.service;
 
 import cda.greta94.planexam.dao.EtablissementRepository;
+import cda.greta94.planexam.dao.VilleRepository;
 import cda.greta94.planexam.dto.EtablissementDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
 import cda.greta94.planexam.model.Etablissement;
+import cda.greta94.planexam.model.Ville;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
@@ -23,10 +25,12 @@ public class EtablissementService {
 
   private EtablissementRepository etablissementRepository;
   private VilleService villeService;
+  private VilleRepository villeRepository;
 
-  public EtablissementService(EtablissementRepository etablissementRepository, VilleService villeService) {
+  public EtablissementService(EtablissementRepository etablissementRepository, VilleService villeService, VilleRepository villeRepository) {
     this.etablissementRepository = etablissementRepository;
     this.villeService = villeService;
+    this.villeRepository = villeRepository;
   }
 
   public void saveEtablissementFromEtablissementDto(EtablissementDto etablissementDto) {
@@ -44,6 +48,7 @@ public class EtablissementService {
     etablissement.setRne(etablissementDto.getRne());
     etablissement.setCode(etablissementDto.getCode());
     etablissement.setVille(villeService.getById(etablissementDto.getIdVille()));
+    etablissement.setProfesseurs(etablissementDto.getProfesseurs());
 
     etablissementRepository.save(etablissement);
   }
@@ -54,11 +59,11 @@ public class EtablissementService {
 
   public EtablissementDto findEtablissementDtoById(long id) {
     Etablissement etab = etablissementRepository.findById(id).orElseThrow(NotFoundEntityException::new);
-    return new EtablissementDto(etab.getId(), etab.getNom(), etab.getRne(), etab.getCode(),etab.getPonctuel(), (etab.getVille() != null) ? etab.getVille().getId() : null);
+    return new EtablissementDto(etab.getId(), etab.getNom(), etab.getRne(), etab.getCode(),etab.getPonctuel(), (etab.getVille() != null) ? etab.getVille().getId() : null, (etab.getProfesseurs() != null) ? etab.getProfesseurs() : null);
   }
 
-  public Optional<Etablissement> findById(Long id) {
-    return etablissementRepository.findById(id);
+  public Etablissement getById(Long id) {
+    return etablissementRepository.findById(id).orElseThrow(NotFoundEntityException::new);
   }
 
   public Optional<Etablissement> findByNom(String nomVille) {
@@ -78,7 +83,7 @@ public class EtablissementService {
 
       Long idVille = villeService.getOrCreate(record.get("Ville"));
 
-      EtablissementDto etabDto = new EtablissementDto(null, record.get("Nom"), record.get("RNE"), record.get("Code"), record.get("Ponctuel").startsWith("x") ? true : false, idVille);
+      EtablissementDto etabDto = new EtablissementDto(null, record.get("Nom"), record.get("RNE"), record.get("Code"), record.get("Ponctuel").startsWith("x") ? true : false, idVille, null);
 
       // TODO appliquer la validation par injection du Validator
 
@@ -94,6 +99,9 @@ public class EtablissementService {
       etab = new Etablissement();
       etab.setRne(rne);
       etab.setNom("TODO");
+      etab.setCode("TODO");
+      etab.setPonctuel(false);
+      etab.setVille(villeRepository.findByNom("N/A").orElse(null));
       etablissementRepository.save(etab);
     }
     return etab.getId();

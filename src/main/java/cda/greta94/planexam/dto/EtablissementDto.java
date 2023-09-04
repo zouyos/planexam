@@ -1,6 +1,10 @@
 package cda.greta94.planexam.dto;
+import cda.greta94.planexam.model.Professeur;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EtablissementDto {
 
@@ -20,13 +24,18 @@ public class EtablissementDto {
 
   private Long idVille;
 
-  public EtablissementDto(Long id, String nom, String rne, String code, Boolean ponctuel, Long idVille) {
+  private List<Professeur> professeurs = new ArrayList<>();
+
+
+
+  public EtablissementDto(Long id, String nom, String rne, String code, Boolean ponctuel, Long idVille, List<Professeur> professeurs) {
     this.id = id;
     this.nom = nom;
     this.rne = rne;
     this.code = code;
     this.ponctuel = ponctuel;
     this.idVille = idVille;
+    this.professeurs = professeurs;
   }
 
   public EtablissementDto() {
@@ -80,15 +89,24 @@ public class EtablissementDto {
     this.idVille = idVille;
   }
 
+  public List<Professeur> getProfesseurs() {
+    return professeurs;
+  }
+
+  public void setProfesseurs(List<Professeur> professeurs) {
+    this.professeurs = professeurs;
+  }
+
   @Override
   public String toString() {
     return "EtablissementDto{" +
-            "id=" + id +
-            ", nom='" + nom + '\'' +
-            ", rne='" + rne + '\'' +
-            ", code='" + code + '\'' +
-            ", ponctuel='" + ponctuel + '\'' +
-            ", idVille=" + idVille +
-            '}';
+        "id=" + id +
+        ", nom='" + nom + '\'' +
+        ", rne='" + rne + '\'' +
+        ", code='" + code + '\'' +
+        ", ponctuel=" + ponctuel +
+        ", idVille=" + idVille +
+        ", professeurs=" + professeurs +
+        '}';
   }
 }

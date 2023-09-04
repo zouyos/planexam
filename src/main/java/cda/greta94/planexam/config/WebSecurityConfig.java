@@ -31,11 +31,11 @@ public class WebSecurityConfig {
                         .permitAll()
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/inscription", "login", "/css/**", "/js/**", "/img/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/","/inscription", "/**","/login", "/css/**", "/js/**", "/img/**", "/favicon.ico", "/webjars/**").permitAll()
                         .requestMatchers(HttpMethod.POST,("/inscription")).permitAll()
                         //Interdit la page si l'utilisateur n'est pas admin
-                        .requestMatchers("/admin/*").hasAuthority("admin")
-                        .requestMatchers("/prof/*").hasAnyAuthority("admin","prof")
+//                        .requestMatchers("/admin/**").hasAuthority("admin")
+//                        .requestMatchers("/prof/**").hasAnyAuthority("admin","prof")
                         .anyRequest().authenticated()
                 )
                 .build();

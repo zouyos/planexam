@@ -41,7 +41,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
     //Etape 1 : obtenir les infos de l'utilisateur cad un objet Utilisateur
     Utilisateur utilisateur = utilisateurRepository.findByEmail(username);
     //Etape 2 : Verification que on a bien un utilisateur ( cas si l'email n'est pas correct)
-    if(utilisateur == null) {
+    if (utilisateur == null) {
       throw new UsernameNotFoundException("Utilisateur non trouvé : " + username);
     }
     //Etape 3 : Recupere le nom du role

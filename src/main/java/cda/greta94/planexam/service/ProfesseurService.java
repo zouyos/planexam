@@ -37,7 +37,7 @@ public class ProfesseurService {
         return professeurRepository.findAll();
     }
 
-    public Professeur findById(Long id){
+    public Professeur getById(Long id){
         return professeurRepository.findById(id).orElseThrow(NotFoundEntityException::new);
     }
 
@@ -66,6 +66,7 @@ public class ProfesseurService {
         professeur.setEmail(professeurDto.getEmail());
         professeur.setSpecialite(specialiteService.getById(professeurDto.getIdSpecialite()));
         professeur.setVille(villeService.getById(professeurDto.getIdVille()));
+        professeur.setEtablissement(etablissementService.getById(professeurDto.getIdEtablissement()));
         professeurRepository.save(professeur);
     }
 

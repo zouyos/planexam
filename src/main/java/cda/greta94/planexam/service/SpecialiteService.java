@@ -5,7 +5,6 @@ import cda.greta94.planexam.dao.SpecialiteRepository;
 import cda.greta94.planexam.dto.SpecialiteDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
 import cda.greta94.planexam.model.Specialite;
-import cda.greta94.planexam.model.Ville;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
