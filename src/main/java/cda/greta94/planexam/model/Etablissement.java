@@ -28,7 +28,7 @@ public class Etablissement {
   @ManyToOne
   private Ville ville;
 
-  @OneToMany(mappedBy = "etablissement", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  @OneToMany(mappedBy = "etablissement", cascade = CascadeType.REMOVE)
   private List<Professeur> professeurs = new ArrayList<>();
 
   public List<Professeur> getProfesseurs() {
