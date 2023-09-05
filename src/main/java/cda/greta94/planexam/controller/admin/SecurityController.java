@@ -36,11 +36,11 @@ public class SecurityController {
   public String traitementInscription(@Valid @ModelAttribute UtilisateurDto utilisateur, BindingResult bindingResult, RedirectAttributes redirectAttributes){
     if(bindingResult.hasErrors()){
       redirectAttributes.addFlashAttribute("errorMessage", "Le formulaire comporte une erreur");
-      return "admin/security/inscription";
+      return "redirect:/inscription";
     }
     utilisateurService.inscrireClient(utilisateur);
     redirectAttributes.addFlashAttribute("successMessage", "Inscription réussie");
-    return "redirect:/admin/security/login";
+    return "redirect:/login";
   }
 
   @GetMapping("/prof/dashboard")
