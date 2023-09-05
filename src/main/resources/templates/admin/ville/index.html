@@ -18,18 +18,12 @@
                 <thead>
                 <tr>
                     <th>Nom</th>
-                    <th>Etablissements</th>
                     <th>Opérations</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="ville : ${villes}">
                     <td th:text="${ville.nom}"></td>
-                    <td class="scrollable-td">
-                        <ul class="scrollable-ul">
-                            <li th:each="etab : ${etabs}" th:text="${etab.nom}" class="scrollable-li"></li>
-                        </ul>
-                    </td>
                     <td>
                         <a th:href="@{/admin/ville/edit/{id} (id=${ville.id})}" class="btn btn-primary">Modifier</a>
                         <form th:action="@{/admin/ville/delete/{id} (id=${ville.id})}" method="post" style="display: inline">

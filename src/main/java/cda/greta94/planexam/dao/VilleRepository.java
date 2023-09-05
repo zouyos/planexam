@@ -1,8 +1,10 @@
 package cda.greta94.planexam.dao;
 
+import cda.greta94.planexam.model.Etablissement;
 import cda.greta94.planexam.model.Ville;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface VilleRepository extends JpaRepository<Ville, Long> {

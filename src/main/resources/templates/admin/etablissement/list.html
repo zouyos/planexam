@@ -32,10 +32,10 @@
         <tbody>
         <tr th:each="etab : ${etablissements}">
           <td th:text="${etab.nom}"></td>
-          <td th:text="${etab.ville.nom}"></td>
+          <td th:text="${etab.ville} ? ${etab.ville.nom} : 'N/A'"></td>
           <td th:text="${etab.rne}"></td>
           <td th:text="${etab.code}"></td>
-          <td th:text="${etab.ponctuel}? Oui : Non"></td>
+          <td th:text="${etab.ponctuel} ? Oui : Non"></td>
           <td>
             <a th:href="@{/admin/etablissement/edit/{id} (id=${etab.id})}" class="btn btn-primary">Modifier</a>
             <form th:action="@{/admin/etablissement/delete/{id} (id=${etab.id})}" method="post" style="display: inline">

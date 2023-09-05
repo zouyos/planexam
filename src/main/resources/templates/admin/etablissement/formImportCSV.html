@@ -14,8 +14,9 @@
     </div>
 
     <div class="card-body">
-      <p>Attention structure attendue : "id","Nom","Ville","RNE","Code","Ponctuel"</p>
+      <p>Attention structure attendue : "id";"Nom";"Ville";"RNE";"Code";"Ponctuel" <i>(Fichier encodé en UTF-8)</i></p>
       <p>NB: Si ponctuel (établissement accueillant des jurys) remplir avec une croix ("x")</p>
+      <p></p>
       <form th:action="@{/admin/etablissement/import}"
             enctype="multipart/form-data"
             method="post">
