@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: header-css(title='Ajouter un Jour')}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: menu}"/>
+
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Ajouter un Jour</h2>
+        </div>
+        <div class="card-body">
+            <form th:object="${jour}" th:action="@{/admin/jour}" method="post">
+                <div class="my-2">
+                    <label for="dateJour">Date</label>
+                    <input type="date" id="dateJour" th:field="*{datePassage}" class="form-control">
+                    <p th:if="${#fields.hasErrors('datePassage')}" th:errors="*{datePassage}" class="validation-message"></p>
+                </div>
+                <div class="my-2">
+                    <label for="ouvré">Ouvré ?</label>
+                    <input type="checkbox" id="ouvré" th:field="*{ouvré}">
+                    <p th:if="${#fields.hasErrors('ouvré')}" th:errors="*{ouvré}" class="validation-message"></p>
+                </div>
+                <div class="my-2">
+                    <label for="sessionJour">Session</label>
+                    <select id="sessionJour" class="form-control" th:field="*{sessionE5Id}">
+                        <option
+                                th:each="uneSession : ${sessions}"
+                                th:value="${uneSession.id}"
+                                th:text="${uneSession.libelle}"
+                        >
+                        </option>
+                    </select>
+                </div>
+                <hr>
+                <div class="my-2">
+                    <a th:href="@{/admin/session/show/{id} (id=*{sessionE5Id})}" class="btn btn-secondary">Retour</a>
+                    <button type="submit" class="btn btn-primary me-1">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer.html :: footer}"/>
+
+</body>
+</html>
+
+

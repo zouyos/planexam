@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: header-css(title='Voir une Session')}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: menu}"/>
+
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="text-center">Voir une Session</h2>
+        </div>
+        <div class="card-body">
+            <input type="hidden" th:field="${sessionE5Dto.id}">
+            <h2 th:text="${sessionE5Dto.libelle}"></h2>
+            <p th:text="'Date de début : ' + ${sessionE5Dto.dateDebut}"></p>
+            <p th:text="'Date de fin : ' + ${sessionE5Dto.dateFin}"></p>
+            <div class="my-2">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Jour</th>
+                            <th>Disponibilité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="jour : ${jours}" >
+                            <td th:text="${jour.datePassage}"></td>
+                            <td><input type="checkbox" name="jourDispo" id="jourDispo" th:value="${jour.ouvré}"></td>
+                            <td>
+                                <form th:action="@{/admin/jour/delete/{id} (id=${jour.id})}" method="post" style="display: inline">
+                                    <button
+                                            type="submit"
+                                            class="btn btn-danger"
+                                            th:data-confirm-delete="|Êtes-vous sûr de vouloir supprimer ce jour : ${jour.datePassage}?|"
+                                            onclick="return confirm(this.getAttribute('data-confirm-delete'))"
+                                    >
+                                        X
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr><a th:href="@{/admin/jour/create}" class="btn btn-primary">+</a></tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="my-2">
+                <a th:href="@{/admin/sessions}" class="btn btn-secondary">Retour</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer.html :: footer}"/>
+
+</body>
+</html>

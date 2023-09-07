@@ -12,15 +12,17 @@ import java.sql.Date;
     private Long id;
     private Date datePassage;
 
+    private Boolean ouvré = true;
+
     @ManyToOne
     @JoinColumn(name = "session_e5_id")
     private SessionE5 sessionE5;
 
-    public SessionE5 getSession() {
+    public SessionE5 getSessionE5() {
       return sessionE5;
     }
 
-    public void setSession(SessionE5 sessionE5) {
+    public void setSessionE5(SessionE5 sessionE5) {
       this.sessionE5 = sessionE5;
     }
 
@@ -39,4 +41,12 @@ import java.sql.Date;
     public void setDatePassage(Date datePassage) {
       this.datePassage = datePassage;
     }
+
+  public Boolean getOuvré() {
+    return ouvré;
   }
+
+  public void setOuvré(Boolean ouvré) {
+    this.ouvré = ouvré;
+  }
+}
