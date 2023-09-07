@@ -28,7 +28,7 @@
                     <tbody>
                         <tr th:each="jour : ${jours}" >
                             <td th:text="${jour.datePassage}"></td>
-                            <td><input type="checkbox" name="jourDispo" id="jourDispo" th:value="${jour.ouvré}"></td>
+                            <td><input type="checkbox" name="jourDispo" id="jourDispo" th:checked="${jour.ouvre}"></td>
                             <td>
                                 <form th:action="@{/admin/jour/delete/{id} (id=${jour.id})}" method="post" style="display: inline">
                                     <button

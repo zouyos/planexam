@@ -1,6 +1,6 @@
 package cda.greta94.planexam.service;
 
-import cda.greta94.planexam.dao.JourPassageRepository;
+import cda.greta94.planexam.dao.JourRepository;
 import cda.greta94.planexam.dao.SessionRepository;
 import cda.greta94.planexam.dto.SessionE5Dto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
@@ -14,12 +14,12 @@ import java.util.List;
 @Service
 public class SessionService {
   private SessionRepository sessionRepository;
-  private JourPassageRepository jourPassageRepository;
+  private JourRepository jourRepository;
 
   @Autowired
-  public SessionService(SessionRepository sessionRepository, JourPassageRepository jourPassageRepository) {
+  public SessionService(SessionRepository sessionRepository, JourRepository jourRepository) {
     this.sessionRepository = sessionRepository;
-    this.jourPassageRepository = jourPassageRepository;
+    this.jourRepository = jourRepository;
   }
 
   public List<SessionE5> getAll() {

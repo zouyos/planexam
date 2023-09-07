@@ -19,14 +19,14 @@ public class SessionE5 {
   private Date dateFin;
 
   @OneToMany(mappedBy = "sessionE5", orphanRemoval = true)
-  private List<JourPassage> jourPassages = new ArrayList<>();
+  private List<Jour> jours = new ArrayList<>();
 
-  public List<JourPassage> getJourPassages() {
-    return jourPassages;
+  public List<Jour> getJourPassages() {
+    return jours;
   }
 
-  public void setJourPassages(List<JourPassage> jourPassages) {
-    this.jourPassages = jourPassages;
+  public void setJourPassages(List<Jour> jours) {
+    this.jours = jours;
   }
 
   public Long getId() {

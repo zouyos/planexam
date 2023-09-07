@@ -26,7 +26,7 @@
       <td th:text="${sessionE5.libelle}"></td>
       <td th:text="${sessionE5.dateDebut}"></td>
       <td th:text="${sessionE5.dateFin}"></td>
-      <td><a th:href="@{/admin/session/show/{id} (id=${sessionE5.id})}" class="btn btn-success">Jours de passage</a></td>
+      <td><a th:href="@{/admin/session/show/{id} (id=${sessionE5.id})}" class="btn btn-success">Gérer les jours</a></td>
       <td>
         <a th:href="@{/admin/session/edit/{id} (id=${sessionE5.id})}" class="btn btn-primary">Modifier</a>
         <form th:action="@{/admin/session/delete/{id} (id=${sessionE5.id})}" method="post" style="display: inline">

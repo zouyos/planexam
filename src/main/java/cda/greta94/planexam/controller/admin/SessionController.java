@@ -1,8 +1,8 @@
 package cda.greta94.planexam.controller.admin;
 
-import cda.greta94.planexam.dto.JourPassageDto;
+import cda.greta94.planexam.dto.JourDto;
 import cda.greta94.planexam.dto.SessionE5Dto;
-import cda.greta94.planexam.service.JourPassageService;
+import cda.greta94.planexam.service.JourService;
 import cda.greta94.planexam.service.SessionService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -16,11 +16,11 @@ public class SessionController {
 
   private SessionService sessionService;
 
-  private JourPassageService jourPassageService;
+  private JourService jourService;
 
-  public SessionController(SessionService sessionService, JourPassageService jourPassageService) {
+  public SessionController(SessionService sessionService, JourService jourService) {
     this.sessionService = sessionService;
-    this.jourPassageService = jourPassageService;
+    this.jourService = jourService;
   }
 
   @GetMapping("/sessions")
@@ -36,7 +36,7 @@ public class SessionController {
   public String show(@PathVariable("id") Long id, Model model) {
     SessionE5Dto sessionE5Dto = sessionService.findSessionDtoById(id);
     model.addAttribute("sessionE5Dto", sessionE5Dto);
-    model.addAttribute("jours", jourPassageService.getAll());
+    model.addAttribute("jours", jourService.getAll());
     return "admin/session/show";
   }
 
@@ -65,24 +65,24 @@ public class SessionController {
   //Jour Passage
 
   @GetMapping("/jour/create")
-  public String createJour(@ModelAttribute(name="jour") JourPassageDto jourPassageDto, Model model) {
+  public String createJour(@ModelAttribute(name="jour") JourDto jourDto, Model model) {
     model.addAttribute("sessions", sessionService.getAll());
-    return "admin/jourPassage/form";
+    return "admin/jour/form";
   }
 
   @PostMapping("/jour")
-  public String createJour(@Valid @ModelAttribute JourPassageDto jourPassageDto, BindingResult bindingResult) {
+  public String createJour(@Valid @ModelAttribute JourDto jourDto, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
-      return "admin/jourPassage/form";
+      return "admin/jour/form";
     }
-    jourPassageService.saveJourPassageFromDto(jourPassageDto);
+    jourService.saveJourPassageFromDto(jourDto);
     //TODO: rediriger vers la session associée
     return "redirect:/admin/session/show/1";
   }
 
   @PostMapping("/jour/delete/{id}")
   public String deleteJour(@PathVariable("id") Long id) {
-    jourPassageService.delete(id);
+    jourService.delete(id);
     return "redirect:/admin/session/show/1";
   }
 }

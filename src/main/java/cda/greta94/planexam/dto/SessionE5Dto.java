@@ -1,6 +1,6 @@
 package cda.greta94.planexam.dto;
 
-import cda.greta94.planexam.model.JourPassage;
+import cda.greta94.planexam.model.Jour;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,17 +20,17 @@ public class SessionE5Dto {
   @NotNull
   private Date dateFin;
 
-  private List<JourPassage> jourPassages = new ArrayList<>();
+  private List<Jour> jours = new ArrayList<>();
 
   public SessionE5Dto() {
   }
 
-  public SessionE5Dto(Long id, String libelle, @NotNull Date dateDebut, @NotNull Date dateFin, List<JourPassage> jourPassages) {
+  public SessionE5Dto(Long id, String libelle, @NotNull Date dateDebut, @NotNull Date dateFin, List<Jour> jours) {
     this.id = id;
     this.libelle = libelle;
     this.dateDebut = dateDebut;
     this.dateFin = dateFin;
-    this.jourPassages = jourPassages;
+    this.jours = jours;
   }
 
   public Long getId() {

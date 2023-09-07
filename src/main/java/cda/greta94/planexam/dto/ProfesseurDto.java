@@ -1,12 +1,7 @@
 package cda.greta94.planexam.dto;
 
-import cda.greta94.planexam.model.JourPassage;
-import cda.greta94.planexam.model.Specialite;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProfesseurDto {
 

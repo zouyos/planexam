@@ -2,24 +2,24 @@ package cda.greta94.planexam.dto;
 
 import java.sql.Date;
 
-public class JourPassageDto {
+public class JourDto {
 
     private Long id;
 
     private Date datePassage;
 
-    private Boolean ouvré;
+    private Boolean ouvre;
 
     private Long sessionE5Id;
 
-    public JourPassageDto() {
+    public JourDto() {
     }
 
-    public JourPassageDto(Long id, Date datePassage, Long sessionE5Id, Boolean ouvré) {
+    public JourDto(Long id, Date datePassage, Long sessionE5Id, Boolean ouvre) {
         this.id = id;
         this.datePassage = datePassage;
         this.sessionE5Id = sessionE5Id;
-        this.ouvré = ouvré;
+        this.ouvre = ouvre;
     }
 
     public Long getId() {
@@ -38,12 +38,12 @@ public class JourPassageDto {
         this.datePassage = datePassage;
     }
 
-    public Boolean getOuvré() {
-        return ouvré;
+    public Boolean getOuvre() {
+        return ouvre;
     }
 
-    public void setOuvré(Boolean ouvré) {
-        this.ouvré = ouvré;
+    public void setOuvre(Boolean ouvre) {
+        this.ouvre = ouvre;
     }
 
     public Long getSessionE5Id() {
