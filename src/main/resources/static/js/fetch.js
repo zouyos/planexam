@@ -1,5 +1,5 @@
 async function changeDispo(id,value){
-    await fetch("http://localhost:8080/admin/session/jour/"+id+"/"+value, {method: "POST"});
+    await fetch("http://localhost:8080/admin/epreuve/jour/"+id+"/"+value, {method: "POST"});
 }
 
 function changePonctuel(id,value){

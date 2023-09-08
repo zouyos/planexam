@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-  <div th:replace="~{fragments/header :: header-css(title='Ajouter une Session')}"/>
+  <div th:replace="~{fragments/header :: header-css(title='Ajouter une Epreuve')}"/>
 </head>
 <body>
 
@@ -10,15 +10,15 @@
 <main class="container">
   <div class="card">
     <div class="card-header">
-      <h2>Ajouter une Session</h2>
+      <h2>Ajouter une Epreuve</h2>
     </div>
     <div class="card-body">
-      <form th:object="${sessionE5Dto}" th:action="@{/admin/session}" method="post">
-        <input type="hidden" th:field="${sessionE5Dto.id}">
+      <form th:object="${epreuveDto}" th:action="@{/admin/epreuve}" method="post">
+        <input type="hidden" th:field="${epreuveDto.id}">
         <div class="my-2">
           <label for="libelle">Libellé</label>
-          <input id="libelle" type="text" th:field="${sessionE5Dto.libelle}" class="form-control">
-          <p th:if="${#fields.hasErrors('libelle')}" th:errors="${sessionE5Dto.libelle}" class="validation-message"></p>
+          <input id="libelle" type="text" th:field="${epreuveDto.libelle}" class="form-control">
+          <p th:if="${#fields.hasErrors('libelle')}" th:errors="${epreuveDto.libelle}" class="validation-message"></p>
         </div>
         <div class="my-2">
           <label for="sessionDateDebut">Date début</label>
@@ -32,11 +32,11 @@
         </div>
         <hr>
         <div class="my-2">
-          <a th:href="@{/admin/sessions}" class="btn btn-secondary">Retour</a>
-          <span th:if="${sessionE5Dto.id != null}">
+          <a th:href="@{/admin/epreuves}" class="btn btn-secondary">Retour</a>
+          <span th:if="${epreuveDto.id != null}">
             <button type="submit" class="btn btn-primary me-1">Mettre à jour</button>
           </span>
-          <span th:if="${sessionE5Dto.id == null}">
+          <span th:if="${epreuveDto.id == null}">
             <button type="submit" class="btn btn-primary me-1">Ajouter</button>
           </span>
         </div>

@@ -15,24 +15,24 @@ public class Jour {
   private Boolean ouvre = true;
 
   @ManyToOne
-  @JoinColumn(name = "session_e5_id")
-  private SessionE5 sessionE5;
+  @JoinColumn(name = "epreuve_id")
+  private Epreuve epreuve;
 
   public Jour() {
   }
 
-  public Jour(Date datePassage, Boolean ouvre, SessionE5 sessionE5) {
+  public Jour(Date datePassage, Boolean ouvre, Epreuve epreuve) {
     this.datePassage = datePassage;
     this.ouvre = ouvre;
-    this.sessionE5 = sessionE5;
+    this.epreuve = epreuve;
   }
 
-  public SessionE5 getSessionE5() {
-    return sessionE5;
+  public Epreuve getEpreuve() {
+    return epreuve;
   }
 
-  public void setSessionE5(SessionE5 sessionE5) {
-    this.sessionE5 = sessionE5;
+  public void setEpreuve(Epreuve epreuve) {
+    this.epreuve = epreuve;
   }
 
   public Long getId() {

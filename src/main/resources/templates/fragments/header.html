@@ -39,38 +39,37 @@
           <a class="nav-link" th:href="@{/}" th:classappend="${activeTab == 'home' ? 'active' : null}" aria-current="page" >Accueil</a>
         </li>
         <li class="nav-item" >
-          <a class="nav-link" th:href="@{/inscription}" th:classappend="${activeTab == 'inscription' ? 'active' : null}" >Inscription</a>
+          <a class="nav-link" th:href="@{/inscription}" th:classappend="${activeTab == 'inscription' ? 'active' : null}" sec:authorize="!isAuthenticated()">Inscription</a>
         </li>
         <li class="nav-item" >
-          <a class="nav-link" th:href="@{/login}" th:classappend="${activeTab == 'login' ? 'active' : null}" >Login</a>
+          <a class="nav-link" th:href="@{/login}" th:classappend="${activeTab == 'login' ? 'active' : null}" sec:authorize="!isAuthenticated()">Login</a>
         </li>
         <!--    TODO: if prof is connected    -->
         <li class="nav-item" >
-          <a class="nav-link" th:href="@{/prof/dashboard}" th:classappend="${activeTab == 'dashboard' ? 'active' : null}" >Dashboard</a>
+          <a class="nav-link" th:href="@{/prof/dashboard}" th:classappend="${activeTab == 'dashboard' ? 'active' : null}" sec:authorize="hasAnyAuthority('prof', 'admin')">Dashboard</a>
         </li>
         <!--    TODO: if admin is connected    -->
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/sessions}" th:classappend="${activeTab == 'sessions' ? 'active' : null}" >Sessions</a>
+          <a class="nav-link" th:href="@{/admin/epreuves}" th:classappend="${activeTab == 'epreuves' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Epreuve</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/etablissements}" th:classappend="${activeTab == 'etablissements' ? 'active' : null}" >Etablissements</a>
+          <a class="nav-link" th:href="@{/admin/etablissements}" th:classappend="${activeTab == 'etablissements' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Etablissements</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/enseignants}" th:classappend="${activeTab == 'enseignants' ? 'active' : null}" >Enseignants</a>
+          <a class="nav-link" th:href="@{/admin/enseignants}" th:classappend="${activeTab == 'enseignants' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Enseignants</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/villes}" th:classappend="${activeTab == 'villes' ? 'active' : null}" >Villes</a>
+          <a class="nav-link" th:href="@{/admin/villes}" th:classappend="${activeTab == 'villes' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Villes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/specialites}" th:classappend="${activeTab == 'specialites' ? 'active' : null}" >Spécialités</a>
+          <a class="nav-link" th:href="@{/admin/specialites}" th:classappend="${activeTab == 'specialites' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Spécialités</a>
         </li>
         <!--    TODO: display when logged in    -->
-        <li class="nav-item mt-2 text-secondary me-2">|</li>
-        <li class="nav-item">
-          <form action="/logout" method="post">
-            <button class="btn btn-danger">Logout</button>
-          </form>
-        </li>
+          <li class="nav-item mx-2" sec:authorize="isAuthenticated()">
+            <form action="/logout" method="post">
+              <button class="btn btn-danger">Logout</button>
+            </form>
+          </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control mx-2" type="search" placeholder="Search" aria-label="Search">

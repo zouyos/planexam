@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class SessionE5 {
+public class Epreuve {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
@@ -18,7 +18,7 @@ public class SessionE5 {
   private Date dateDebut;
   private Date dateFin;
 
-  @OneToMany(mappedBy = "sessionE5", cascade = CascadeType.PERSIST, orphanRemoval = true)
+  @OneToMany(mappedBy = "epreuve", cascade = CascadeType.PERSIST, orphanRemoval = true)
   private List<Jour> jours = new ArrayList<>();
 
   public List<Jour> getJourPassages() {
@@ -64,8 +64,8 @@ public class SessionE5 {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof SessionE5 sessionE5)) return false;
-    return Objects.equals(getId(), sessionE5.getId()) && Objects.equals(getLibelle(), sessionE5.getLibelle());
+    if (!(o instanceof Epreuve epreuve)) return false;
+    return Objects.equals(getId(), epreuve.getId()) && Objects.equals(getLibelle(), epreuve.getLibelle());
   }
 
   @Override

@@ -13,17 +13,16 @@
             <h2 class="text-center">Voir une Session</h2>
         </div>
         <div class="card-body">
-            <input type="hidden" th:field="${sessionE5Dto.id}">
-            <h2 th:text="${sessionE5Dto.libelle}"></h2>
-            <p th:text="'Date de début : ' + ${sessionE5Dto.dateDebut}"></p>
-            <p th:text="'Date de fin : ' + ${sessionE5Dto.dateFin}"></p>
+            <input type="hidden" th:field="${epreuveDto.id}">
+            <h2 th:text="${epreuveDto.libelle}"></h2>
+            <p th:text="'Date de début : ' + ${epreuveDto.dateDebut}"></p>
+            <p th:text="'Date de fin : ' + ${epreuveDto.dateFin}"></p>
             <div class="my-2">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Jour Ouvrés</th>
-                            <th>Disponibilité (férié ou non)</th>
-                            <th>Supprimer</th>
+                            <th>Disponibilité (décocher si férié ou pont)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,20 +31,7 @@
                             <td>
                                 <input th:checked="${jour.ouvre}" th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked );'" type="checkbox" class="ms-5">
                             </td>
-                            <td>
-                                <form th:action="@{/admin/jour/delete/{id} (id=${jour.id})}" method="post" style="display: inline">
-                                    <button
-                                            type="submit"
-                                            class="btn btn-danger ms-3"
-                                            th:data-confirm-delete="|Êtes-vous sûr de vouloir supprimer ce jour : ${jour.datePassage}?|"
-                                            onclick="return confirm(this.getAttribute('data-confirm-delete'))"
-                                    >
-                                        x
-                                    </button>
-                                </form>
-                            </td>
                         </tr>
-                        <tr><a th:href="@{/admin/jour/create}" class="btn btn-primary">+</a></tr>
                     </tbody>
                 </table>
             </div>

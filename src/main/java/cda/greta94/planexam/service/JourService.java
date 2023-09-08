@@ -1,7 +1,7 @@
 package cda.greta94.planexam.service;
 
 import cda.greta94.planexam.dao.JourRepository;
-import cda.greta94.planexam.dao.SessionRepository;
+import cda.greta94.planexam.dao.EpreuveRepository;
 import cda.greta94.planexam.dto.JourDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
 import cda.greta94.planexam.model.Jour;
@@ -14,15 +14,15 @@ import java.util.List;
 public class JourService {
     private JourRepository jourRepository;
 
-    private SessionRepository sessionRepository;
+    private EpreuveRepository epreuveRepository;
 
-    private SessionService sessionService;
+    private EpreuveService epreuveService;
 
     @Autowired
-    public JourService(JourRepository jourRepository, SessionRepository sessionRepository, SessionService sessionService) {
+    public JourService(JourRepository jourRepository, EpreuveRepository epreuveRepository, EpreuveService epreuveService) {
         this.jourRepository = jourRepository;
-        this.sessionRepository = sessionRepository;
-        this.sessionService = sessionService;
+        this.epreuveRepository = epreuveRepository;
+        this.epreuveService = epreuveService;
     }
 
     public List<Jour> getAll() { return jourRepository.findAll(); }
@@ -33,7 +33,7 @@ public class JourService {
 
     public JourDto findJourDtoById(Long id) {
         Jour jour = jourRepository.findById(id).orElseThrow(NotFoundEntityException::new);
-        return new JourDto(jour.getId(), jour.getDatePassage(), jour.getSessionE5().getId(), jour.getOuvre());
+        return new JourDto(jour.getId(), jour.getDatePassage(), jour.getEpreuve().getId(), jour.getOuvre());
     }
 
     public void saveJourFromDto(JourDto jourDto) {
@@ -45,7 +45,7 @@ public class JourService {
         }
         jour.setDatePassage(jourDto.getDatePassage());
         jour.setOuvre(jourDto.getOuvre());
-        jour.setSessionE5(sessionService.findById(jourDto.getSessionE5Id()));
+        jour.setEpreuve(epreuveService.findById(jourDto.getSessionE5Id()));
     }
 
     public void updateJourById(Boolean value,long id) {

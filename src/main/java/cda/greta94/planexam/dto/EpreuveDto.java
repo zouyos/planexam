@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SessionE5Dto {
+public class EpreuveDto {
   private Long id;
 
   @NotBlank(message = "Un libellé est requis")
@@ -22,10 +22,10 @@ public class SessionE5Dto {
 
   private List<Jour> jours = new ArrayList<>();
 
-  public SessionE5Dto() {
+  public EpreuveDto() {
   }
 
-  public SessionE5Dto(Long id, String libelle, @NotNull Date dateDebut, @NotNull Date dateFin, List<Jour> jours) {
+  public EpreuveDto(Long id, String libelle, @NotNull Date dateDebut, @NotNull Date dateFin, List<Jour> jours) {
     this.id = id;
     this.libelle = libelle;
     this.dateDebut = dateDebut;
