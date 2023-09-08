@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <div th:replace="~{fragments/header :: header-css(title='Voir une Session')}"/>
 </head>
@@ -21,23 +21,26 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Jour</th>
-                            <th>Disponibilité</th>
+                            <th>Jour Ouvrés</th>
+                            <th>Disponibilité (férié ou non)</th>
+                            <th>Supprimer</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="jour : ${jours}" >
                             <td th:text="${jour.datePassage}"></td>
-                            <td><input type="checkbox" name="jourDispo" id="jourDispo" th:checked="${jour.ouvre}"></td>
+                            <td>
+                                <input th:checked="${jour.ouvre}" th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked );'" type="checkbox" class="ms-5">
+                            </td>
                             <td>
                                 <form th:action="@{/admin/jour/delete/{id} (id=${jour.id})}" method="post" style="display: inline">
                                     <button
                                             type="submit"
-                                            class="btn btn-danger"
+                                            class="btn btn-danger ms-3"
                                             th:data-confirm-delete="|Êtes-vous sûr de vouloir supprimer ce jour : ${jour.datePassage}?|"
                                             onclick="return confirm(this.getAttribute('data-confirm-delete'))"
                                     >
-                                        X
+                                        x
                                     </button>
                                 </form>
                             </td>
@@ -55,6 +58,6 @@
 </main>
 
 <div th:replace="~{fragments/footer.html :: footer}"/>
-
+<script src="/js/fetch.js"></script>
 </body>
 </html>

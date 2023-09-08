@@ -108,6 +108,10 @@ public class EtablissementService {
     return etab.getId();
   }
 
+  public void updatePonctuelById(Boolean value,long id) {
+    etablissementRepository.updatePonctuelById(value,id);
+  }
+
   public void delete(Long id) {
     etablissementRepository.deleteById(id);
   }

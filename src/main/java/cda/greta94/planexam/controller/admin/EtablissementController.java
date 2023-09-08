@@ -1,9 +1,7 @@
 package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dto.EtablissementDto;
-import cda.greta94.planexam.dto.VilleDto;
 import cda.greta94.planexam.service.EtablissementService;
-import cda.greta94.planexam.service.SessionService;
 import cda.greta94.planexam.service.VilleService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -17,14 +15,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequestMapping("/admin")
 @Controller
-public class AdminController {
+public class EtablissementController {
 
-  private Logger logger = LoggerFactory.getLogger(AdminController.class);
+  private Logger logger = LoggerFactory.getLogger(EtablissementController.class);
 
   private EtablissementService etablissementService;
   private VilleService villeService;
 
-  public AdminController(EtablissementService etablissementService, VilleService villeService) {
+  public EtablissementController(EtablissementService etablissementService, VilleService villeService) {
     this.etablissementService = etablissementService;
     this.villeService = villeService;
   }
@@ -83,6 +81,11 @@ public class AdminController {
     // ok
     redirAttrs.addFlashAttribute("warningMessage", "Importation en cours d'implémentation !");
     return "redirect:/admin/etablissements";
+  }
+
+  @PostMapping ("/etablissement/ponctuel/{id}/{value}")
+  public void updatePonctuel(@PathVariable (name = "id") Long id,@PathVariable(name = "value") Boolean value) {
+    etablissementService.updatePonctuelById(value, id);
   }
 
   @PostMapping(value = "/etablissement/delete/{id}")

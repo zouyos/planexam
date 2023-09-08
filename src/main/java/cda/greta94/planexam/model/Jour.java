@@ -18,6 +18,15 @@ public class Jour {
   @JoinColumn(name = "session_e5_id")
   private SessionE5 sessionE5;
 
+  public Jour() {
+  }
+
+  public Jour(Date datePassage, Boolean ouvre, SessionE5 sessionE5) {
+    this.datePassage = datePassage;
+    this.ouvre = ouvre;
+    this.sessionE5 = sessionE5;
+  }
+
   public SessionE5 getSessionE5() {
     return sessionE5;
   }

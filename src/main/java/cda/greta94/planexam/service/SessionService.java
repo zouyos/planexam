@@ -4,11 +4,15 @@ import cda.greta94.planexam.dao.JourRepository;
 import cda.greta94.planexam.dao.SessionRepository;
 import cda.greta94.planexam.dto.SessionE5Dto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
+import cda.greta94.planexam.model.Jour;
 import cda.greta94.planexam.model.SessionE5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -45,8 +49,33 @@ public class SessionService {
     sessionE5.setLibelle(sessionE5Dto.getLibelle());
     sessionE5.setDateDebut((Date) sessionE5Dto.getDateDebut());
     sessionE5.setDateFin((Date) sessionE5Dto.getDateFin());
-    // TODO instancier les jourPassages entre dateDebut et dateFin
+    List<Jour> jours = new ArrayList<>();
+    for (Date uneDate: this.createJourPassage(sessionE5)) {
+      Jour jour = new Jour(uneDate, true, sessionE5);
+      jours.add(jour);
+    }
+    sessionE5.setJourPassages(jours);
     sessionRepository.save(sessionE5);
+  }
+
+  public List<Date> createJourPassage(SessionE5 sessionE5) {
+    //Pour cela on peut les convertir en LocalDate (ou se servir d'un Calendar)
+    List<Date> resultat = new ArrayList<>();
+    LocalDate debutLocalDate = sessionE5.getDateDebut().toLocalDate();
+    LocalDate finLocalDate = sessionE5.getDateFin().toLocalDate();
+
+    // d démare au jour de départ
+    LocalDate d = debutLocalDate;
+    while(d.compareTo(finLocalDate) <= 0) {
+      //on entre dans le if que si d est un jour de la semaine ( pas le weekend)
+      if (d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY) {
+        Date uneDate= Date.valueOf(d);
+        resultat.add(uneDate);
+      }
+      //d passe au jour suivant
+      d = d.plusDays(1);
+    }
+    return resultat;
   }
 
   public SessionE5Dto toDto(SessionE5 sessionE5){

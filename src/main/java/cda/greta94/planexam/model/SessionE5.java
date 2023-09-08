@@ -18,7 +18,7 @@ public class SessionE5 {
   private Date dateDebut;
   private Date dateFin;
 
-  @OneToMany(mappedBy = "sessionE5", orphanRemoval = true)
+  @OneToMany(mappedBy = "sessionE5", cascade = CascadeType.PERSIST, orphanRemoval = true)
   private List<Jour> jours = new ArrayList<>();
 
   public List<Jour> getJourPassages() {

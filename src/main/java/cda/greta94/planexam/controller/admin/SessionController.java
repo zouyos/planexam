@@ -40,6 +40,11 @@ public class SessionController {
     return "admin/session/show";
   }
 
+  @PostMapping("/session/jour/{id}/{value}")
+  public void changeDispoJour(@PathVariable (name = "id") Long id,@PathVariable(name = "value") Boolean value){
+    jourService.updateJourById(value,id);
+  }
+
   @GetMapping("/session/edit/{id}")
   public String edit(@PathVariable("id") Long id, Model model) {
     SessionE5Dto sessionE5Dto = sessionService.findSessionDtoById(id);
@@ -75,7 +80,7 @@ public class SessionController {
     if (bindingResult.hasErrors()) {
       return "admin/jour/form";
     }
-    jourService.saveJourPassageFromDto(jourDto);
+    jourService.saveJourFromDto(jourDto);
     //TODO: rediriger vers la session associée
     return "redirect:/admin/session/show/1";
   }

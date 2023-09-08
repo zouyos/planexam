@@ -31,12 +31,12 @@ public class JourService {
         return jourRepository.findById(id).orElseThrow(NotFoundEntityException::new);
     }
 
-    public JourDto findJourPassageDtoById(Long id) {
+    public JourDto findJourDtoById(Long id) {
         Jour jour = jourRepository.findById(id).orElseThrow(NotFoundEntityException::new);
         return new JourDto(jour.getId(), jour.getDatePassage(), jour.getSessionE5().getId(), jour.getOuvre());
     }
 
-    public void saveJourPassageFromDto(JourDto jourDto) {
+    public void saveJourFromDto(JourDto jourDto) {
         Jour jour = null;
         if (jourDto.getId() != null) {
             jour = jourRepository.findById(jourDto.getId()).orElseThrow(NotFoundEntityException::new);
@@ -46,6 +46,10 @@ public class JourService {
         jour.setDatePassage(jourDto.getDatePassage());
         jour.setOuvre(jourDto.getOuvre());
         jour.setSessionE5(sessionService.findById(jourDto.getSessionE5Id()));
+    }
+
+    public void updateJourById(Boolean value,long id) {
+        jourRepository.updateOuvreById(value,id);
     }
 
     public void delete(Long id) { jourRepository.deleteById(id); }
