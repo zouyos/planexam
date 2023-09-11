@@ -39,16 +39,8 @@
           <a class="nav-link" th:href="@{/}" th:classappend="${activeTab == 'home' ? 'active' : null}" aria-current="page" >Accueil</a>
         </li>
         <li class="nav-item" >
-          <a class="nav-link" th:href="@{/inscription}" th:classappend="${activeTab == 'inscription' ? 'active' : null}" sec:authorize="!isAuthenticated()">Inscription</a>
-        </li>
-        <li class="nav-item" >
-          <a class="nav-link" th:href="@{/login}" th:classappend="${activeTab == 'login' ? 'active' : null}" sec:authorize="!isAuthenticated()">Login</a>
-        </li>
-        <!--    TODO: if prof is connected    -->
-        <li class="nav-item" >
           <a class="nav-link" th:href="@{/prof/dashboard}" th:classappend="${activeTab == 'dashboard' ? 'active' : null}" sec:authorize="hasAnyAuthority('prof', 'admin')">Dashboard</a>
         </li>
-        <!--    TODO: if admin is connected    -->
         <li class="nav-item">
           <a class="nav-link" th:href="@{/admin/epreuves}" th:classappend="${activeTab == 'epreuves' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Epreuve</a>
         </li>
@@ -64,17 +56,20 @@
         <li class="nav-item">
           <a class="nav-link" th:href="@{/admin/specialites}" th:classappend="${activeTab == 'specialites' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Spécialités</a>
         </li>
-        <!--    TODO: display when logged in    -->
-          <li class="nav-item mx-2" sec:authorize="isAuthenticated()">
-            <form action="/logout" method="post">
-              <button class="btn btn-danger">Logout</button>
-            </form>
-          </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control mx-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <ul class="navbar ms-auto">
+        <li class="nav-item" >
+          <a class="nav-link" th:href="@{/inscription}" th:classappend="${activeTab == 'inscription' ? 'active' : null}" sec:authorize="!isAuthenticated()">Inscription</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" th:href="@{/login}" th:classappend="${activeTab == 'login' ? 'active' : null}" sec:authorize="!isAuthenticated()">Login</a>
+        </li>
+        <li class="nav-item mx-2" sec:authorize="isAuthenticated()">
+          <form action="/logout" method="post">
+            <button class="btn btn-danger">Logout</button>
+          </form>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
