@@ -10,11 +10,21 @@
 <main class="container">
   <div class="card">
     <div class="card-header">
-      <h2>Ajouter une Epreuve</h2>
+      <span th:if="${epreuveDto.id == null}">
+        <h2>Ajouter une épreuve</h2>
+      </span>
+      <span th:if="${epreuveDto.id != null}">
+        <h2>Modifier une épreuve</h2>
+      </span>
     </div>
     <div class="card-body">
       <form th:object="${epreuveDto}" th:action="@{/admin/epreuve}" method="post">
         <input type="hidden" th:field="${epreuveDto.id}">
+        <input
+                type="hidden"
+                th:name="${_csrf.parameterName}"
+                th:value="${_csrf.token}"
+        />
         <div class="my-2">
           <label for="libelle">Libellé</label>
           <input id="libelle" type="text" th:field="${epreuveDto.libelle}" class="form-control">

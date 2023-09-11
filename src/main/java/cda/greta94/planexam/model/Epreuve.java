@@ -18,7 +18,7 @@ public class Epreuve {
   private Date dateDebut;
   private Date dateFin;
 
-  @OneToMany(mappedBy = "epreuve", cascade = CascadeType.PERSIST, orphanRemoval = true)
+  @OneToMany(mappedBy = "epreuve", cascade = CascadeType.ALL)
   private List<Jour> jours = new ArrayList<>();
 
   public List<Jour> getJourPassages() {

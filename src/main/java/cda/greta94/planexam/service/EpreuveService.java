@@ -47,12 +47,13 @@ public class EpreuveService {
      if (epreuve == null) epreuve = new Epreuve();
     }
     epreuve.setLibelle(epreuveDto.getLibelle());
-    epreuve.setDateDebut((Date) epreuveDto.getDateDebut());
-    epreuve.setDateFin((Date) epreuveDto.getDateFin());
+    epreuve.setDateDebut(epreuveDto.getDateDebut());
+    epreuve.setDateFin(epreuveDto.getDateFin());
     List<Jour> jours = new ArrayList<>();
     for (Date uneDate: this.createJourPassage(epreuve)) {
       Jour jour = new Jour(uneDate, true, epreuve);
       jours.add(jour);
+      System.out.println(uneDate);
     }
     epreuve.setJourPassages(jours);
     epreuveRepository.save(epreuve);

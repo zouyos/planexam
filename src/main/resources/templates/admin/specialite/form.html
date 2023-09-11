@@ -10,11 +10,21 @@
 <main class="container">
     <div class="card">
         <div class="card-header">
-            <h2>Ajouter une Spécialité</h2>
+            <span th:if="${spec.id == null}">
+                <h2>Ajouter une spécialité</h2>
+            </span>
+            <span th:if="${spec.id != null}">
+                <h2>Modifier une spécialité</h2>
+            </span>
         </div>
         <div class="card-body">
             <form th:object="${spec}" th:action="@{/admin/specialite}" method="post">
                 <input type="hidden" th:field="${spec.id}">
+                <input
+                        type="hidden"
+                        th:name="${_csrf.parameterName}"
+                        th:value="${_csrf.token}"
+                />
                 <div class="my-2">
                     <label for="libSpec">Libellé</label>
                     <input type="text" id="libSpec" th:field="*{libelle}" class="form-control">
