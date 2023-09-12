@@ -4,10 +4,12 @@ import cda.greta94.planexam.dao.ProfesseurRepository;
 import cda.greta94.planexam.dao.SpecialiteRepository;
 import cda.greta94.planexam.dto.SpecialiteDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
+import cda.greta94.planexam.model.Professeur;
 import cda.greta94.planexam.model.Specialite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -58,6 +60,12 @@ public class SpecialiteService {
     }
 
     public void delete(Long id) {
+        Specialite spec = specialiteRepository.findById(id).orElseThrow(NotFoundEntityException::new);
+        List<Professeur> profs = spec.getProfesseurs();
+        for (Professeur prof : profs) {
+            prof.setSpecialite(null);
+            professeurRepository.save(prof);
+        }
         specialiteRepository.deleteById(id);
     }
 }

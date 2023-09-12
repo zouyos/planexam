@@ -87,8 +87,6 @@ public class EtablissementService {
 
       // TODO appliquer la validation par injection du Validator
 
-      logger.info("Établissement à importer : " + etabDto);
-
       this.saveEtablissementFromEtablissementDto(etabDto);
     }
   }

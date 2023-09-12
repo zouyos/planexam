@@ -5,6 +5,8 @@ import cda.greta94.planexam.dao.ProfesseurRepository;
 import cda.greta94.planexam.dao.VilleRepository;
 import cda.greta94.planexam.dto.VilleDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
+import cda.greta94.planexam.model.Etablissement;
+import cda.greta94.planexam.model.Professeur;
 import cda.greta94.planexam.model.Ville;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,5 +68,17 @@ public class VilleService {
     villeRepository.save(ville);
   }
 
-  public void delete(Long id) { villeRepository.deleteById(id); }
+  public void delete(Long id) {
+    Ville ville = villeRepository.findById(id).orElseThrow(NotFoundEntityException::new);
+    List<Etablissement> etabs = etablissementRepository.findAll();
+    for (Etablissement etab: etabs) {
+      etab.setVille(villeRepository.findByNom("N/A").orElseThrow(NotFoundEntityException::new));
+      etablissementRepository.save(etab);
+    }
+    List<Professeur> profs = ville.getProfesseurs();
+    for (Professeur prof : profs) {
+      prof.setVille(villeRepository.findByNom("N/A").orElseThrow(NotFoundEntityException::new));
+      professeurRepository.save(prof);
+    }
+    villeRepository.deleteById(id); }
 }

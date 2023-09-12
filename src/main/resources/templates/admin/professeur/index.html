@@ -29,7 +29,7 @@
         <td th:text="${prof.nom}"></td>
         <td th:text="${prof.prenom}"></td>
         <td th:text="${prof.email}"></td>
-        <td th:text="${prof.specialite.libelle}"></td>
+        <td th:text="${prof.specialite != null ? prof.specialite.libelle : 'N/A'}"></td>
         <td th:text="${prof.ville != null ? prof.ville.nom : 'N/A'}"></td>
         <td th:text="${prof.etablissement != null ? prof.etablissement.nom : 'N/A'}"></td>
         <td>

@@ -15,7 +15,7 @@ public class Specialite {
 
     private String libelle;
 
-    @OneToMany(mappedBy = "specialite", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "specialite")
     private List<Professeur> professeurs = new ArrayList<>();
 
     public List<Professeur> getProfesseurs() {
