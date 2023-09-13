@@ -21,11 +21,11 @@ public class Epreuve {
   @OneToMany(mappedBy = "epreuve", cascade = CascadeType.ALL)
   private List<Jour> jours = new ArrayList<>();
 
-  public List<Jour> getJourPassages() {
+  public List<Jour> getJours() {
     return jours;
   }
 
-  public void setJourPassages(List<Jour> jours) {
+  public void setJours(List<Jour> jours) {
     this.jours = jours;
   }
 

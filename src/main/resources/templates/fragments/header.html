@@ -29,7 +29,7 @@
 <div th:fragment="menu">
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#" th:href="@{/}">PlanExam</a>
+    <a class="navbar-brand" th:href="@{/}">PlanExam</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -57,7 +57,7 @@
           <a class="nav-link" th:href="@{/admin/specialites}" th:classappend="${activeTab == 'specialites' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Spécialités</a>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto me-4">
+      <ul class="navbar-nav ms-auto me-3">
         <li class="nav-item" >
           <a class="nav-link" th:href="@{/inscription}" th:classappend="${activeTab == 'inscription' ? 'active' : null}" sec:authorize="!isAuthenticated()">Inscription</a>
         </li>
@@ -78,7 +78,7 @@
     </div>
   </div>
 </nav>
-  <div>
+  <div class="m-4">
     <p th:if="${errorMessage != null}" th:text="${errorMessage}" class="alert alert-danger"></p>
     <p th:if="${warningMessage != null}" th:text="${warningMessage}" class="alert alert-warning"></p>
     <p th:if="${successMessage != null}" th:text="${successMessage}" class="alert alert-success"></p>

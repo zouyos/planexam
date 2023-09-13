@@ -36,13 +36,14 @@ public class EpreuveService {
 
   public EpreuveDto findEpreuveDtoById(Long id) {
     Epreuve epreuve = epreuveRepository.findById(id).orElseThrow(NotFoundEntityException::new);
-    return new EpreuveDto(epreuve.getId(), epreuve.getLibelle(), epreuve.getDateDebut(), epreuve.getDateFin(), (epreuve.getJourPassages() != null) ? epreuve.getJourPassages() : null);
+    return new EpreuveDto(epreuve.getId(), epreuve.getLibelle(), epreuve.getDateDebut(), epreuve.getDateFin(), (epreuve.getJours() != null) ? epreuve.getJours() : null);
   }
 
   public void saveEpreuveFromSessionDto(EpreuveDto epreuveDto) {
     Epreuve epreuve = null;
     if (epreuveDto.getId() != null) {
       epreuve = epreuveRepository.findById(epreuveDto.getId()).orElseThrow(NotFoundEntityException::new);
+      jourRepository.deleteByEpreuve(epreuve);
     } else {
      if (epreuve == null) epreuve = new Epreuve();
     }
@@ -55,7 +56,7 @@ public class EpreuveService {
       jours.add(jour);
       System.out.println(uneDate);
     }
-    epreuve.setJourPassages(jours);
+    epreuve.setJours(jours);
     epreuveRepository.save(epreuve);
   }
 
