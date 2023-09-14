@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:replace="~{fragments/header :: header-css(title='Liste des jurys')}" />
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: menu(activeTab='jurys')}" />
+
+<main class="container">
+    <h1 class="text-center">Liste des jurys</h1>
+    <a th:href="@{/admin/jury/create}" class="btn btn-primary my-2">Ajouter un jury</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Numéro</th>
+            <th colspan="2" class="text-center">Enseignants</th>
+            <th>Opérations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="jury : ${jurys}">
+            <td th:text="${jury.num}"></td>
+            <td th:text="${jury.prof1 != null ? jury.prof1.nom + ' ' + jury.prof1.prenom : 'N/A'}"></td>
+            <td th:text="${jury.prof2 != null ? jury.prof2.nom + ' ' + jury.prof2.prenom : 'N/A'}"></td>
+            <td>
+                <a th:href="@{/admin/jury/edit/{id} (id=${jury.id})}" class="btn btn-primary me-1">Modifier</a>
+                <form th:action="@{/admin/jury/delete/{id} (id=${jury.id})}" method="post" style="display: inline">
+                    <input
+                            type="hidden"
+                            th:name="${_csrf.parameterName}"
+                            th:value="${_csrf.token}"
+                    />
+                    <button
+                            type="submit"
+                            class="btn btn-danger"
+                            th:data-confirm-delete="|Êtes-vous sûr de vouloir supprimer ce jury : ${jury.num} ?|"
+                            onclick="return confirm(this.getAttribute('data-confirm-delete'))"
+                    >
+                        Supprimer
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<div th:replace="~{fragments/footer :: footer}" />
+</body>
+</html>

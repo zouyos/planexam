@@ -2,7 +2,6 @@ package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dto.ProfesseurDto;
 import cda.greta94.planexam.dto.SpecialiteDto;
-import cda.greta94.planexam.model.Professeur;
 import cda.greta94.planexam.service.EtablissementService;
 import cda.greta94.planexam.service.ProfesseurService;
 import cda.greta94.planexam.service.SpecialiteService;
@@ -86,7 +85,9 @@ public class ProfesseurController {
       professeurService.importProfFromCSV(file);
     } catch(Exception e) {
       redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
+      return "redirect:/admin/enseignants/import";
     }
+    redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
     return "redirect:/admin/enseignants";
   }
 
@@ -103,7 +104,7 @@ public class ProfesseurController {
 
   @GetMapping("/specialite/edit/{id}")
   public String editS(@PathVariable("id") Long id, Model model) {
-    SpecialiteDto specialiteDto = specialiteService.findSpecialiteDtoById(id);
+    SpecialiteDto specialiteDto = specialiteService.getSpecialiteDtoById(id);
     model.addAttribute("spec", specialiteDto);
     return "admin/specialite/form";
   }

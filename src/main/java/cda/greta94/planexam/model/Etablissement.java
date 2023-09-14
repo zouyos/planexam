@@ -31,34 +31,21 @@ public class Etablissement {
   @OneToMany(mappedBy = "etablissement", cascade = CascadeType.REMOVE)
   private List<Professeur> professeurs = new ArrayList<>();
 
-  public List<Professeur> getProfesseurs() {
-        return professeurs;
-    }
-
-  public void setProfesseurs(List<Professeur> professeurs) {
-        this.professeurs = professeurs;
-    }
-
   public Long getId() {
     return id;
   }
-
   public void setId(Long id) {
     this.id = id;
   }
-
   public String getNom() {
     return nom;
   }
-
   public void setNom(String nom) {
     this.nom = nom;
   }
-
   public String getRne() {
     return rne;
   }
-
   public void setRne(String rne) {
     this.rne = rne;
   }
@@ -85,6 +72,14 @@ public class Etablissement {
 
   public void setVille(Ville ville) {
     this.ville = ville;
+  }
+
+  public List<Professeur> getProfesseurs() {
+    return professeurs;
+  }
+
+  public void setProfesseurs(List<Professeur> professeurs) {
+    this.professeurs = professeurs;
   }
 
  // codes générés par JPA Utilities...

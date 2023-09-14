@@ -30,6 +30,10 @@ public class Professeur {
     @JoinColumn(name = "specialite_id")
     private Specialite specialite;
 
+    @ManyToOne
+    @JoinColumn(name = "jury_id")
+    private Jury jury;
+
 
     public Specialite getSpecialite() {
         return specialite;
@@ -85,6 +89,14 @@ public class Professeur {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Jury getJury() {
+        return jury;
+    }
+
+    public void setJury(Jury jury) {
+        this.jury = jury;
     }
 
     @Override

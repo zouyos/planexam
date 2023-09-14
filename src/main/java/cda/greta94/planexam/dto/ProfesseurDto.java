@@ -8,7 +8,7 @@ public class ProfesseurDto {
     public ProfesseurDto() {
     }
 
-    public ProfesseurDto(Long id, String nom, String prenom, String email, Long idVille, Long idEtablissement, Long idSpecialite) {
+    public ProfesseurDto(Long id, String nom, String prenom, String email, Long idVille, Long idEtablissement, Long idSpecialite, Long idJury) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -16,6 +16,7 @@ public class ProfesseurDto {
         this.idSpecialite = idSpecialite;
         this.idVille = idVille;
         this.idEtablissement = idEtablissement;
+        this.idJury = idJury;
     }
 
     private Long id;
@@ -32,6 +33,8 @@ public class ProfesseurDto {
     private Long idVille;
 
     private Long idEtablissement;
+
+    private Long idJury;
 
     public Long getId() {
         return id;

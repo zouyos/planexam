@@ -14,12 +14,17 @@
     </div>
 
     <div class="card-body">
-      <p>Attention structure attendue : "id";"Nom";"Ville";"RNE";"Code";"Ponctuel" <i>(Fichier encodé en UTF-8)</i></p>
+      <p>Attention structure attendue : "Id";"Nom";"Ville";"RNE";"Code";"Ponctuel" <i>(Fichier encodé en UTF-8)</i></p>
       <p>NB: Si ponctuel (établissement accueillant des jurys) remplir avec une croix ("x")</p>
       <p></p>
       <form th:action="@{/admin/etablissement/import}"
             enctype="multipart/form-data"
             method="post">
+        <input
+                type="hidden"
+                th:name="${_csrf.parameterName}"
+                th:value="${_csrf.token}"
+        />
         <input type="file" name="file" class="my-2 form-control" />
         <button type="submit" class="btn btn-success">Importer</button>
       </form>

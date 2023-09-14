@@ -50,7 +50,8 @@ public class ProfesseurService {
           professeur.getEmail(),
           professeur.getSpecialite().getId(),
           (professeur.getVille() != null) ? professeur.getVille().getId() : null,
-          (professeur.getEtablissement() != null) ? professeur.getEtablissement().getId() : null
+          (professeur.getEtablissement() != null) ? professeur.getEtablissement().getId() : null,
+          (professeur.getJury() != null) ? professeur.getJury().getId() : null
         );
     }
 
@@ -72,18 +73,18 @@ public class ProfesseurService {
 
     public void importProfFromCSV(MultipartFile file) throws IOException {
         Reader in = new InputStreamReader(file.getInputStream());
-        Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("id", "Prénom", "Nom", "Email", "Ville", "RNE", "Spécialité").withDelimiter(';').parse(in);
+        Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Id", "Prenom", "Nom", "Email", "Ville", "RNE", "Specialite").withDelimiter(';').parse(in);
 
         int nbLigne = 0;
         for (CSVRecord record : records) {
             nbLigne++;
-            if(nbLigne == 1 && record.get("Prénom").equals("Prénom") && record.get("Nom").equals("Nom")) continue;
+            if(nbLigne == 1 && record.get("Id").equals("Id") && record.get("RNE").equals("RNE")) continue;
 
             Long idVille = villeService.getOrCreate(record.get("Ville"));
             Long idEtab = etablissementService.getOrCreate(record.get("RNE"));
-            Long idSpec = specialiteService.getOrCreate(record.get("Spécialité"));
+            Long idSpec = specialiteService.getOrCreate(record.get("Specialite"));
 
-            ProfesseurDto profDto = new ProfesseurDto(null, record.get("Prénom"), record.get("Nom"), record.get("Email"), idVille, idEtab, idSpec);
+            ProfesseurDto profDto = new ProfesseurDto(null, record.get("Prenom"), record.get("Nom"), record.get("Email"), idVille, idEtab, idSpec, null);
 
             this.saveProfFromDto(profDto);
         }

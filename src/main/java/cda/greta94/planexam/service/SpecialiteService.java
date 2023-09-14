@@ -9,7 +9,6 @@ import cda.greta94.planexam.model.Specialite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +29,7 @@ public class SpecialiteService {
         return specialiteRepository.findById(id).orElseThrow(NotFoundEntityException::new);
     }
 
-    public SpecialiteDto findSpecialiteDtoById(Long id) {
+    public SpecialiteDto getSpecialiteDtoById(Long id) {
         Specialite specialite = specialiteRepository.findById(id).orElseThrow(NotFoundEntityException::new);
         return new SpecialiteDto((specialite.getId()), specialite.getLibelle(), (specialite.getProfesseurs() != null ? specialite.getProfesseurs() : null));
     }

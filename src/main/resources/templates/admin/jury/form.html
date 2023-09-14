@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <span th:if="${jury.id == null}">
+        <div th:replace="~{fragments/header :: header-css(title='Ajouter un Jury')}"/>
+    </span>
+    <span th:if="${jury.id != null}">
+        <div th:replace="~{fragments/header :: header-css(title='Modifier un Jury')}"/>
+    </span>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: menu}"/>
+
+<main class="container">
+    <div class="card">
+        <div class="card-header">
+            <span th:if="${jury.id == null}">
+                <h2>Ajouter un jury</h2>
+            </span>
+            <span th:if="${jury.id != null}">
+                <h2>Modifier un jury</h2>
+            </span>
+        </div>
+        <div class="card-body">
+            <form th:object="${jury}" th:action="@{/admin/jury}" method="post">
+                <input type="hidden" th:field="${jury.id}">
+                <input
+                        type="hidden"
+                        th:name="${_csrf.parameterName}"
+                        th:value="${_csrf.token}"
+                />
+                <div class="my-2">
+                    <label for="num">Numéro</label>
+                    <input type="text" id="num" th:field="*{num}" class="form-control">
+                    <p th:if="${#fields.hasErrors('num')}" th:errors="*{num}" class="validation-message"></p>
+                </div>
+                <div class="my-2">
+                <select id="prof1" class="form-control" th:field="*{prof1}">
+                    <option th:each="prof : ${profs}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
+                </select>
+                </div>
+                <div class="my-2">
+                    <select id="prof2" class="form-control" th:field="*{prof2}">
+                        <option th:each="prof : ${profs}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
+                    </select>
+                </div>
+                <hr>
+                <div class="my-2">
+                    <a th:href="@{/admin/jurys}" class="btn btn-secondary">Retour</a>
+                    <span th:if="${jury.id != null}">
+                        <button type="submit" class="btn btn-primary me-1">Mettre à jour</button>
+                    </span>
+                    <span th:if="${jury.id == null}">
+                        <button type="submit" class="btn btn-primary me-1">Ajouter</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer.html :: footer}"/>
+
+</body>
+</html>
+
+

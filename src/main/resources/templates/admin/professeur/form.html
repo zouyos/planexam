@@ -1,7 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <div th:replace="~{fragments/header :: header-css(title='Ajouter un Enseignant')}"/>
+    <span th:if="${prof.id == null}">
+        <div th:replace="~{fragments/header :: header-css(title='Ajouter un Enseignant')}"/>
+    </span>
+    <span th:if="${prof.id != null}">
+        <div th:replace="~{fragments/header :: header-css(title='Modifier un Enseignant')}"/>
+    </span>
 </head>
 <body>
 

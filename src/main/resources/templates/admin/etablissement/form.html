@@ -1,7 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-  <div th:replace="~{fragments/header :: header-css(title='Ajouter un Etablissement')}"/>
+  <span th:if="${etablissementDto.id == null}">
+    <div th:replace="~{fragments/header :: header-css(title='Ajouter un établissement')}"/>
+  </span>
+  <span th:if="${etablissementDto.id != null}">
+    <div th:replace="~{fragments/header :: header-css(title='Modifier un établissement')}"/>
+  </span>
 </head>
 <body>
 

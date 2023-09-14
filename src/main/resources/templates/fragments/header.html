@@ -51,6 +51,9 @@
           <a class="nav-link" th:href="@{/admin/enseignants}" th:classappend="${activeTab == 'enseignants' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Enseignants</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" th:href="@{/admin/jurys}" th:classappend="${activeTab == 'jurys' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Jurys</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" th:href="@{/admin/villes}" th:classappend="${activeTab == 'villes' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Villes</a>
         </li>
         <li class="nav-item">

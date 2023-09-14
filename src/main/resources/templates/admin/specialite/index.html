@@ -23,6 +23,11 @@
         <td>
           <a th:href="@{/admin/specialite/edit/{id} (id=${spec.id})}" class="btn btn-primary me-1">Modifier</a>
           <form th:action="@{/admin/specialite/delete/{id} (id=${spec.id})}" method="post" style="display: inline">
+            <input
+                    type="hidden"
+                    th:name="${_csrf.parameterName}"
+                    th:value="${_csrf.token}"
+            />
             <button
                     type="submit"
                     class="btn btn-danger"

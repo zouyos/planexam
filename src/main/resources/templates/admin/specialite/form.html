@@ -1,7 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <div th:replace="~{fragments/header :: header-css(title='Ajouter une Spécialité')}"/>
+    <span th:if="${spec.id == null}">
+        <div th:replace="~{fragments/header :: header-css(title='Ajouter une spécialité')}"/>
+    </span>
+    <span th:if="${spec.id != null}">
+        <div th:replace="~{fragments/header :: header-css(title='Modifier une spécialité')}"/>
+    </span>
 </head>
 <body>
 

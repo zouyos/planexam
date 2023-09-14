@@ -30,7 +30,7 @@ public class EtablissementController {
   @GetMapping(value = "/etablissements")
   public String index(Model model) {
     model.addAttribute("etablissements", etablissementService.getAll());
-    return "admin/etablissement/list";
+    return "admin/etablissement/index";
   }
 
   @GetMapping(value = "/etablissement")
@@ -79,7 +79,7 @@ public class EtablissementController {
       return "redirect:/admin/etablissement/import";
     }
     // ok
-    redirAttrs.addFlashAttribute("warningMessage", "Importation en cours d'implémentation !");
+    redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
     return "redirect:/admin/etablissements";
   }
 
