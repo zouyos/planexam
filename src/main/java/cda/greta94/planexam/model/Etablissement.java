@@ -31,6 +31,9 @@ public class Etablissement {
   @OneToMany(mappedBy = "etablissement", cascade = CascadeType.REMOVE)
   private List<Professeur> professeurs = new ArrayList<>();
 
+  @OneToMany(mappedBy = "etablissement")
+  private List<NbrJury> nbrJurys = new ArrayList<>();
+
   public Long getId() {
     return id;
   }
@@ -82,7 +85,15 @@ public class Etablissement {
     this.professeurs = professeurs;
   }
 
- // codes générés par JPA Utilities...
+  public List<NbrJury> getNbrJurys() {
+    return nbrJurys;
+  }
+
+  public void setNbrJurys(List<NbrJury> nbrJurys) {
+    this.nbrJurys = nbrJurys;
+  }
+
+  // codes générés par JPA Utilities...
  // à voir, car la logique du equals n'est pas la même que celle du hash...
 
   @Override

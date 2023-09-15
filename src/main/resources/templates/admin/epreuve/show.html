@@ -21,14 +21,25 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Enseignants</th>
+                            <th>Etablissements</th>
+                            <th>RNE</th>
                             <th th:each="jour : ${jours}" th:text="${jour.datePassage}"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="etab : ${etabs}">
-                            <td  th:text="${etab.nom}"></td>
-                            <td th:each="jour : ${jours}"></td>
+                            <td th:text="${etab.nom}"></td>
+                            <td th:text="${etab.rne}"></td>
+                            <td th:each="jour : ${jours}">
+                                <select>
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

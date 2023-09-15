@@ -3,6 +3,8 @@ package cda.greta94.planexam.model;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Jour {
@@ -17,6 +19,9 @@ public class Jour {
   @ManyToOne
   @JoinColumn(name = "epreuve_id")
   private Epreuve epreuve;
+
+  @OneToMany(mappedBy = "jour")
+  private List<NbrJury> nbrJurys = new ArrayList<>();
 
   public Jour() {
   }
@@ -57,5 +62,13 @@ public class Jour {
 
   public void setOuvre(Boolean ouvre) {
     this.ouvre = ouvre;
+  }
+
+  public List<NbrJury> getNbrJurys() {
+    return nbrJurys;
+  }
+
+  public void setNbrJurys(List<NbrJury> nbrJurys) {
+    this.nbrJurys = nbrJurys;
   }
 }
