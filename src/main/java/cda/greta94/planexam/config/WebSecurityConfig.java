@@ -32,6 +32,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/","/inscription","/login", "/css/**", "/js/**", "/img/**", "/favicon.ico", "/webjars/**").permitAll()
                         .requestMatchers(HttpMethod.POST,("/inscription")).permitAll()
+                        .requestMatchers(HttpMethod.POST,("/admin/epreuve/jour/**")).permitAll()
                         //Interdit la page si l'utilisateur n'est pas admin
                         .requestMatchers("/admin/**").hasAuthority("admin")
                         .requestMatchers("/prof/**").hasAnyAuthority("prof","admin")

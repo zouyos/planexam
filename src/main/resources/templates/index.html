@@ -8,7 +8,15 @@
 <div th:replace="~{fragments/header :: menu(activeTab='home')}"/>
 
 <main class="container">
-        <h1 class="text-center">Accueil</h1>
+  <h1 class="text-center">Accueil</h1>
+  <h2>Étapes à suivre :</h2>
+  <ul>
+    <li>Se connecter en tant qu'admin</li>
+    <li>Importer une liste d'établissements</li>
+    <li>Importer une liste de professeurs</li>
+    <li>Créer une épreuve</li>
+    <li>Créer des jurys (optionnel)</li>
+  </ul>
 </main>
 
 <div th:replace="~{fragments/footer.html :: footer}"/>

@@ -39,11 +39,6 @@
           <td>
             <a th:href="@{/admin/etablissement/edit/{id} (id=${etab.id})}" class="btn btn-primary">Modifier</a>
             <form th:action="@{/admin/etablissement/delete/{id} (id=${etab.id})}" method="post" style="display: inline">
-              <input
-                      type="hidden"
-                      th:name="${_csrf.parameterName}"
-                      th:value="${_csrf.token}"
-              />
               <button
                 type="submit"
                 class="btn btn-danger"

@@ -7,7 +7,7 @@
 
 <div th:replace="~{fragments/header :: menu}"/>
 
-<main class="container">
+<main class="container-fluid">
     <div class="card">
         <div class="card-header">
             <h2 class="text-center">Voir une Epreuve</h2>
@@ -21,16 +21,14 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Jour Ouvrés</th>
-                            <th>Disponibilité (décocher si férié ou pont)</th>
+                            <th>Enseignants</th>
+                            <th th:each="jour : ${jours}" th:text="${jour.datePassage}"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="jour : ${jours}" >
-                            <td th:text="${jour.datePassage}"></td>
-                            <td>
-                                <input th:checked="${jour.ouvre}" th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked );'" type="checkbox" class="ms-5">
-                            </td>
+                        <tr th:each="etab : ${etabs}">
+                            <td  th:text="${etab.nom}"></td>
+                            <td th:each="jour : ${jours}"></td>
                         </tr>
                     </tbody>
                 </table>

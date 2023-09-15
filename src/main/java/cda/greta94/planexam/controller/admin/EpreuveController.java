@@ -1,9 +1,10 @@
 package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dto.EpreuveDto;
-import cda.greta94.planexam.dto.JourDto;
+import cda.greta94.planexam.service.EtablissementService;
 import cda.greta94.planexam.service.JourService;
 import cda.greta94.planexam.service.EpreuveService;
+import cda.greta94.planexam.service.ProfesseurService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +19,12 @@ public class EpreuveController {
 
   private JourService jourService;
 
-  public EpreuveController(EpreuveService epreuveService, JourService jourService) {
+  private EtablissementService etablissementService;
+
+  public EpreuveController(EpreuveService epreuveService, JourService jourService, EtablissementService etablissementService) {
     this.epreuveService = epreuveService;
     this.jourService = jourService;
+    this.etablissementService = etablissementService;
   }
 
   @GetMapping("/epreuves")
@@ -37,6 +41,7 @@ public class EpreuveController {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
     model.addAttribute("epreuveDto", epreuveDto);
     model.addAttribute("jours", jourService.getAll());
+    model.addAttribute("etabs", etablissementService.getAll());
     return "admin/epreuve/show";
   }
 

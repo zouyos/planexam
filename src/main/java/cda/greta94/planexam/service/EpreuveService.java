@@ -66,12 +66,12 @@ public class EpreuveService {
     LocalDate debutLocalDate = epreuve.getDateDebut().toLocalDate();
     LocalDate finLocalDate = epreuve.getDateFin().toLocalDate();
 
-    // d démare au jour de départ
+    // d démarre au jour de départ
     LocalDate d = debutLocalDate;
     while(d.compareTo(finLocalDate) <= 0) {
-      //on entre dans le if que si d est un jour de la semaine ( pas le weekend)
+      //on entre dans le if que si d est un jour de la semaine (pas le weekend)
       if (d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY) {
-        Date uneDate= Date.valueOf(d);
+        Date uneDate = Date.valueOf(d);
         resultat.add(uneDate);
       }
       //d passe au jour suivant

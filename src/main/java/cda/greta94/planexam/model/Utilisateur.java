@@ -51,5 +51,21 @@ public class Utilisateur {
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Utilisateur that)) return false;
+
+        if (!getId().equals(that.getId())) return false;
+        return getEmail().equals(that.getEmail());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        return result;
+    }
 }
 
