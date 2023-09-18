@@ -48,7 +48,7 @@ public class JourService {
         jour.setEpreuve(epreuveService.findById(jourDto.getSessionE5Id()));
     }
 
-    public void updateJourById(Boolean value,long id) {
+    public void updateJourById(Long id, Boolean value) {
         jourRepository.updateOuvreById(value,id);
     }
 

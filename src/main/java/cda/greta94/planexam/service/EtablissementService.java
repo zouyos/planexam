@@ -10,6 +10,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,6 +58,11 @@ public class EtablissementService {
   public List<Etablissement> getAll() {
     return etablissementRepository.findAll();
   }
+
+  public Page<Etablissement> getAllPage(Pageable pageable) {
+    return etablissementRepository.findAll(pageable);
+  }
+
 
   public EtablissementDto findEtablissementDtoById(long id) {
     Etablissement etab = etablissementRepository.findById(id).orElseThrow(NotFoundEntityException::new);
@@ -106,7 +113,7 @@ public class EtablissementService {
     return etab.getId();
   }
 
-  public void updatePonctuelById(Boolean value,long id) {
+  public void updatePonctuelById(Long id, Boolean value) {
     etablissementRepository.updatePonctuelById(value,id);
   }
 

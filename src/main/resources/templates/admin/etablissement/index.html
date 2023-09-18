@@ -14,10 +14,10 @@
   <a class="btn btn-primary" href="#" th:href="@{/admin/etablissement}">Ajouter un établissement</a>
   <a class="btn btn-primary" href="#" th:href="@{/admin/etablissement/import}">Importer une liste d'établissements</a>
 
-  <div th:switch="${etablissements}">
-    <h2 th:case="null">Aucun établissement!</h2>
+  <div th:switch="${pageEtablissements}">
+    <h2 th:case="null">Aucun établissement !</h2>
     <div th:case="*">
-
+      <h2 th:text="'Page '+${pageNumber+1}" class="text-center"></h2>
       <table class="table table-striped">
         <thead>
         <tr>
@@ -30,13 +30,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="etab : ${etablissements}">
+        <tr th:each="etab : ${pageEtablissements.content}">
           <td th:text="${etab.nom}"></td>
           <td th:text="${etab.ville} ? ${etab.ville.nom} : 'N/A'"></td>
           <td th:text="${etab.rne}"></td>
           <td th:text="${etab.code}"></td>
           <td th:text="${etab.ponctuel ? 'Oui' : 'Non'}"></td>
-          <!--          <td><input th:checked="${etab.ponctuel}" th:onclick="'javascript:changePonctuel(' + ${etab.id} + ', this.checked );'" type="checkbox" class="ms-5"></td>-->
+          <!--<td><input th:checked="${etab.ponctuel}" th:onclick="'javascript:changePonctuel(' + ${etab.id} + ', this.checked );'" type="checkbox" class="ms-5"></td>-->
           <td>
             <a th:href="@{/admin/etablissement/edit/{id} (id=${etab.id})}" class="btn btn-primary">Modifier</a>
             <form th:action="@{/admin/etablissement/delete/{id} (id=${etab.id})}" method="post" style="display: inline">
@@ -53,6 +53,13 @@
         </tr>
         </tbody>
       </table>
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" th:each="i : ${#numbers.sequence(0, pageEtablissements.totalPages - 1)}" th:classappend="${pageNumber == i} ? 'active'">
+            <a class="page-link" th:href="${'/admin/etablissements?page=' + i}" th:text="${i + 1}"></a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </main>

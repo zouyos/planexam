@@ -1,18 +1,21 @@
 package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dto.EtablissementDto;
+import cda.greta94.planexam.model.Etablissement;
 import cda.greta94.planexam.service.EtablissementService;
 import cda.greta94.planexam.service.VilleService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 @RequestMapping("/admin")
 @Controller
 public class EtablissementController {
@@ -28,9 +31,12 @@ public class EtablissementController {
   }
 
   @GetMapping(value = "/etablissements")
-  public String index(Model model) {
-    model.addAttribute("etablissements", etablissementService.getAll());
-    return "admin/etablissement/index";
+  public String index(Model model, @RequestParam(defaultValue = "0") int page) {
+    Pageable pageable = PageRequest.of(page, 20);
+    Page<Etablissement> etablissements = etablissementService.getAllPage(pageable);
+    model.addAttribute("pageNumber", page);
+    model.addAttribute("pageEtablissements", etablissements);
+    return "/admin/etablissement/index";
   }
 
   @GetMapping(value = "/etablissement")
@@ -81,11 +87,6 @@ public class EtablissementController {
     // ok
     redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
     return "redirect:/admin/etablissements";
-  }
-
-  @PostMapping ("/etablissement/ponctuel/{id}/{value}")
-  public void updatePonctuel(@PathVariable (name = "id") Long id,@PathVariable(name = "value") Boolean value) {
-    etablissementService.updatePonctuelById(value, id);
   }
 
   @PostMapping(value = "/etablissement/delete/{id}")

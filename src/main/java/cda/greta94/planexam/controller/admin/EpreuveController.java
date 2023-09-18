@@ -45,11 +45,6 @@ public class EpreuveController {
     return "admin/epreuve/show";
   }
 
-  @PostMapping("/epreuve/jour/{id}/{value}")
-  public void changeDispoJour(@PathVariable (name = "id") Long id,@PathVariable(name = "value") Boolean value){
-    jourService.updateJourById(value,id);
-  }
-
   @GetMapping("/epreuve/edit/{id}")
   public String edit(@PathVariable("id") Long id, Model model) {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
