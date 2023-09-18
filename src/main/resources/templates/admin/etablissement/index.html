@@ -35,7 +35,8 @@
           <td th:text="${etab.ville} ? ${etab.ville.nom} : 'N/A'"></td>
           <td th:text="${etab.rne}"></td>
           <td th:text="${etab.code}"></td>
-          <td><input th:checked="${etab.ponctuel}" th:onclick="'javascript:changePonctuel(' + ${etab.id} + ', this.checked );'" type="checkbox" class="ms-5">
+          <td th:text="${etab.ponctuel ? 'Oui' : 'Non'}"></td>
+          <!--          <td><input th:checked="${etab.ponctuel}" th:onclick="'javascript:changePonctuel(' + ${etab.id} + ', this.checked );'" type="checkbox" class="ms-5"></td>-->
           <td>
             <a th:href="@{/admin/etablissement/edit/{id} (id=${etab.id})}" class="btn btn-primary">Modifier</a>
             <form th:action="@{/admin/etablissement/delete/{id} (id=${etab.id})}" method="post" style="display: inline">

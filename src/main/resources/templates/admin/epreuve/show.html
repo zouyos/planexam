@@ -28,9 +28,9 @@
                     </thead>
                     <tbody>
                         <tr th:each="etab : ${etabs}">
-                            <td th:text="${etab.nom}"></td>
-                            <td th:text="${etab.rne}"></td>
-                            <td th:each="jour : ${jours}">
+                            <td th:if="${etab.ponctuel}" th:text="${etab.nom}"></td>
+                            <td th:if="${etab.ponctuel}" th:text="${etab.rne}"></td>
+                            <td th:if="${etab.ponctuel}" th:each="jour : ${jours}">
                                 <select>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
