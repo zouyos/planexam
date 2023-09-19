@@ -7,7 +7,7 @@ public class NbrJury {
   @EmbeddedId
   private NbrJuryId nbrJuryId;
 
-  private int nbr;
+  private int nbr = 0;
 
   @MapsId("jourId")
   @ManyToOne

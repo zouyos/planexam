@@ -32,7 +32,7 @@ public class Etablissement {
   private List<Professeur> professeurs = new ArrayList<>();
 
   @OneToMany(mappedBy = "etablissement")
-  private List<NbrJury> nbrJurys = new ArrayList<>();
+  private List<NbrJury> nbrJurys = new ArrayList<>(5);
 
   public Long getId() {
     return id;

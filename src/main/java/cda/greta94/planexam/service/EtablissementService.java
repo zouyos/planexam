@@ -63,6 +63,10 @@ public class EtablissementService {
     return etablissementRepository.findAll(pageable);
   }
 
+  public Page<Etablissement> getPageEtrecherche(String nomRecherche, Pageable pageable) {
+    return etablissementRepository.findByNomContainsIgnoreCaseOrderByNomAsc(nomRecherche, pageable);
+  }
+
 
   public EtablissementDto findEtablissementDtoById(long id) {
     Etablissement etab = etablissementRepository.findById(id).orElseThrow(NotFoundEntityException::new);

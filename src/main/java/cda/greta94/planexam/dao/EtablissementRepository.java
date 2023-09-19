@@ -2,6 +2,8 @@ package cda.greta94.planexam.dao;
 
 import cda.greta94.planexam.model.Etablissement;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +16,8 @@ public interface EtablissementRepository extends JpaRepository<Etablissement, Lo
   Optional<Etablissement> findByRne(String rne);
 
   Optional<Etablissement> findByNom(String nomVille);
+
+  Page<Etablissement> findByNomContainsIgnoreCaseOrderByNomAsc(String nom, Pageable pageable);
 
   @Transactional
   @Modifying

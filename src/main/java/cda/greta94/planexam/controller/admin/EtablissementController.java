@@ -31,12 +31,12 @@ public class EtablissementController {
   }
 
   @GetMapping(value = "/etablissements")
-  public String index(Model model, @RequestParam(defaultValue = "0") int page) {
+  public String index(Model model, @RequestParam(defaultValue = "") String nom, @RequestParam(defaultValue = "0") int page) {
     Pageable pageable = PageRequest.of(page, 20);
-    Page<Etablissement> etablissements = etablissementService.getAllPage(pageable);
+    Page<Etablissement> etablissements = etablissementService.getPageEtrecherche(nom, pageable);
     model.addAttribute("pageNumber", page);
     model.addAttribute("pageEtablissements", etablissements);
-    return "/admin/etablissement/index";
+    return "admin/etablissement/index";
   }
 
   @GetMapping(value = "/etablissement")

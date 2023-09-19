@@ -21,7 +21,7 @@ public class Jour {
   private Epreuve epreuve;
 
   @OneToMany(mappedBy = "jour")
-  private List<NbrJury> nbrJurys = new ArrayList<>();
+  private List<NbrJury> nbrJurys = new ArrayList<>(5);
 
   public Jour() {
   }

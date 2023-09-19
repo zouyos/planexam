@@ -31,7 +31,7 @@
                             <td th:if="${etab.ponctuel}" th:text="${etab.nom}"></td>
                             <td th:if="${etab.ponctuel}" th:text="${etab.rne}"></td>
                             <td th:if="${etab.ponctuel}" th:each="jour : ${jours}">
-                                <select>
+                                <select th:value="${etab.nbrJurys}" th:onchange="'javascript:changeNbrJurys(' + ${etab.id} + ', this.value );'">
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
