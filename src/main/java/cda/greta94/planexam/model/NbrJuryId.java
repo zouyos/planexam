@@ -13,6 +13,30 @@ public class NbrJuryId implements Serializable {
 
   private Long jourId;
 
+  public NbrJuryId(Long etablissementId, Long jourId) {
+    this.etablissementId = etablissementId;
+    this.jourId = jourId;
+  }
+
+  public NbrJuryId() {
+  }
+
+  public Long getEtablissementId() {
+    return etablissementId;
+  }
+
+  public void setEtablissementId(Long etablissementId) {
+    this.etablissementId = etablissementId;
+  }
+
+  public Long getJourId() {
+    return jourId;
+  }
+
+  public void setJourId(Long jourId) {
+    this.jourId = jourId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

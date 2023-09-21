@@ -1,10 +1,9 @@
 package cda.greta94.planexam.controller.admin;
 
+import cda.greta94.planexam.dao.NbrJuryRepository;
 import cda.greta94.planexam.dto.EpreuveDto;
-import cda.greta94.planexam.service.EtablissementService;
-import cda.greta94.planexam.service.JourService;
-import cda.greta94.planexam.service.EpreuveService;
-import cda.greta94.planexam.service.ProfesseurService;
+import cda.greta94.planexam.model.NbrJury;
+import cda.greta94.planexam.service.*;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +20,16 @@ public class EpreuveController {
 
   private EtablissementService etablissementService;
 
-  public EpreuveController(EpreuveService epreuveService, JourService jourService, EtablissementService etablissementService) {
+  private NbrJuryRepository nbrJuryRepository;
+
+  public EpreuveController(EpreuveService epreuveService,
+                           JourService jourService,
+                           EtablissementService etablissementService,
+                           NbrJuryRepository nbrJuryRepository) {
     this.epreuveService = epreuveService;
     this.jourService = jourService;
     this.etablissementService = etablissementService;
+    this.nbrJuryRepository = nbrJuryRepository;
   }
 
   @GetMapping("/epreuves")
@@ -41,7 +46,7 @@ public class EpreuveController {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
     model.addAttribute("epreuveDto", epreuveDto);
     model.addAttribute("jours", jourService.getAll());
-    model.addAttribute("etabs", etablissementService.getAll());
+    model.addAttribute("etabs", etablissementService.getEtabWithNbrJuries(id));
     return "admin/epreuve/show";
   }
 

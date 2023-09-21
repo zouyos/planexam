@@ -1,11 +1,12 @@
 package cda.greta94.planexam.service;
 
+import cda.greta94.planexam.dao.EtablissementRepository;
 import cda.greta94.planexam.dao.JourRepository;
 import cda.greta94.planexam.dao.EpreuveRepository;
+import cda.greta94.planexam.dao.NbrJuryRepository;
 import cda.greta94.planexam.dto.EpreuveDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
-import cda.greta94.planexam.model.Epreuve;
-import cda.greta94.planexam.model.Jour;
+import cda.greta94.planexam.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,19 @@ import java.util.List;
 public class EpreuveService {
   private EpreuveRepository epreuveRepository;
   private JourRepository jourRepository;
+  private EtablissementRepository etablissementRepository;
+  private NbrJuryRepository nbrJuryRepository;
 
   @Autowired
-  public EpreuveService(EpreuveRepository epreuveRepository, JourRepository jourRepository) {
+  public EpreuveService(EpreuveRepository epreuveRepository,
+                        JourRepository jourRepository,
+                        EtablissementRepository etablissementRepository,
+                        NbrJuryRepository nbrJuryRepository)
+  {
     this.epreuveRepository = epreuveRepository;
     this.jourRepository = jourRepository;
+    this.etablissementRepository = etablissementRepository;
+    this.nbrJuryRepository = nbrJuryRepository;
   }
 
   public List<Epreuve> getAll() {
@@ -58,6 +67,17 @@ public class EpreuveService {
     }
     epreuve.setJours(jours);
     epreuveRepository.save(epreuve);
+    List<Etablissement> etabs = etablissementRepository.findByPonctuel(true);
+    for (Etablissement etab : etabs) {
+      for (Jour jour : epreuve.getJours()) {
+        NbrJury nbrJury = new NbrJury();
+        nbrJury.setNbrJuryId(new NbrJuryId(etab.getId(), jour.getId()));
+        nbrJury.setEtablissement(etab);
+        nbrJury.setJour(jour);
+        nbrJury.setNbr(0);
+        nbrJuryRepository.save(nbrJury);
+      }
+    }
   }
 
   public List<Date> createJourPassage(Epreuve epreuve) {

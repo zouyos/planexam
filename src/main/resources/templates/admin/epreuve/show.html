@@ -28,17 +28,10 @@
                     </thead>
                     <tbody>
                         <tr th:each="etab : ${etabs}">
-                            <td th:if="${etab.ponctuel}" th:text="${etab.nom}"></td>
-                            <td th:if="${etab.ponctuel}" th:text="${etab.rne}"></td>
-                            <td th:if="${etab.ponctuel}" th:each="jour : ${jours}">
-                                <select th:value="${etab.nbrJurys}" th:onchange="'javascript:changeNbrJurys(' + ${etab.id} + ', this.value );'">
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
+                            <td th:text="${etab.etablissement.nom}"></td>
+                            <td th:text="${etab.etablissement.rne}"></td>
+                            <td th:each="jour : ${etab.juries}">
+                                <input type="number" class="form-control-sm" th:value="${jour.nbr}" th:onchange=""/>
                             </td>
                         </tr>
                     </tbody>

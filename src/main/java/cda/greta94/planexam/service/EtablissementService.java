@@ -1,8 +1,10 @@
 package cda.greta94.planexam.service;
 
 import cda.greta94.planexam.dao.EtablissementRepository;
+import cda.greta94.planexam.dao.NbrJuryRepository;
 import cda.greta94.planexam.dao.VilleRepository;
 import cda.greta94.planexam.dto.EtablissementDto;
+import cda.greta94.planexam.dto.EtablissementNbrJurysDTO;
 import cda.greta94.planexam.exception.NotFoundEntityException;
 import cda.greta94.planexam.model.Etablissement;
 import cda.greta94.planexam.model.Ville;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +31,16 @@ public class EtablissementService {
   private EtablissementRepository etablissementRepository;
   private VilleService villeService;
   private VilleRepository villeRepository;
+  private NbrJuryRepository nbrJuryRepository;
 
-  public EtablissementService(EtablissementRepository etablissementRepository, VilleService villeService, VilleRepository villeRepository) {
+  public EtablissementService(EtablissementRepository etablissementRepository,
+                              VilleService villeService,
+                              VilleRepository villeRepository,
+                              NbrJuryRepository nbrJuryRepository) {
     this.etablissementRepository = etablissementRepository;
     this.villeService = villeService;
     this.villeRepository = villeRepository;
+    this.nbrJuryRepository = nbrJuryRepository;
   }
 
   public void saveEtablissementFromEtablissementDto(EtablissementDto etablissementDto) {
@@ -63,10 +71,9 @@ public class EtablissementService {
     return etablissementRepository.findAll(pageable);
   }
 
-  public Page<Etablissement> getPageEtrecherche(String nomRecherche, Pageable pageable) {
-    return etablissementRepository.findByNomContainsIgnoreCaseOrderByNomAsc(nomRecherche, pageable);
+  public Page<Etablissement> getPageEtrecherche(String nom, Pageable pageable) {
+    return etablissementRepository.findByNomContainsIgnoreCaseOrderByRneAsc(nom, pageable);
   }
-
 
   public EtablissementDto findEtablissementDtoById(long id) {
     Etablissement etab = etablissementRepository.findById(id).orElseThrow(NotFoundEntityException::new);
@@ -80,6 +87,11 @@ public class EtablissementService {
   public Optional<Etablissement> findByNom(String nomVille) {
     return etablissementRepository.findByNom(nomVille);
   }
+
+  public List<Etablissement> getByPonctuel(Boolean ponctuel) {
+    return etablissementRepository.findByPonctuel(ponctuel);
+  }
+
 
   public void importEtablissementFromCSVFile(MultipartFile file) throws IOException {
     Reader in = new InputStreamReader(file.getInputStream());
@@ -123,5 +135,16 @@ public class EtablissementService {
 
   public void delete(Long id) {
     etablissementRepository.deleteById(id);
+  }
+
+  public List<EtablissementNbrJurysDTO> getEtabWithNbrJuries(Long epreuveId){
+    List<Etablissement> etablissements = etablissementRepository.findByPonctuel(true);
+    List<EtablissementNbrJurysDTO> dtos = new ArrayList<>();
+    for(Etablissement etablissement : etablissements) {
+      EtablissementNbrJurysDTO dto = new EtablissementNbrJurysDTO();
+      dto.setEtablissement(etablissement);
+      dto.setJuries(nbrJuryRepository.findNbrJuriesByEpreuveAndEtablissement(epreuveId, etablissement.getId()));
+    }
+    return dtos;
   }
 }

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface EtablissementRepository extends JpaRepository<Etablissement, Long> {
@@ -15,9 +16,11 @@ public interface EtablissementRepository extends JpaRepository<Etablissement, Lo
   // DSL Domain Specific Language
   Optional<Etablissement> findByRne(String rne);
 
+  List<Etablissement> findByPonctuel(Boolean ponctuel);
+
   Optional<Etablissement> findByNom(String nomVille);
 
-  Page<Etablissement> findByNomContainsIgnoreCaseOrderByNomAsc(String nom, Pageable pageable);
+  Page<Etablissement> findByNomContainsIgnoreCaseOrderByRneAsc(String nom, Pageable pageable);
 
   @Transactional
   @Modifying

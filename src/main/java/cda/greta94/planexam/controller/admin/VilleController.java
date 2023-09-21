@@ -31,7 +31,6 @@ public class VilleController {
 
     @GetMapping("/ville/create")
     public String create(@ModelAttribute(name = "ville")VilleDto villeDto, Model model) {
-        model.addAttribute("villes", villeService.getAll());
         return "admin/ville/form";
     }
 
