@@ -51,7 +51,7 @@ public class EpreuveController {
   public String show(@PathVariable("id") Long id, Model model) {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
     model.addAttribute("epreuveDto", epreuveDto);
-    model.addAttribute("jours", jourService.getAll());
+    model.addAttribute("jours", jourService.findByEpreuve(id));
     model.addAttribute("sessionEtabList", sessionEtabService.getByPonctuel());
     return "admin/epreuve/show";
   }

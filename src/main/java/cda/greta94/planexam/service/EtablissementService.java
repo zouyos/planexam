@@ -95,7 +95,7 @@ public class EtablissementService {
   }
 
 
-  public void importEtablissementFromCSVFile(MultipartFile file,Long idSession) throws IOException {
+  public void importEtablissementFromCSVFile(MultipartFile file, Long idSession) throws IOException {
     Reader in = new InputStreamReader(file.getInputStream());
     Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Id", "Nom", "Ville", "RNE", "Code", "Ponctuel").withDelimiter(';').parse(in);
     // Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
@@ -112,13 +112,12 @@ public class EtablissementService {
 
       // TODO appliquer la validation par injection du Validator
 
-      Etablissement etab=this.saveEtablissementFromEtablissementDto(etabDto);
-      SessionEtab sessionEtab= new SessionEtab();
+      Etablissement etab = this.saveEtablissementFromEtablissementDto(etabDto);
+      SessionEtab sessionEtab = new SessionEtab();
       Epreuve epreuve = epreuveRepository.findById(idSession).orElseThrow();
       sessionEtab.setEpreuve(epreuve);
       sessionEtab.setEtablissement(etab);
       sessionEtabRepository.save(sessionEtab);
-
     }
   }
 

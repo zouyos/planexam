@@ -4,6 +4,7 @@ import cda.greta94.planexam.dao.JourRepository;
 import cda.greta94.planexam.dao.EpreuveRepository;
 import cda.greta94.planexam.dto.JourDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
+import cda.greta94.planexam.model.Epreuve;
 import cda.greta94.planexam.model.Jour;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,9 @@ public class JourService {
         return new JourDto(jour.getId(), jour.getDatePassage(), jour.getEpreuve().getId(), jour.getOuvre());
     }
 
+    public List<Jour> findByEpreuve(Long epreuveId){
+    return this.jourRepository.findByEpreuve_Id(epreuveId);
+    }
     public void saveJourFromDto(JourDto jourDto) {
         Jour jour = null;
         if (jourDto.getId() != null) {
