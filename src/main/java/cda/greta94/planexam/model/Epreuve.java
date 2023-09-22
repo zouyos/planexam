@@ -13,7 +13,6 @@ public class Epreuve {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private Long id;
-
   private String libelle;
   private Date dateDebut;
   private Date dateFin;

@@ -31,8 +31,6 @@ public class Etablissement {
   @OneToMany(mappedBy = "etablissement", cascade = CascadeType.REMOVE)
   private List<Professeur> professeurs = new ArrayList<>();
 
-
-
   @OneToMany(mappedBy = "etablissement", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
   private List<SessionEtab> sessionEtabs = new ArrayList<>();
 
