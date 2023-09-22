@@ -23,6 +23,10 @@ public class Jour {
   @OneToMany(mappedBy = "jour")
   private List<NbrJury> nbrJurys = new ArrayList<>();
 
+  @ManyToOne
+  @JoinColumn(name = "session_etab_id")
+  private SessionEtab sessionEtab;
+
   public Jour() {
   }
 
@@ -70,5 +74,13 @@ public class Jour {
 
   public void setNbrJurys(List<NbrJury> nbrJurys) {
     this.nbrJurys = nbrJurys;
+  }
+
+  public SessionEtab getSessionEtab() {
+    return sessionEtab;
+  }
+
+  public void setSessionEtab(SessionEtab sessionEtab) {
+    this.sessionEtab = sessionEtab;
   }
 }

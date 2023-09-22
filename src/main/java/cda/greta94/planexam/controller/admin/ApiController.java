@@ -6,7 +6,7 @@ import cda.greta94.planexam.service.NbrJuryService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "/**",methods = RequestMethod.GET)
+@CrossOrigin(origins = "/**", methods = {RequestMethod.GET, RequestMethod.POST})
 @RequestMapping("/api")
 public class ApiController {
 
@@ -32,7 +32,7 @@ public class ApiController {
         nbrJuryService.updateNbrJurysById(id, value);
     }
 
-    @PostMapping("/epreuve/jour/{id}/{value}")
+    @GetMapping("/epreuve/jour/{id}/{value}")
     public void changeDispoJour(@PathVariable (name = "id") Long id,@PathVariable(name = "value") Boolean value){
         jourService.updateJourById(id,value);
     }

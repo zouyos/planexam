@@ -65,30 +65,6 @@ public class EtablissementController {
     return "admin/etablissement/form";
   }
 
-  @GetMapping(value = "/etablissement/import")
-  public String formImportCSV() {
-    return "admin/etablissement/formImportCSV";
-  }
-
-  @PostMapping(value = "/etablissement/import")
-  public String importCSV(@RequestParam("file") MultipartFile file, RedirectAttributes redirAttrs) {
-
-    if (file.isEmpty()) {
-      // PATTERN PRG
-      redirAttrs.addFlashAttribute("errorMessage", "Please select a file to upload");
-      return "redirect:/admin/etablissement/import";
-    }
-    try {
-      etablissementService.importEtablissementFromCSVFile(file);
-    } catch (Exception e) {
-      redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
-      return "redirect:/admin/etablissement/import";
-    }
-    // ok
-    redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
-    return "redirect:/admin/etablissements";
-  }
-
   @PostMapping(value = "/etablissement/delete/{id}")
   public String delete(@PathVariable(name = "id") Long id) {
     etablissementService.delete(id);

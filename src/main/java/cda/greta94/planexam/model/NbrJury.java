@@ -14,10 +14,19 @@ public class NbrJury {
   @JoinColumn(name = "jour_id")
   private Jour jour;
 
-  @MapsId("etablissementId")
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "etablissement_id")
-  private Etablissement etablissement;
+
+  @MapsId("sessionEtabId")
+  @ManyToOne
+  @JoinColumn(name = "session_etab_id")
+  private SessionEtab sessionEtab;
+
+  public SessionEtab getSessionEtab() {
+    return sessionEtab;
+  }
+
+  public void setSessionEtab(SessionEtab sessionEtab) {
+    this.sessionEtab = sessionEtab;
+  }
 
   public NbrJuryId getNbrJuryId() {
     return nbrJuryId;
@@ -43,11 +52,4 @@ public class NbrJury {
     this.jour = jour;
   }
 
-  public Etablissement getEtablissement() {
-    return etablissement;
-  }
-
-  public void setEtablissement(Etablissement etablissement) {
-    this.etablissement = etablissement;
-  }
 }

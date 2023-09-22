@@ -67,17 +67,6 @@ public class EpreuveService {
     }
     epreuve.setJours(jours);
     epreuveRepository.save(epreuve);
-    List<Etablissement> etabs = etablissementRepository.findByPonctuel(true);
-    for (Etablissement etab : etabs) {
-      for (Jour jour : epreuve.getJours()) {
-        NbrJury nbrJury = new NbrJury();
-        nbrJury.setNbrJuryId(new NbrJuryId(etab.getId(), jour.getId()));
-        nbrJury.setEtablissement(etab);
-        nbrJury.setJour(jour);
-        nbrJury.setNbr(0);
-        nbrJuryRepository.save(nbrJury);
-      }
-    }
   }
 
   public List<Date> createJourPassage(Epreuve epreuve) {

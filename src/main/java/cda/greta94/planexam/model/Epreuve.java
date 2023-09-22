@@ -21,6 +21,17 @@ public class Epreuve {
   @OneToMany(mappedBy = "epreuve", cascade = CascadeType.ALL)
   private List<Jour> jours = new ArrayList<>();
 
+  @OneToMany(mappedBy = "epreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+  private List<SessionEtab> sessionEtabs = new ArrayList<>();
+
+  public List<SessionEtab> getSessionEtabs() {
+    return sessionEtabs;
+  }
+
+  public void setSessionEtabs(List<SessionEtab> sessionEtabs) {
+    this.sessionEtabs = sessionEtabs;
+  }
+
   public List<Jour> getJours() {
     return jours;
   }

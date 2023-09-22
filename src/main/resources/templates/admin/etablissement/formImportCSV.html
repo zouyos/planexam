@@ -17,7 +17,7 @@
       <p>Attention structure attendue : "Id";"Nom";"Ville";"RNE";"Code";"Ponctuel" <i>(Fichier encodé en UTF-8)</i></p>
       <p>NB: Si ponctuel (établissement accueillant des jurys) remplir avec une croix ("x")</p>
       <p></p>
-      <form th:action="@{/admin/etablissement/import}"
+      <form th:action="@{/admin/epreuve/import}"
             enctype="multipart/form-data"
             method="post">
         <input
@@ -25,6 +25,7 @@
                 th:name="${_csrf.parameterName}"
                 th:value="${_csrf.token}"
         />
+        <input type="hidden" name="idSession" th:value="${idSession}">
         <input type="file" name="file" class="my-2 form-control" />
         <button type="submit" class="btn btn-success">Importer</button>
       </form>

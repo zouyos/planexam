@@ -23,15 +23,20 @@
                         <tr>
                             <th>Etablissements</th>
                             <th>RNE</th>
-                            <th th:each="jour : ${jours}" th:text="${jour.datePassage}"></th>
+                            <th th:each="jour : ${jours}" th:text="${#dates.format(jour.datePassage, 'dd/MM')}"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="etab : ${etabs}">
-                            <td th:text="${etab.etablissement.nom}"></td>
-                            <td th:text="${etab.etablissement.rne}"></td>
-                            <td th:each="jour : ${etab.juries}">
-                                <input type="number" class="form-control-sm" th:value="${jour.nbr}" th:onchange=""/>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td th:each="jour : ${jours}"><input th:checked="${jour.ouvre}" th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked );'" type="checkbox" class="ms-3"></td>
+                        </tr>
+                        <tr th:each="uneSessionEtab : ${sessionEtabList}">
+                            <td th:text="${uneSessionEtab.etablissement.nom}"></td>
+                            <td th:text="${uneSessionEtab.etablissement.rne}"></td>
+                            <td th:each="jour : ${jours}">
+                                <input type="number" class="form-control input-sm" th:value="${uneSessionEtab.getNbrJury(jour) ==null ? 0 :uneSessionEtab.getNbrJury(jour).nbr }" th:onchange=""/>
                             </td>
                         </tr>
                     </tbody>

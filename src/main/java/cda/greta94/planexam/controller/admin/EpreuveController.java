@@ -1,14 +1,20 @@
 package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dao.NbrJuryRepository;
+import cda.greta94.planexam.dao.SessionEtabRepository;
 import cda.greta94.planexam.dto.EpreuveDto;
 import cda.greta94.planexam.model.NbrJury;
+import cda.greta94.planexam.model.SessionEtab;
 import cda.greta94.planexam.service.*;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,14 +28,14 @@ public class EpreuveController {
 
   private NbrJuryRepository nbrJuryRepository;
 
-  public EpreuveController(EpreuveService epreuveService,
-                           JourService jourService,
-                           EtablissementService etablissementService,
-                           NbrJuryRepository nbrJuryRepository) {
+  private SessionEtabService sessionEtabService;
+
+  public EpreuveController(EpreuveService epreuveService, JourService jourService, EtablissementService etablissementService, NbrJuryRepository nbrJuryRepository, SessionEtabService sessionEtabService) {
     this.epreuveService = epreuveService;
     this.jourService = jourService;
     this.etablissementService = etablissementService;
     this.nbrJuryRepository = nbrJuryRepository;
+    this.sessionEtabService = sessionEtabService;
   }
 
   @GetMapping("/epreuves")
@@ -46,7 +52,7 @@ public class EpreuveController {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
     model.addAttribute("epreuveDto", epreuveDto);
     model.addAttribute("jours", jourService.getAll());
-    model.addAttribute("etabs", etablissementService.getEtabWithNbrJuries(id));
+    model.addAttribute("sessionEtabList", sessionEtabService.getByPonctuel());
     return "admin/epreuve/show";
   }
 
@@ -63,6 +69,31 @@ public class EpreuveController {
       return "admin/epreuve/form";
     }
     epreuveService.saveEpreuveFromSessionDto(epreuveDto);
+    return "redirect:/admin/epreuves";
+  }
+
+  @GetMapping(value = "/epreuve/import/{idSession}")
+  public String formImportCSV(@PathVariable Long idSession, Model model) {
+    model.addAttribute("idSession",idSession);
+    return "admin/etablissement/formImportCSV";
+  }
+
+  @PostMapping(value = "/epreuve/import")
+  public String importCSV(@RequestParam("file") MultipartFile file, @RequestParam("idSession") Long idSesion, RedirectAttributes redirAttrs) {
+
+    if (file.isEmpty()) {
+      // PATTERN PRG
+      redirAttrs.addFlashAttribute("errorMessage", "Please select a file to upload");
+      return "redirect:/admin/epreuve/import";
+    }
+    try {
+      etablissementService.importEtablissementFromCSVFile(file,idSesion);
+    } catch (Exception e) {
+      redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
+      return "redirect:/admin/epreuve/import";
+    }
+    // ok
+    redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
     return "redirect:/admin/epreuves";
   }
 

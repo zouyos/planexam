@@ -22,7 +22,19 @@ public class Jury {
     @JoinColumn(name = "prof_2_id")
     private Professeur prof2;
 
-    public Long getId() {
+  @ManyToOne
+  @JoinColumn(name = "session_etab_id")
+  private SessionEtab sessionEtab;
+
+  public SessionEtab getSessionEtab() {
+    return sessionEtab;
+  }
+
+  public void setSessionEtab(SessionEtab sessionEtab) {
+    this.sessionEtab = sessionEtab;
+  }
+
+  public Long getId() {
         return id;
     }
 

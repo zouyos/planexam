@@ -12,14 +12,16 @@
   <h1 class="text-center">Etablissements</h1>
 
   <a class="btn btn-primary" th:href="@{/admin/etablissement}">Ajouter un établissement</a>
-  <a class="btn btn-primary" th:href="@{/admin/etablissement/import}">Importer une liste d'établissements</a>
 
   <div th:switch="${pageEtablissements}">
     <h2 th:case="null">Aucun établissement !</h2>
     <div th:case="*">
       <form th:action="${'/admin/etablissements'}" method="get" class="mt-4">
         <input type="search" name="nom" class="form-control" placeholder="Rechercher">
-        <button class="btn btn-outline-primary my-2">Recherche</button>
+        <div class="my-2">
+          <button class="btn btn-outline-primary" type="submit">Recherche</button>
+          <a class="btn btn-outline-secondary" th:href="@{/admin/etablissements}">Effacer</a>
+        </div>
       </form>
       <h3 th:text="'Page '+${pageNumber+1}" class="text-center mb-4"></h3>
       <table class="table table-striped">

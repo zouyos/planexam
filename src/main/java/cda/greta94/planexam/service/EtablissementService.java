@@ -1,13 +1,11 @@
 package cda.greta94.planexam.service;
 
-import cda.greta94.planexam.dao.EtablissementRepository;
-import cda.greta94.planexam.dao.NbrJuryRepository;
-import cda.greta94.planexam.dao.VilleRepository;
+import cda.greta94.planexam.dao.*;
 import cda.greta94.planexam.dto.EtablissementDto;
-import cda.greta94.planexam.dto.EtablissementNbrJurysDTO;
 import cda.greta94.planexam.exception.NotFoundEntityException;
+import cda.greta94.planexam.model.Epreuve;
 import cda.greta94.planexam.model.Etablissement;
-import cda.greta94.planexam.model.Ville;
+import cda.greta94.planexam.model.SessionEtab;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
@@ -20,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,17 +30,22 @@ public class EtablissementService {
   private VilleRepository villeRepository;
   private NbrJuryRepository nbrJuryRepository;
 
-  public EtablissementService(EtablissementRepository etablissementRepository,
-                              VilleService villeService,
-                              VilleRepository villeRepository,
-                              NbrJuryRepository nbrJuryRepository) {
+  private SessionEtabRepository sessionEtabRepository;
+  private final EpreuveRepository epreuveRepository;
+
+
+
+  public EtablissementService(EtablissementRepository etablissementRepository, VilleService villeService, VilleRepository villeRepository, NbrJuryRepository nbrJuryRepository, SessionEtabRepository sessionEtabRepository,
+                              EpreuveRepository epreuveRepository) {
     this.etablissementRepository = etablissementRepository;
     this.villeService = villeService;
     this.villeRepository = villeRepository;
     this.nbrJuryRepository = nbrJuryRepository;
+    this.sessionEtabRepository = sessionEtabRepository;
+    this.epreuveRepository = epreuveRepository;
   }
 
-  public void saveEtablissementFromEtablissementDto(EtablissementDto etablissementDto) {
+  public Etablissement saveEtablissementFromEtablissementDto(EtablissementDto etablissementDto) {
     Etablissement etablissement = null;
     if ((etablissementDto.getId() != null)) {
       etablissement = etablissementRepository.findById(etablissementDto.getId()).orElseThrow(NotFoundEntityException::new);
@@ -60,7 +62,7 @@ public class EtablissementService {
     etablissement.setVille(villeService.getById(etablissementDto.getIdVille()));
     etablissement.setProfesseurs(etablissementDto.getProfesseurs());
 
-    etablissementRepository.save(etablissement);
+    return etablissementRepository.save(etablissement);
   }
 
   public List<Etablissement> getAll() {
@@ -93,7 +95,7 @@ public class EtablissementService {
   }
 
 
-  public void importEtablissementFromCSVFile(MultipartFile file) throws IOException {
+  public void importEtablissementFromCSVFile(MultipartFile file,Long idSession) throws IOException {
     Reader in = new InputStreamReader(file.getInputStream());
     Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Id", "Nom", "Ville", "RNE", "Code", "Ponctuel").withDelimiter(';').parse(in);
     // Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
@@ -110,7 +112,13 @@ public class EtablissementService {
 
       // TODO appliquer la validation par injection du Validator
 
-      this.saveEtablissementFromEtablissementDto(etabDto);
+      Etablissement etab=this.saveEtablissementFromEtablissementDto(etabDto);
+      SessionEtab sessionEtab= new SessionEtab();
+      Epreuve epreuve = epreuveRepository.findById(idSession).orElseThrow();
+      sessionEtab.setEpreuve(epreuve);
+      sessionEtab.setEtablissement(etab);
+      sessionEtabRepository.save(sessionEtab);
+
     }
   }
 
@@ -135,16 +143,5 @@ public class EtablissementService {
 
   public void delete(Long id) {
     etablissementRepository.deleteById(id);
-  }
-
-  public List<EtablissementNbrJurysDTO> getEtabWithNbrJuries(Long epreuveId){
-    List<Etablissement> etablissements = etablissementRepository.findByPonctuel(true);
-    List<EtablissementNbrJurysDTO> dtos = new ArrayList<>();
-    for(Etablissement etablissement : etablissements) {
-      EtablissementNbrJurysDTO dto = new EtablissementNbrJurysDTO();
-      dto.setEtablissement(etablissement);
-      dto.setJuries(nbrJuryRepository.findNbrJuriesByEpreuveAndEtablissement(epreuveId, etablissement.getId()));
-    }
-    return dtos;
   }
 }
