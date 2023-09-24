@@ -12,7 +12,8 @@ public class NbrJuryService {
         this.nbrJuryRepository = nbrJuryRepository;
     }
 
-    public void updateNbrJurysById(Long id, int value) {
-        nbrJuryRepository.updateNbrJurysById(id, value);
+    public void updateNbrJuriesById(Long jourId, Long etabEpreuveId, int nbr) {
+        nbrJuryRepository.updateNbrJuryiesById(jourId, etabEpreuveId, nbr);
+
     }
 }

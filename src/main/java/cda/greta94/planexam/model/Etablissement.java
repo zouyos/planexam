@@ -32,14 +32,14 @@ public class Etablissement {
   private List<Professeur> professeurs = new ArrayList<>();
 
   @OneToMany(mappedBy = "etablissement", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-  private List<SessionEtab> sessionEtabs = new ArrayList<>();
+  private List<EtabEpreuve> etabsEpreuve = new ArrayList<>();
 
-  public List<SessionEtab> getSessionEtabs() {
-    return sessionEtabs;
+  public List<EtabEpreuve> getEtabsEpreuve() {
+    return etabsEpreuve;
   }
 
-  public void setSessionEtabs(List<SessionEtab> sessionEtabs) {
-    this.sessionEtabs = sessionEtabs;
+  public void setEtasbEpreuve(List<EtabEpreuve> etabsEpreuve) {
+    this.etabsEpreuve = etabsEpreuve;
   }
 
   public Long getId() {
@@ -92,8 +92,6 @@ public class Etablissement {
   public void setProfesseurs(List<Professeur> professeurs) {
     this.professeurs = professeurs;
   }
-
-
 
   // codes générés par JPA Utilities...
  // à voir, car la logique du equals n'est pas la même que celle du hash...

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class SessionEtab {
+public class EtabEpreuve {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
@@ -22,19 +22,18 @@ public class SessionEtab {
   @JoinColumn(name = "etablissement_id")
   private Etablissement etablissement;
 
-  @OneToMany(mappedBy = "sessionEtab", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+  @OneToMany(mappedBy = "etabEpreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
   private List<Jury> juryList = new ArrayList<>();
 
-  @OneToMany(mappedBy = "sessionEtab", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+  @OneToMany(mappedBy = "etabEpreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
   private List<NbrJury> nbrJuries = new ArrayList<>();
 
-  @OneToMany(mappedBy = "sessionEtab", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-  private List<Jour> jour = new ArrayList<>();
+  @OneToMany(mappedBy = "etabEpreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+  private List<Jour> jours = new ArrayList<>();
 
   public NbrJury getNbrJury(Jour jour){
-    for (NbrJury jury: this.nbrJuries
-         ) {
-      if(jury.getJour().getId()==jour.getId()){
+    for (NbrJury jury: this.nbrJuries) {
+      if(jury.getJour().getId() == jour.getId()){
         return  jury;
       }
     }
@@ -81,11 +80,11 @@ public class SessionEtab {
     this.id = id;
   }
 
-  public List<Jour> getJour() {
-    return jour;
+  public List<Jour> getJours() {
+    return jours;
   }
 
-  public void setJour(List<Jour> jour) {
-    this.jour = jour;
+  public void setJours(List<Jour> jours) {
+    this.jours = jours;
   }
 }

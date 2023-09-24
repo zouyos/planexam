@@ -33,11 +33,15 @@
                             <td></td>
                             <td th:each="jour : ${jours}"><input th:checked="${jour.ouvre}" th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked );'" type="checkbox" class="ms-3"></td>
                         </tr>
-                        <tr th:each="uneSessionEtab : ${sessionEtabList}">
-                            <td th:text="${uneSessionEtab.etablissement.nom}"></td>
-                            <td th:text="${uneSessionEtab.etablissement.rne}"></td>
+                        <tr th:each="unEtabEpreuve : ${etabEpreuveList}">
+                            <td th:text="${unEtabEpreuve.etablissement.nom}"></td>
+                            <td th:text="${unEtabEpreuve.etablissement.rne}"></td>
                             <td th:each="jour : ${jours}">
-                                <input type="number" class="form-control input-sm" th:value="${uneSessionEtab.getNbrJury(jour) == null ? 0 :uneSessionEtab.getNbrJury(jour).nbr }" th:onchange=""/>
+                                <input type="number"
+                                       class="form-control input-sm"
+                                       th:value="${unEtabEpreuve.getNbrJury(jour) == null ? 0 : unEtabEpreuve.getNbrJury(jour).nbr }"
+                                       th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
+                                />
                             </td>
                         </tr>
                     </tbody>

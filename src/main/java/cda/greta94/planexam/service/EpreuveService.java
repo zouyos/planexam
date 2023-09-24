@@ -1,15 +1,19 @@
 package cda.greta94.planexam.service;
 
-import cda.greta94.planexam.dao.EtablissementRepository;
-import cda.greta94.planexam.dao.JourRepository;
-import cda.greta94.planexam.dao.EpreuveRepository;
-import cda.greta94.planexam.dao.NbrJuryRepository;
+import cda.greta94.planexam.dao.*;
 import cda.greta94.planexam.dto.EpreuveDto;
+import cda.greta94.planexam.dto.EtablissementDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
 import cda.greta94.planexam.model.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -20,19 +24,22 @@ import java.util.List;
 public class EpreuveService {
   private EpreuveRepository epreuveRepository;
   private JourRepository jourRepository;
-  private EtablissementRepository etablissementRepository;
-  private NbrJuryRepository nbrJuryRepository;
+  private EtabEpreuveRepository etabEpreuveRepository;
+  private VilleService villeService;
+  private EtablissementService etablissementService;
 
   @Autowired
   public EpreuveService(EpreuveRepository epreuveRepository,
                         JourRepository jourRepository,
-                        EtablissementRepository etablissementRepository,
-                        NbrJuryRepository nbrJuryRepository)
+                        EtabEpreuveRepository etabEpreuveRepository,
+                        VilleService villeService,
+                        EtablissementService etablissementService)
   {
     this.epreuveRepository = epreuveRepository;
     this.jourRepository = jourRepository;
-    this.etablissementRepository = etablissementRepository;
-    this.nbrJuryRepository = nbrJuryRepository;
+    this.etabEpreuveRepository = etabEpreuveRepository;
+    this.villeService = villeService;
+    this.etablissementService = etablissementService;
   }
 
   public List<Epreuve> getAll() {
@@ -48,7 +55,35 @@ public class EpreuveService {
     return new EpreuveDto(epreuve.getId(), epreuve.getLibelle(), epreuve.getDateDebut(), epreuve.getDateFin(), (epreuve.getJours() != null) ? epreuve.getJours() : null);
   }
 
-  public void saveEpreuveFromSessionDto(EpreuveDto epreuveDto) {
+  public void importEtablissementFromCSVFile(MultipartFile file, Long idEpreuve) throws IOException {
+    Reader in = new InputStreamReader(file.getInputStream());
+    Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Id", "Nom", "Ville", "RNE", "Code", "Ponctuel").withDelimiter(';').parse(in);
+    // Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
+    // Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader().withSkipHeaderRecord().parse(in);
+    int nbLigne = 0;
+    for (CSVRecord record : records) {
+      nbLigne++;
+      // saute la première ligne d'entête si elle existe
+      if (nbLigne == 1 && record.get("Ville").equals("Ville") && record.get("Nom").equals("Nom")) continue;
+
+      Long idVille = villeService.getOrCreate(record.get("Ville"));
+
+      EtablissementDto etabDto = new EtablissementDto(null, record.get("Nom"), record.get("RNE"), record.get("Code"), record.get("Ponctuel").startsWith("x") ? true : false, idVille, null);
+
+      // TODO appliquer la validation par injection du Validator
+
+      Etablissement etab = etablissementService.saveEtablissementFromEtablissementDto(etabDto);
+      EtabEpreuve etabEpreuve = new EtabEpreuve();
+      Epreuve epreuve = epreuveRepository.findById(idEpreuve).orElseThrow();
+      etabEpreuve.setEpreuve(epreuve);
+      etabEpreuve.setEtablissement(etab);
+      //TODO
+      //etabEpreuve.setJours(epreuve.getJours());
+      etabEpreuveRepository.save(etabEpreuve);
+    }
+  }
+
+  public void saveEpreuveFromEpreuveDto(EpreuveDto epreuveDto) {
     Epreuve epreuve = null;
     if (epreuveDto.getId() != null) {
       epreuve = epreuveRepository.findById(epreuveDto.getId()).orElseThrow(NotFoundEntityException::new);
@@ -63,7 +98,6 @@ public class EpreuveService {
     for (Date uneDate: this.createJourPassage(epreuve)) {
       Jour jour = new Jour(uneDate, true, epreuve);
       jours.add(jour);
-      System.out.println(uneDate);
     }
     epreuve.setJours(jours);
     epreuveRepository.save(epreuve);

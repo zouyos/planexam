@@ -4,8 +4,8 @@ import cda.greta94.planexam.dao.*;
 import cda.greta94.planexam.dto.EtablissementDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
 import cda.greta94.planexam.model.Epreuve;
+import cda.greta94.planexam.model.EtabEpreuve;
 import cda.greta94.planexam.model.Etablissement;
-import cda.greta94.planexam.model.SessionEtab;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
@@ -30,18 +30,18 @@ public class EtablissementService {
   private VilleRepository villeRepository;
   private NbrJuryRepository nbrJuryRepository;
 
-  private SessionEtabRepository sessionEtabRepository;
+  private EtabEpreuveRepository etabEpreuveRepository;
   private final EpreuveRepository epreuveRepository;
 
 
 
-  public EtablissementService(EtablissementRepository etablissementRepository, VilleService villeService, VilleRepository villeRepository, NbrJuryRepository nbrJuryRepository, SessionEtabRepository sessionEtabRepository,
+  public EtablissementService(EtablissementRepository etablissementRepository, VilleService villeService, VilleRepository villeRepository, NbrJuryRepository nbrJuryRepository, EtabEpreuveRepository etabEpreuveRepository,
                               EpreuveRepository epreuveRepository) {
     this.etablissementRepository = etablissementRepository;
     this.villeService = villeService;
     this.villeRepository = villeRepository;
     this.nbrJuryRepository = nbrJuryRepository;
-    this.sessionEtabRepository = sessionEtabRepository;
+    this.etabEpreuveRepository = etabEpreuveRepository;
     this.epreuveRepository = epreuveRepository;
   }
 
@@ -92,33 +92,6 @@ public class EtablissementService {
 
   public List<Etablissement> getByPonctuel(Boolean ponctuel) {
     return etablissementRepository.findByPonctuel(ponctuel);
-  }
-
-
-  public void importEtablissementFromCSVFile(MultipartFile file, Long idSession) throws IOException {
-    Reader in = new InputStreamReader(file.getInputStream());
-    Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Id", "Nom", "Ville", "RNE", "Code", "Ponctuel").withDelimiter(';').parse(in);
-    // Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
-    // Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader().withSkipHeaderRecord().parse(in);
-    int nbLigne = 0;
-    for (CSVRecord record : records) {
-      nbLigne++;
-      // saute la première ligne d'entête si elle existe
-      if (nbLigne == 1 && record.get("Ville").equals("Ville") && record.get("Nom").equals("Nom")) continue;
-
-      Long idVille = villeService.getOrCreate(record.get("Ville"));
-
-      EtablissementDto etabDto = new EtablissementDto(null, record.get("Nom"), record.get("RNE"), record.get("Code"), record.get("Ponctuel").startsWith("x") ? true : false, idVille, null);
-
-      // TODO appliquer la validation par injection du Validator
-
-      Etablissement etab = this.saveEtablissementFromEtablissementDto(etabDto);
-      SessionEtab sessionEtab = new SessionEtab();
-      Epreuve epreuve = epreuveRepository.findById(idSession).orElseThrow();
-      sessionEtab.setEpreuve(epreuve);
-      sessionEtab.setEtablissement(etab);
-      sessionEtabRepository.save(sessionEtab);
-    }
   }
 
   public Long getOrCreate(String rne) {

@@ -24,8 +24,8 @@ public class Jour {
   private List<NbrJury> nbrJurys = new ArrayList<>();
 
   @ManyToOne
-  @JoinColumn(name = "session_etab_id")
-  private SessionEtab sessionEtab;
+  @JoinColumn(name = "etab_epreuve_id")
+  private EtabEpreuve etabEpreuve;
 
   public Jour() {
   }
@@ -76,11 +76,11 @@ public class Jour {
     this.nbrJurys = nbrJurys;
   }
 
-  public SessionEtab getSessionEtab() {
-    return sessionEtab;
+  public EtabEpreuve getEtabEpreuve() {
+    return etabEpreuve;
   }
 
-  public void setSessionEtab(SessionEtab sessionEtab) {
-    this.sessionEtab = sessionEtab;
+  public void setEtabEpreuve(EtabEpreuve etabEpreuve) {
+    this.etabEpreuve = etabEpreuve;
   }
 }

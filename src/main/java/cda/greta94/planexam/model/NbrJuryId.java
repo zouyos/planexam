@@ -9,24 +9,24 @@ import java.util.Objects;
 @Embeddable
 public class NbrJuryId implements Serializable {
 
-  private Long sessionEtabId;
+  private Long etabEpreuveId;
 
   private Long jourId;
 
-  public NbrJuryId(Long sessionEtabId, Long jourId) {
-    this.sessionEtabId = sessionEtabId;
+  public NbrJuryId(Long etabEpreuveId, Long jourId) {
+    this.etabEpreuveId = etabEpreuveId;
     this.jourId = jourId;
   }
 
   public NbrJuryId() {
   }
 
-  public Long getSessionEtabId() {
-    return sessionEtabId;
+  public Long getEtabEpreuveId() {
+    return etabEpreuveId;
   }
 
-  public void setSessionEtabId(Long sessionEtabId) {
-    this.sessionEtabId = sessionEtabId;
+  public void setEtabEpreuveId(Long sessionEtabId) {
+    this.etabEpreuveId = sessionEtabId;
   }
 
   public Long getJourId() {
@@ -41,11 +41,11 @@ public class NbrJuryId implements Serializable {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof NbrJuryId nbrJuryId)) return false;
-    return Objects.equals(sessionEtabId, nbrJuryId.sessionEtabId) && Objects.equals(jourId, nbrJuryId.jourId);
+    return Objects.equals(etabEpreuveId, nbrJuryId.etabEpreuveId) && Objects.equals(jourId, nbrJuryId.jourId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sessionEtabId, jourId);
+    return Objects.hash(etabEpreuveId, jourId);
   }
 }

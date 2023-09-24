@@ -2,9 +2,6 @@ package cda.greta94.planexam.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 public class Jury {
     @Id
@@ -23,15 +20,15 @@ public class Jury {
     private Professeur prof2;
 
   @ManyToOne
-  @JoinColumn(name = "session_etab_id")
-  private SessionEtab sessionEtab;
+  @JoinColumn(name = "etab_epreuve_id")
+  private EtabEpreuve etabEpreuve;
 
-  public SessionEtab getSessionEtab() {
-    return sessionEtab;
+  public EtabEpreuve getEtabEpreuve() {
+    return etabEpreuve;
   }
 
-  public void setSessionEtab(SessionEtab sessionEtab) {
-    this.sessionEtab = sessionEtab;
+  public void setEtabEpreuve(EtabEpreuve etabEpreuve) {
+    this.etabEpreuve = etabEpreuve;
   }
 
   public Long getId() {

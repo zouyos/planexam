@@ -21,14 +21,14 @@ public class Epreuve {
   private List<Jour> jours = new ArrayList<>();
 
   @OneToMany(mappedBy = "epreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-  private List<SessionEtab> sessionEtabs = new ArrayList<>();
+  private List<EtabEpreuve> etabsEpreuve = new ArrayList<>();
 
-  public List<SessionEtab> getSessionEtabs() {
-    return sessionEtabs;
+  public List<EtabEpreuve> getEtabsEpreuve() {
+    return etabsEpreuve;
   }
 
-  public void setSessionEtabs(List<SessionEtab> sessionEtabs) {
-    this.sessionEtabs = sessionEtabs;
+  public void setEtabsEpreuve(List<EtabEpreuve> etabsEpreuve) {
+    this.etabsEpreuve = etabsEpreuve;
   }
 
   public List<Jour> getJours() {

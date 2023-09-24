@@ -10,15 +10,15 @@ public class JourDto {
 
     private Boolean ouvre;
 
-    private Long sessionE5Id;
+    private Long epreuveId;
 
     public JourDto() {
     }
 
-    public JourDto(Long id, Date datePassage, Long sessionE5Id, Boolean ouvre) {
+    public JourDto(Long id, Date datePassage, Long epreuveId, Boolean ouvre) {
         this.id = id;
         this.datePassage = datePassage;
-        this.sessionE5Id = sessionE5Id;
+        this.epreuveId = epreuveId;
         this.ouvre = ouvre;
     }
 
@@ -46,11 +46,11 @@ public class JourDto {
         this.ouvre = ouvre;
     }
 
-    public Long getSessionE5Id() {
-        return sessionE5Id;
+    public Long getEpreuveId() {
+        return epreuveId;
     }
 
-    public void setSessionE5Id(Long sessionE5Id) {
-        this.sessionE5Id = sessionE5Id;
+    public void setEpreuveId(Long epreuveId) {
+        this.epreuveId = epreuveId;
     }
 }
