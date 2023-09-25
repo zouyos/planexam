@@ -82,13 +82,13 @@ public class EpreuveController {
     if (file.isEmpty()) {
       // PATTERN PRG
       redirAttrs.addFlashAttribute("errorMessage", "Please select a file to upload");
-      return "redirect:/admin/epreuve/import";
+      return "redirect:/admin/epreuve/import/"+idEpreuve;
     }
     try {
       epreuveService.importEtablissementFromCSVFile(file, idEpreuve);
     } catch (Exception e) {
       redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
-      return "redirect:/admin/epreuve/import";
+      return "redirect:/admin/epreuve/import/"+idEpreuve;
     }
     // ok
     redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");

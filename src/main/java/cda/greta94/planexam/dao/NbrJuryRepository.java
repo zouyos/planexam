@@ -13,4 +13,11 @@ public interface NbrJuryRepository extends JpaRepository<NbrJury, Long> {
     @Modifying
     @Query("update NbrJury n set n.nbr = :nbr where n.jour.id = :jourId and n.etabEpreuve.id = :etabEpreuveId")
     int updateNbrJuryiesById(@Param("jourId") Long jourId, @Param("etabEpreuveId") Long etabEpreuveId, @Param("nbr") int nbr);
+
+    @Transactional
+    @Modifying
+    @Query("update NbrJury n set n.nbr = ?1 where n.jour.id = ?2 and n.etabEpreuve.id = ?3")
+    int updateNbrByJourAndEtabEpreuve(int nbr, Long jourId, Long etabEpreuveId);
+
+
 }
