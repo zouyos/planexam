@@ -21,8 +21,8 @@ public class EtabEpreuveService {
 
   public EtabEpreuve getById(Long id) { return etabEpreuveRepository.findById(id).orElseThrow(NotFoundEntityException::new); }
 
-  public List<EtabEpreuve> getByPonctuel(){
-    return etabEpreuveRepository.findByEtablissement_PonctuelTrueOrderByEtablissement_RneAsc();
+  public List<EtabEpreuve> getByIdEpreuveAndPonctuel(Long idEpeuve){
+    return etabEpreuveRepository.findByEpreuve_IdAndEtablissement_PonctuelTrueOrderByEtablissement_RneAsc(idEpeuve);
   }
 
   private EtabEpreuve save(EtabEpreuve etabEpreuve){

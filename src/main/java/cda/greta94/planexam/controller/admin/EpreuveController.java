@@ -47,7 +47,7 @@ public class EpreuveController {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
     model.addAttribute("epreuveDto", epreuveDto);
     model.addAttribute("jours", jourService.findByEpreuve(id));
-    model.addAttribute("etabEpreuveList", etabEpreuveService.getByPonctuel());
+    model.addAttribute("etabEpreuveList", etabEpreuveService.getByIdEpreuveAndPonctuel(id));
     return "admin/epreuve/show";
   }
 
@@ -92,7 +92,7 @@ public class EpreuveController {
     }
     // ok
     redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
-    return "redirect:/admin/epreuves";
+    return "redirect:/admin/epreuve/show/"+idEpreuve;
   }
 
   @PostMapping("/epreuve/delete/{id}")

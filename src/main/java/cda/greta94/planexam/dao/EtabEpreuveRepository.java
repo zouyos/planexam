@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface EtabEpreuveRepository extends JpaRepository<EtabEpreuve, Long> {
   List<EtabEpreuve> findByEtablissement_PonctuelTrueOrderByEtablissement_RneAsc();
+
+  List<EtabEpreuve> findByEpreuve_IdAndEtablissement_PonctuelTrueOrderByEtablissement_RneAsc(Long id);
+
+
 }
