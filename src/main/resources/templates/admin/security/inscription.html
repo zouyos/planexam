@@ -15,13 +15,13 @@
                 th:name="${_csrf.parameterName}"
                 th:value="${_csrf.token}"
         />
-        <div><label for="email">Email</label><input id="email" name="email" th:field="*{email}" type="email" class="form-control my-2">
+        <div><label for="email"><i class="fa-solid fa-at me-2"></i>Email</label><input id="email" name="email" th:field="*{email}" type="email" class="form-control my-2">
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></p>
         </div>
-        <div><label for="mdp1">Mot de passe</label><input id="mdp1" name="mdp1NonEncoder" th:field="*{mdp1NonEncoder}" type="password" class="form-control my-2">
+        <div><label for="mdp1"><i class="fa-solid fa-key me-2"></i>Mot de passe</label><input id="mdp1" name="mdp1NonEncoder" th:field="*{mdp1NonEncoder}" type="password" class="form-control my-2">
             <p th:if="${#fields.hasErrors('mdp1NonEncoder')}" th:errors="*{mdp1NonEncoder}" class="validation-message"></p>
         </div>
-        <div><label for="mdp2">Confirmer mot de passe</label><input id="mdp2" name="mdp2NonEncoder" th:field="*{mdp2NonEncoder}" type="password" class="form-control my-2">
+        <div><label for="mdp2"><i class="fa-solid fa-key me-2"></i>Confirmer mot de passe</label><input id="mdp2" name="mdp2NonEncoder" th:field="*{mdp2NonEncoder}" type="password" class="form-control my-2">
             <p th:if="${#fields.hasErrors('mdp2NonEncoder')}" th:errors="*{mdp2NonEncoder}" class="validation-message"></p>
         </div>
         <button class="btn btn-primary my-2">Envoyer</button>
