@@ -33,43 +33,70 @@
 <div th:fragment="menu">
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" th:href="@{/}">PlanExam</a>
+    <a class="navbar-brand" th:href="@{/}"><i class="fa-solid fa-feather fa-xl me-2"></i>PlanExam</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto">
         <li class="nav-item" >
-          <a class="nav-link" th:href="@{/}" th:classappend="${activeTab == 'home' ? 'active' : null}" aria-current="page" >Accueil</a>
+          <a class="nav-link" th:href="@{/}" th:classappend="${activeTab == 'home' ? 'active' : null}" aria-current="page" ><i class="fa-solid fa-house"></i> Accueil</a>
         </li>
         <li class="nav-item" >
-          <a class="nav-link" th:href="@{/prof/dashboard}" th:classappend="${activeTab == 'dashboard' ? 'active' : null}" sec:authorize="hasAnyAuthority('prof', 'admin')">Dashboard</a>
+          <a class="nav-link" th:href="@{/prof/dashboard}" th:classappend="${activeTab == 'dashboard' ? 'active' : null}" sec:authorize="hasAnyAuthority('prof', 'admin')">
+            <i class="fa-solid fa-list"></i>
+            Dashboard
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/epreuves}" th:classappend="${activeTab == 'epreuves' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Epreuve</a>
+          <a class="nav-link" th:href="@{/admin/epreuves}" th:classappend="${activeTab == 'epreuves' ? 'active' : null}" sec:authorize="hasAuthority('admin')">
+            <i class="fa-solid fa-calendar-days"></i>
+            Epreuve
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/enseignants}" th:classappend="${activeTab == 'enseignants' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Enseignants</a>
+          <a class="nav-link" th:href="@{/admin/enseignants}" th:classappend="${activeTab == 'enseignants' ? 'active' : null}" sec:authorize="hasAuthority('admin')">
+            <i class="fa-solid fa-user-tie"></i>
+            Enseignants
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/jurys}" th:classappend="${activeTab == 'jurys' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Jurys</a>
+          <a class="nav-link" th:href="@{/admin/jurys}" th:classappend="${activeTab == 'jurys' ? 'active' : null}" sec:authorize="hasAuthority('admin')">
+            <i class="fa-solid fa-user-group"></i>
+            Jurys
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/etablissements}" th:classappend="${activeTab == 'etablissements' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Etablissements</a>
+          <a class="nav-link" th:href="@{/admin/etablissements}" th:classappend="${activeTab == 'etablissements' ? 'active' : null}" sec:authorize="hasAuthority('admin')">
+            <i class="fa-solid fa-school"></i>
+            Etablissements
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/villes}" th:classappend="${activeTab == 'villes' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Villes</a>
+          <a class="nav-link" th:href="@{/admin/villes}" th:classappend="${activeTab == 'villes' ? 'active' : null}" sec:authorize="hasAuthority('admin')">
+            <i class="fa-solid fa-city"></i>
+            Villes
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/admin/specialites}" th:classappend="${activeTab == 'specialites' ? 'active' : null}" sec:authorize="hasAuthority('admin')">Spécialités</a>
+          <a class="nav-link" th:href="@{/admin/specialites}" th:classappend="${activeTab == 'specialites' ? 'active' : null}" sec:authorize="hasAuthority('admin')">
+            <i class="fa-solid fa-graduation-cap"></i>
+            Spécialités
+          </a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto me-3">
         <li class="nav-item" >
-          <a class="nav-link" th:href="@{/inscription}" th:classappend="${activeTab == 'inscription' ? 'active' : null}" sec:authorize="!isAuthenticated()">Inscription</a>
+          <a class="nav-link" th:href="@{/inscription}" th:classappend="${activeTab == 'inscription' ? 'active' : null}" sec:authorize="!isAuthenticated()">
+            <i class="fa-solid fa-user-plus"></i>
+            Inscription
+          </a>
         </li>
         <li class="nav-item" >
-          <a class="nav-link" th:href="@{/login}" th:classappend="${activeTab == 'login' ? 'active' : null}" sec:authorize="!isAuthenticated()">Login</a>
+          <a class="nav-link" th:href="@{/login}" th:classappend="${activeTab == 'login' ? 'active' : null}" sec:authorize="!isAuthenticated()">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Login
+          </a>
         </li>
         <li class="nav-item mx-2 mt-0" sec:authorize="isAuthenticated()">
           <form action="/logout" method="post">
@@ -78,7 +105,7 @@
                     th:name="${_csrf.parameterName}"
                     th:value="${_csrf.token}"
             />
-            <button class="btn btn-danger">Logout</button>
+            <button class="btn btn-danger"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</button>
           </form>
         </li>
       </ul>

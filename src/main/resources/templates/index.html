@@ -9,14 +9,20 @@
 
 <main class="container">
   <h1 class="text-center">Accueil</h1>
-  <h2>Étapes à suivre :</h2>
-  <ul>
-    <li>Se connecter en tant qu'admin</li>
-    <li>Créer une épreuve</li>
-    <li>Importer une liste d'établissements</li>
-    <li>Importer une liste de professeurs</li>
-    <li>Créer des jurys</li>
-  </ul>
+  <div class="card my-5">
+    <div class="card-header">
+      <h2 class="text-danger">Étapes à suivre :</h2>
+    </div>
+    <div class="card-body fs-5">
+      <ol>
+        <li>Se connecter en tant qu'admin</li>
+        <li>Créer une épreuve</li>
+        <li>Importer une liste d'établissements pour cette épreuve</li>
+        <li>Importer une liste d'enseignants</li>
+        <li>Créer des jurys</li>
+      </ol>
+    </div>
+  </div>
 </main>
 
 <div th:replace="~{fragments/footer.html :: footer}"/>
