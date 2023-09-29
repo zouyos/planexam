@@ -3,25 +3,17 @@ package cda.greta94.planexam.service;
 import cda.greta94.planexam.dao.*;
 import cda.greta94.planexam.dto.EtablissementDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
-import cda.greta94.planexam.model.Epreuve;
-import cda.greta94.planexam.model.EtabEpreuve;
 import cda.greta94.planexam.model.Etablissement;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.List;
 import java.util.Optional;
 
-@Component()
+@Service
 public class EtablissementService {
   private Logger logger = LoggerFactory.getLogger(EtablissementService.class);
 
@@ -29,11 +21,8 @@ public class EtablissementService {
   private VilleService villeService;
   private VilleRepository villeRepository;
   private NbrJuryRepository nbrJuryRepository;
-
   private EtabEpreuveRepository etabEpreuveRepository;
   private final EpreuveRepository epreuveRepository;
-
-
 
   public EtablissementService(EtablissementRepository etablissementRepository, VilleService villeService, VilleRepository villeRepository, NbrJuryRepository nbrJuryRepository, EtabEpreuveRepository etabEpreuveRepository,
                               EpreuveRepository epreuveRepository) {
