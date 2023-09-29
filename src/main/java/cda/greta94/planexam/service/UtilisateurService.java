@@ -38,7 +38,8 @@ public class UtilisateurService {
     Utilisateur user = this.convertToEntity(dto);
     user.setRole(roleRepository.findById(2l).get());
     user.setMdp(encoder.encode(user.getMdp()));
-    System.out.println(user.getMdp());
+    //Pour récup un mdp hashé et créer un compte admin dans le data.sql (penser à changer l'id)
+    //System.out.println(user.getMdp());
     return utilisateurRepository.save(user);
   }
 }

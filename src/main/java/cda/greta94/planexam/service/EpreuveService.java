@@ -68,7 +68,7 @@ public class EpreuveService {
 
       Long idVille = villeService.getOrCreate(record.get("Ville"));
 
-      EtablissementDto etabDto = new EtablissementDto(null, record.get("Nom"), record.get("RNE"), record.get("Code"), record.get("Ponctuel").startsWith("x") ? true : false, idVille, null);
+      EtablissementDto etabDto = new EtablissementDto(Long.getLong(record.get("Id")), record.get("Nom"), record.get("RNE"), record.get("Code"), record.get("Ponctuel").startsWith("x") ? true : false, idVille, null);
 
       // TODO appliquer la validation par injection du Validator
 

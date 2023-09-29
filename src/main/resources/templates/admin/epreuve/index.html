@@ -26,8 +26,8 @@
       <td th:text="${epreuve.libelle}"></td>
       <td th:text="${epreuve.dateDebut}"></td>
       <td th:text="${epreuve.dateFin}"></td>
-      <td><a class="btn btn-primary" th:href="@{/admin/epreuve/import/{id} (id=${epreuve.id})}">Importer établissements</a></td>
-      <td th:if="${epreuve.etabsEpreuve != null}"><a th:href="@{/admin/epreuve/show/{id} (id=${epreuve.id})}" class="btn btn-success">Gérer les jurys/jours</a></td>
+      <td><a class="btn btn-primary" th:href="@{/admin/epreuve/import/{id} (id=${epreuve.id})}">Importer des établissements</a></td>
+      <td><a th:href="@{/admin/epreuve/show/{id} (id=${epreuve.id})}" class="btn btn-success" th:if="${epreuve.etabsEpreuve.size() != 0}">Gérer les jurys par jours</a></td>
       <td>
         <a th:href="@{/admin/epreuve/edit/{id} (id=${epreuve.id})}" class="btn btn-primary">Modifier les dates</a>
         <form th:action="@{/admin/epreuve/delete/{id} (id=${epreuve.id})}" method="post" style="display: inline">
