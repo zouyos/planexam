@@ -58,8 +58,6 @@ public class EpreuveService {
   public void importEtablissementFromCSVFile(MultipartFile file, Long idEpreuve) throws IOException {
     Reader in = new InputStreamReader(file.getInputStream());
     Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Id", "Nom", "Ville", "RNE", "Code", "Ponctuel").withDelimiter(';').parse(in);
-    // Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
-    // Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader().withSkipHeaderRecord().parse(in);
     int nbLigne = 0;
     for (CSVRecord record : records) {
       nbLigne++;
@@ -77,8 +75,6 @@ public class EpreuveService {
       Epreuve epreuve = epreuveRepository.findById(idEpreuve).orElseThrow();
       etabEpreuve.setEpreuve(epreuve);
       etabEpreuve.setEtablissement(etab);
-      //TODO
-      //etabEpreuve.setJours(epreuve.getJours());
       etabEpreuveRepository.save(etabEpreuve);
     }
   }

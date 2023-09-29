@@ -84,7 +84,7 @@ public class ProfesseurService {
             Long idEtab = etablissementService.getOrCreate(record.get("RNE"));
             Long idSpec = specialiteService.getOrCreate(record.get("Specialite"));
 
-            ProfesseurDto profDto = new ProfesseurDto(null, record.get("Prenom"), record.get("Nom"), record.get("Email"), idVille, idEtab, idSpec, null);
+            ProfesseurDto profDto = new ProfesseurDto(Long.getLong(record.get("Id")), record.get("Prenom"), record.get("Nom"), record.get("Email"), idVille, idEtab, idSpec, null);
 
             this.saveProfFromDto(profDto);
         }
