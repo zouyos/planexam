@@ -35,15 +35,7 @@ public class EtablissementService {
   }
 
   public Etablissement saveEtablissementFromEtablissementDto(EtablissementDto etablissementDto) {
-    Etablissement etablissement = null;
-    if ((etablissementDto.getId() != null)) {
-      etablissement = etablissementRepository.findById(etablissementDto.getId()).orElseThrow(NotFoundEntityException::new);
-    } else {
-      if ((etablissementDto.getRne() != null)) {
-        etablissement = etablissementRepository.findByRne(etablissementDto.getRne()).orElse(null);
-      }
-      if (etablissement == null) etablissement = new Etablissement();
-    }
+    Etablissement etablissement = etablissementRepository.findByRne(etablissementDto.getRne()).orElse(new Etablissement());
     etablissement.setNom(etablissementDto.getNom());
     etablissement.setPonctuel(etablissementDto.getPonctuel());
     etablissement.setRne(etablissementDto.getRne());
