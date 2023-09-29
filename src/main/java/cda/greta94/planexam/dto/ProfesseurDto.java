@@ -1,5 +1,6 @@
 package cda.greta94.planexam.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -26,6 +27,7 @@ public class ProfesseurDto {
     private String prenom;
     @NotBlank(message = "Email est requis")
     @Email(message = "Email n'est pas valide")
+    @Column(unique= true)
     private String email;
 
     private Long idSpecialite;

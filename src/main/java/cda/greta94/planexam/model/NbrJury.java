@@ -14,7 +14,6 @@ public class NbrJury {
   @JoinColumn(name = "jour_id")
   private Jour jour;
 
-
   @MapsId("etabEpreuveId")
   @ManyToOne
   @JoinColumn(name = "etab_epreuve_id")

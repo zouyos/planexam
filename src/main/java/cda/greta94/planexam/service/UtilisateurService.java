@@ -29,7 +29,7 @@ public class UtilisateurService {
       utilisateur = utilisateurRepository.findById(dto.getId()).orElse(new Utilisateur());
     }
     utilisateur.setEmail(dto.getEmail());
-    utilisateur.setMdp(dto.getMdp1NonEncoder());
+    utilisateur.setMdp(dto.getMdp1NonEncode());
     utilisateur.setRole(dto.getRole());
     return utilisateur;
   }

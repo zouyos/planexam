@@ -26,8 +26,6 @@ public class EtablissementDto {
 
   private List<Professeur> professeurs = new ArrayList<>();
 
-
-
   public EtablissementDto(Long id, String nom, String rne, String code, Boolean ponctuel, Long idVille, List<Professeur> professeurs) {
     this.id = id;
     this.nom = nom;

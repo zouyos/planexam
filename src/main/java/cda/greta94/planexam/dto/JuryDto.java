@@ -2,6 +2,7 @@ package cda.greta94.planexam.dto;
 
 import cda.greta94.planexam.model.Professeur;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +14,10 @@ public class JuryDto {
     @NotBlank(message = "Un numéro est requis")
     private String num;
 
+    @NotNull(message = "Deux enseignants sont requis")
     private Professeur prof1;
 
+    @NotNull(message = "Deux enseignants sont requis")
     private Professeur prof2;
 
     public JuryDto() {

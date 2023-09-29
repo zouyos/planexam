@@ -7,15 +7,18 @@ import jakarta.validation.constraints.Size;
 
 public class UtilisateurDto {
     private Long id;
-    @Email(message = "il faut un email valide")
+    @Email(message = "format d'email non valide")
     private String email;
+
     //TODO Ajouter une annotation perso pour vérifier la concordance entre le mdp1 et mdp2
-    @NotBlank(message = "il faut un mdp")
+    @NotBlank(message = "veuillez entrer un mot de passe")
     @Size(min = 8)
-    private String mdp1NonEncoder;
-    @NotBlank(message = "il faut comfirmer le mdp")
+    private String mdp1NonEncode;
+
+    @NotBlank(message = "veuillez confirmer le mot de passe")
     @Size(min = 8)
-    private String mdp2NonEncoder;
+    private String mdp2NonEncode;
+
     private Role role;
 
     public Long getId() {
@@ -34,20 +37,20 @@ public class UtilisateurDto {
         this.email = email;
     }
 
-    public String getMdp1NonEncoder() {
-        return mdp1NonEncoder;
+    public String getMdp1NonEncode() {
+        return mdp1NonEncode;
     }
 
-    public void setMdp1NonEncoder(String mdp1NonEncoder) {
-        this.mdp1NonEncoder = mdp1NonEncoder;
+    public void setMdp1NonEncode(String mdp1NonEncode) {
+        this.mdp1NonEncode = mdp1NonEncode;
     }
 
-    public String getMdp2NonEncoder() {
-        return mdp2NonEncoder;
+    public String getMdp2NonEncode() {
+        return mdp2NonEncode;
     }
 
-    public void setMdp2NonEncoder(String mdp2NonEncoder) {
-        this.mdp2NonEncoder = mdp2NonEncoder;
+    public void setMdp2NonEncode(String mdp2NonEncode) {
+        this.mdp2NonEncode = mdp2NonEncode;
     }
 
     public Role getRole() {
