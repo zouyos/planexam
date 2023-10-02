@@ -18,9 +18,7 @@ import java.util.List;
 @Service
 public class ProfesseurService {
     private ProfesseurRepository professeurRepository;
-
     private SpecialiteService specialiteService;
-
     private VilleService villeService;
     private EtablissementService etablissementService;
 

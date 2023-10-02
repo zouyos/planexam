@@ -24,7 +24,7 @@
                         <tr>
                             <th>Etablissements</th>
                             <th>RNE</th>
-                            <th th:each="jour : ${jours}" th:text="${#dates.format(jour.datePassage, 'dd/MM')}"></th>
+                            <th th:each="jour : ${jours}" th:text="${#dates.format(jour.dateJ, 'dd/MM')}"></th>
                         </tr>
                     </thead>
                     <tbody>

@@ -33,7 +33,7 @@ public class JourService {
 
     public JourDto findJourDtoById(Long id) {
         Jour jour = jourRepository.findById(id).orElseThrow(NotFoundEntityException::new);
-        return new JourDto(jour.getId(), jour.getDatePassage(), jour.getEpreuve().getId(), jour.getOuvre());
+        return new JourDto(jour.getId(), jour.getDateJ(), jour.getEpreuve().getId(), jour.getOuvre());
     }
 
     public List<Jour> findByEpreuve(Long epreuveId){
@@ -46,7 +46,7 @@ public class JourService {
         } else {
             if (jour == null) jour = new Jour();
         }
-        jour.setDatePassage(jourDto.getDatePassage());
+        jour.setDateJ(jourDto.getDatePassage());
         jour.setOuvre(jourDto.getOuvre());
         jour.setEpreuve(epreuveService.findById(jourDto.getEpreuveId()));
     }

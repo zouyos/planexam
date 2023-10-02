@@ -12,7 +12,7 @@ public class Jour {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private Long id;
-  private Date datePassage;
+  private Date dateJ;
 
   private Boolean ouvre = true;
 
@@ -30,8 +30,8 @@ public class Jour {
   public Jour() {
   }
 
-  public Jour(Date datePassage, Boolean ouvre, Epreuve epreuve) {
-    this.datePassage = datePassage;
+  public Jour(Date dateJ, Boolean ouvre, Epreuve epreuve) {
+    this.dateJ = dateJ;
     this.ouvre = ouvre;
     this.epreuve = epreuve;
   }
@@ -52,12 +52,12 @@ public class Jour {
     this.id = id;
   }
 
-  public Date getDatePassage() {
-    return datePassage;
+  public Date getDateJ() {
+    return dateJ;
   }
 
-  public void setDatePassage(Date datePassage) {
-    this.datePassage = datePassage;
+  public void setDateJ(Date datePassage) {
+    this.dateJ = datePassage;
   }
 
   public Boolean getOuvre() {

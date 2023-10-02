@@ -34,7 +34,6 @@ public class Professeur {
     @JoinColumn(name = "jury_id")
     private Jury jury;
 
-
     public Specialite getSpecialite() {
         return specialite;
     }
