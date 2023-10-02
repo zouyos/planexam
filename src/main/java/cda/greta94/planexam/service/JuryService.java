@@ -50,8 +50,8 @@ public class JuryService {
         Jury jury = juryRepository.findById(id).orElseThrow(NotFoundEntityException::new);
         Professeur prof1 = jury.getProf1();
         Professeur prof2 = jury.getProf2();
-        prof1.setJury(null);
-        prof2.setJury(null);
+        prof1.setJuryList(null);
+        prof2.setJuryList(null);
         professeurRepository.save(prof1);
         professeurRepository.save(prof2);
         juryRepository.deleteById(id);

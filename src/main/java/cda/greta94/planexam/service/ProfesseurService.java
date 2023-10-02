@@ -49,7 +49,7 @@ public class ProfesseurService {
           professeur.getSpecialite().getId(),
           (professeur.getVille() != null) ? professeur.getVille().getId() : null,
           (professeur.getEtablissement() != null) ? professeur.getEtablissement().getId() : null,
-          (professeur.getJury() != null) ? professeur.getJury().getId() : null
+          (professeur.getJuryList() != null) ? professeur.getJuryList() : null
         );
     }
 

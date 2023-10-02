@@ -1,15 +1,19 @@
 package cda.greta94.planexam.dto;
 
+import cda.greta94.planexam.model.Jury;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfesseurDto {
 
     public ProfesseurDto() {
     }
 
-    public ProfesseurDto(Long id, String nom, String prenom, String email, Long idVille, Long idEtablissement, Long idSpecialite, Long idJury) {
+    public ProfesseurDto(Long id, String nom, String prenom, String email, Long idVille, Long idEtablissement, Long idSpecialite, List<Jury> juryList) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -17,7 +21,7 @@ public class ProfesseurDto {
         this.idSpecialite = idSpecialite;
         this.idVille = idVille;
         this.idEtablissement = idEtablissement;
-        this.idJury = idJury;
+        this.juryList = juryList;
     }
 
     private Long id;
@@ -36,7 +40,7 @@ public class ProfesseurDto {
 
     private Long idEtablissement;
 
-    private Long idJury;
+    private List<Jury> juryList = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -92,5 +96,13 @@ public class ProfesseurDto {
 
     public void setIdEtablissement(Long idEtablissement) {
         this.idEtablissement = idEtablissement;
+    }
+
+    public List<Jury> getJuryList() {
+        return juryList;
+    }
+
+    public void setJuryList(List<Jury> juryList) {
+        this.juryList = juryList;
     }
 }

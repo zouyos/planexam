@@ -2,6 +2,8 @@ package cda.greta94.planexam.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Professeur {
     @Id
@@ -30,9 +32,9 @@ public class Professeur {
     @JoinColumn(name = "specialite_id")
     private Specialite specialite;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name = "jury_id")
-    private Jury jury;
+    private List<Jury> juryList;
 
     public Specialite getSpecialite() {
         return specialite;
@@ -90,12 +92,12 @@ public class Professeur {
         this.email = email;
     }
 
-    public Jury getJury() {
-        return jury;
+    public List<Jury> getJuryList() {
+        return juryList;
     }
 
-    public void setJury(Jury jury) {
-        this.jury = jury;
+    public void setJuryList(List<Jury> juryList) {
+        this.juryList = juryList;
     }
 
     @Override
