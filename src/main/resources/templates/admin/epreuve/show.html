@@ -24,7 +24,9 @@
                         <tr>
                             <th>Etablissements</th>
                             <th>RNE</th>
+                            <th>Code</th>
                             <th th:each="jour : ${jours}" th:text="${#dates.format(jour.dateJ, 'dd/MM')}"></th>
+<!--                            <th>Total</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +38,7 @@
                         <tr th:each="unEtabEpreuve : ${etabEpreuveList}">
                             <td th:text="${unEtabEpreuve.etablissement.nom}"></td>
                             <td th:text="${unEtabEpreuve.etablissement.rne}"></td>
+                            <td th:text="${unEtabEpreuve.etablissement.code}"></td>
                             <td th:each="jour : ${jours}">
                                 <input type="number"
                                        class="form-control input-sm"
@@ -43,6 +46,7 @@
                                        th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
                                 />
                             </td>
+<!--                            <td th:text="${unEtabEpreuve.}"></td>-->
                         </tr>
                     </tbody>
                 </table>

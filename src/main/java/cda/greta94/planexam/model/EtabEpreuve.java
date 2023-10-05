@@ -34,10 +34,10 @@ public class EtabEpreuve {
   public NbrJury getNbrJury(Jour jour){
     for (NbrJury jury: this.nbrJuries) {
       if(jury.getJour().getId() == jour.getId()){
-        return  jury;
+        return jury;
       }
     }
-    return  null;
+    return null;
   }
 
   public Etablissement getEtablissement() {
