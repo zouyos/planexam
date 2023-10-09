@@ -26,15 +26,17 @@
                             <th>RNE</th>
                             <th>Code</th>
                             <th th:each="jour : ${jours}" th:text="${#dates.format(jour.dateJ, 'dd/MM')}"></th>
-<!--                            <th>Total</th>-->
+                            <th>Total</th>
                         </tr>
-                    </thead>
-                    <tbody>
                         <tr>
                             <td></td>
                             <td></td>
+                            <td></td>
                             <td th:each="jour : ${jours}"><input th:checked="${jour.ouvre}" th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked );'" type="checkbox" class="ms-3"></td>
+                            <td></td>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr th:each="unEtabEpreuve : ${etabEpreuveList}">
                             <td th:text="${unEtabEpreuve.etablissement.nom}"></td>
                             <td th:text="${unEtabEpreuve.etablissement.rne}"></td>
@@ -42,11 +44,11 @@
                             <td th:each="jour : ${jours}">
                                 <input type="number"
                                        class="form-control input-sm"
-                                       th:value="${unEtabEpreuve.getNbrJury(jour) == null ? 0 : unEtabEpreuve.getNbrJury(jour).nbr }"
+                                       th:value="${unEtabEpreuve.getNbrJury(jour) == null ? 0 : unEtabEpreuve.getNbrJury(jour).nbr}"
                                        th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
                                 />
                             </td>
-<!--                            <td th:text="${unEtabEpreuve.}"></td>-->
+                            <td th:text="${unEtabEpreuve.calcTotalNbrJury()}"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -60,6 +62,6 @@
 </main>
 
 <div th:replace="~{fragments/footer.html :: footer}"/>
-<script src="/js/fetch.js"></script>
+<script src="/js/script.js"></script>
 </body>
 </html>

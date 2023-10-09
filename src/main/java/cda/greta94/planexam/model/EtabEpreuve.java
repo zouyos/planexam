@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 public class EtabEpreuve {
@@ -86,5 +87,16 @@ public class EtabEpreuve {
 
   public void setJours(List<Jour> jours) {
     this.jours = jours;
+  }
+
+  public int calcTotalNbrJury() {
+//    AtomicInteger resultat = new AtomicInteger();
+//    this.nbrJuries.forEach((unNbrJury) -> resultat.addAndGet(unNbrJury.getNbr()));
+//    return resultat.get();
+    int resultat = 0;
+    for (NbrJury unNbr: this.nbrJuries) {
+      resultat += unNbr.getNbr();
+    }
+    return resultat;
   }
 }
