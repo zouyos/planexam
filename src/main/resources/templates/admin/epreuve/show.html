@@ -50,6 +50,12 @@
                             </td>
                             <td th:text="${unEtabEpreuve.calcTotalNbrJury()}"></td>
                         </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td th:each="jour : ${jours}" th:text="${jour.calcTotalNbrJury()}" class="totauxNbr"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

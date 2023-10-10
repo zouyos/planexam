@@ -83,4 +83,12 @@ public class Jour {
   public void setEtabEpreuve(EtabEpreuve etabEpreuve) {
     this.etabEpreuve = etabEpreuve;
   }
+
+  public int calcTotalNbrJury() {
+    int resultat = 0;
+    for (NbrJury unNbr: this.nbrJurys) {
+      resultat += unNbr.getNbr();
+    }
+    return resultat;
+  }
 }
