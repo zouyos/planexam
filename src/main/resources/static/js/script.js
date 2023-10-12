@@ -21,8 +21,6 @@ for (const input of inputs) {
         tr.lastElementChild.textContent = resultat
 
         //récupérer le nom de la classe de l'input ciblé commençant par 'totalNbr'
-        let col = document.querySelectorAll(input.className.startsWith('totalNbr'))
-        console.log(col)
         //sommer la valeur des inputs ayant la même classe
         //cibler la cellule 'total' du jour en question (lui donner un id dynamique) et y afficher le résultat
     })
