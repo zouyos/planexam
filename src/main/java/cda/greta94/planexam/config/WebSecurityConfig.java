@@ -30,7 +30,7 @@ public class WebSecurityConfig {
                         .permitAll()
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/inscription","/login", "/css/**", "/js/**", "/img/**", "/favicon.ico", "/webjars/**", "/api/**").permitAll()
+                        .requestMatchers("/","/inscription", "/login", "/forgot-password", "/reset-password/**", "/css/**", "/js/**", "/img/**", "/favicon.ico", "/webjars/**", "/api/**").permitAll()
                         .requestMatchers(HttpMethod.POST,("/inscription")).permitAll()
                         //Interdit la page si l'utilisateur n'est pas admin
                         .requestMatchers("/admin/**").hasAuthority("admin")

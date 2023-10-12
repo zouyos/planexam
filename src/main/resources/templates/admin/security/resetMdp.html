@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:replace="~{fragments/header :: header-css}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: menu}"/>
+
+<main class="container">
+    <h1 class="text-center">Réinitialiser le mot de passe</h1>
+    <form th:action="@{'/reset-password'}" method="post" th:object="${passwordDto}" class="form-control my-5">
+        <input
+                type="hidden"
+                th:name="${_csrf.parameterName}"
+                th:value="${_csrf.token}"
+        />
+        <div>
+            <label for="mdp1Reset"><i class="fa-solid fa-key me-2"></i>Mot de passe</label>
+            <input id="mdp1Reset" name="mdp1Reset" th:field="*{mdp1}" type="password" class="form-control my-2">
+            <p th:if="${#fields.hasErrors('mdp1')}" th:errors="*{mdp1}" class="validation-message"></p>
+        </div>
+        <div>
+            <label for="mdp2Reset"><i class="fa-solid fa-key me-2"></i>Confirmer mot de passe</label>
+            <input id="mdp2Reset" name="mdp2Reset" th:field="*{mdp2}" type="password" class="form-control my-2">
+            <p th:if="${#fields.hasErrors('mdp2')}" th:errors="*{mdp2}" class="validation-message"></p>
+        </div>
+        <button class="btn btn-primary my-2">Envoyer</button>
+    </form>
+</main>
+
+<div th:replace="~{fragments/footer.html :: footer}"/>
+
+</body>
+</html>

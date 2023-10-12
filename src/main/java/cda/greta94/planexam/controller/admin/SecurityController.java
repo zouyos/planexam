@@ -37,7 +37,7 @@ public class SecurityController {
     if(bindingResult.hasErrors()){
       return "redirect:/inscription";
     }
-    utilisateurService.inscrireClient(utilisateur);
+    utilisateurService.inscrireUser(utilisateur);
     redirectAttributes.addFlashAttribute("successMessage", "Inscription réussie");
     return "redirect:/login";
   }

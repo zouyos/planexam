@@ -43,23 +43,22 @@
                             <td th:text="${unEtabEpreuve.etablissement.code}"></td>
                             <td th:each="jour : ${jours}">
                                 <input type="number"
-                                       class="form-control input-sm"
+                                       th:class="'totalNbr' + ${jour.id} + ' form-control input-sm'"
                                        th:value="${unEtabEpreuve.getNbrJury(jour) == null ? 0 : unEtabEpreuve.getNbrJury(jour).nbr}"
                                        th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
                                 />
                             </td>
-                            <td th:text="${unEtabEpreuve.calcTotalNbrJury()}"></td>
+                            <td th:text="${unEtabEpreuve.calcTotalNbrJury()}" th:id="'totalNbr' + ${jour.id}"></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td th:each="jour : ${jours}" th:text="${jour.calcTotalNbrJury()}" class="totauxNbr"></td>
+                            <td th:each="jour : ${jours}" th:text="${jour.calcTotalNbrJury()}"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <hr>
             <div class="my-2">
                 <a th:href="@{/admin/epreuves}" class="btn btn-secondary">Retour</a>
             </div>

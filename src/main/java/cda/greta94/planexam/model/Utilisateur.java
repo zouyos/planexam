@@ -2,6 +2,9 @@ package cda.greta94.planexam.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Utilisateur {
     @Id
@@ -19,6 +22,9 @@ public class Utilisateur {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JetonResetMdp> jetonResetMdps = new ArrayList<>();
 
     public Role getRole() {
         return role;
@@ -50,6 +56,14 @@ public class Utilisateur {
 
     public void setMdp(String mdp) {
         this.mdp = mdp;
+    }
+
+    public List<JetonResetMdp> getJetonResetMdps() {
+        return jetonResetMdps;
+    }
+
+    public void setJetonResetMdps(List<JetonResetMdp> jetonResetMdps) {
+        this.jetonResetMdps = jetonResetMdps;
     }
 
     @Override
