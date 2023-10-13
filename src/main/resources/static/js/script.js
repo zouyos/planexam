@@ -18,10 +18,25 @@ for (const input of inputs) {
         for (const element of tr.querySelectorAll("input")) {
             resultat += parseInt(element.value)
         }
-        tr.lastElementChild.textContent = resultat
+        tr.lastElementChild.innerText = resultat
 
         //récupérer le nom de la classe de l'input ciblé commençant par 'totalNbr'
+        let classes = e.target.classList
+        let classe = ""
+        for (const classeElement of classes) {
+            if(classeElement.startsWith('totalNbr')) {
+                classe = classeElement
+            }
+        }
+        console.log(classe)
+        //récupérer les inputs qui ont la même classe
+        let inputsCol = document.querySelectorAll('input.'+classe)
         //sommer la valeur des inputs ayant la même classe
+        let resultat2 = 0
+        for (const inputCol of inputsCol) {
+            resultat2 += parseInt(inputCol.value)
+        }
         //cibler la cellule 'total' du jour en question (lui donner un id dynamique) et y afficher le résultat
+        document.querySelector('#'+classe).innerText = resultat2
     })
 }

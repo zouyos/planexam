@@ -10,14 +10,14 @@
 <main class="container-fluid">
     <div class="card">
         <div class="card-header">
-            <h2 class="text-center">Gérer les jurys par jour et établissement</h2>
+            <h2 class="text-center">Assigner un nombre de jurys par jour et établissement</h2>
         </div>
         <div class="card-body">
             <input type="hidden" th:field="${epreuveDto.id}">
             <h2 th:text="${epreuveDto.libelle}"></h2>
             <p th:text="'Date de début : ' + ${#dates.format(epreuveDto.dateDebut, 'dd/MM/YYYY')}"></p>
             <p th:text="'Date de fin : ' + ${#dates.format(epreuveDto.dateFin, 'dd/MM/YYYY')}"></p>
-            <p>Le tableau ne comprend pas les weekends - <b>Décocher jour si férié</b></p>
+            <p>Le tableau ne comprend pas les weekends - <span class="text-decoration-underline">Décocher jour si férié</span></p>
             <div class="my-2">
                 <table class="table table-striped">
                     <thead>
@@ -49,13 +49,12 @@
                                 />
                             </td>
                             <td th:text="${unEtabEpreuve.calcTotalNbrJury()}"></td>
-                            <!--th:id="'totalNbr' + ${jour.id}"-->
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td th:each="jour : ${jours}" th:text="${jour.calcTotalNbrJury()}"></td>
+                            <td th:each="jour : ${jours}" th:text="${jour.calcTotalNbrJury()}" th:id="'totalNbr' + ${jour.id}"></td>
                         </tr>
                     </tbody>
                 </table>
