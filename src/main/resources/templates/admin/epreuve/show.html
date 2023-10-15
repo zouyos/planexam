@@ -51,7 +51,7 @@
                             <td th:text="${unEtabEpreuve.calcTotalNbrJury()}"></td>
                         </tr>
                         <tr>
-                            <td></td>
+                            <th>Total par jour</th>
                             <td></td>
                             <td></td>
                             <td th:each="jour : ${jours}" th:text="${jour.calcTotalNbrJury()}" th:id="'totalNbr' + ${jour.id}"></td>
