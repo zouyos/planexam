@@ -20,7 +20,7 @@ public class Jour {
   @JoinColumn(name = "epreuve_id")
   private Epreuve epreuve;
 
-  @OneToMany(mappedBy = "jour")
+  @OneToMany(mappedBy = "jour", cascade = CascadeType.ALL)
   private List<NbrJury> nbrJurys = new ArrayList<>();
 
   @ManyToOne
