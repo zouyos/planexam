@@ -23,6 +23,8 @@ public class Jury {
   @JoinColumn(name = "etab_epreuve_id")
   private EtabEpreuve etabEpreuve;
 
+
+
   public EtabEpreuve getEtabEpreuve() {
     return etabEpreuve;
   }

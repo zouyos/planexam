@@ -25,7 +25,13 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td th:each="jour : ${jours}"><input th:checked="${jour.ouvre}" th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked );'" type="checkbox" class="ms-3"></td>
+                            <td th:each="jour : ${jours}">
+                                <input type="checkbox"
+                                       class="ms-3"
+                                       th:checked="${jour.ouvre}"
+                                       th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked );'"
+                                >
+                            </td>
                             <td></td>
                         </tr>
                         <tr>

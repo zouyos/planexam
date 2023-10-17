@@ -31,7 +31,7 @@ public class ApiController {
     public void updateNbrJurys(@PathVariable(name = "jourId") Long jourId,
                                @PathVariable(name = "etabEpreuveId") Long etabEpreuveId,
                                @PathVariable(name = "nbr") int nbr) {
-        nbrJuryService.updateNbrJuriesById(jourId, etabEpreuveId, nbr);
+        nbrJuryService.createNbrJuriesById(jourId, etabEpreuveId, nbr);
     }
 
     @GetMapping("/epreuve/jour/{id}/{value}")
