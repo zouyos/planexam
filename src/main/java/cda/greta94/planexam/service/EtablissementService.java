@@ -75,19 +75,17 @@ public class EtablissementService {
     return etablissementRepository.findByPonctuel(ponctuel);
   }
 
-  public Long getOrCreate(String rne) {
+  public Etablissement getOrCreate(String rne) {
+    rne = rne.isEmpty() ? "N/A": rne;
     Etablissement etab = etablissementRepository.findByRne(rne).orElse(null);
     if (etab == null) {
       etab = new Etablissement();
       etab.setRne(rne);
-      //TODO
+      //TODO: Utiliser API qui retrouve le nom lycée par RNE
       etab.setNom("TODO");
-      etab.setCode("TODO");
-      etab.setPonctuel(false);
-      etab.setVille(villeRepository.findByNom("N/A").orElse(null));
       etablissementRepository.save(etab);
     }
-    return etab.getId();
+    return etab;
   }
 
   public void updatePonctuelById(Long id, Boolean value) {

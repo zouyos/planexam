@@ -35,7 +35,6 @@ public class SpecialiteService {
     }
 
     public Long getOrCreate(String libelle) {
-        //TODO virer spec autre
         libelle = libelle.isEmpty() ? "Autre": libelle;
         Specialite spec = specialiteRepository.findByLibelle(libelle).orElse(null);
         if (spec == null) {

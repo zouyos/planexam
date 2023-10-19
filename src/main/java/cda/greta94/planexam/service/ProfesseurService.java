@@ -79,18 +79,13 @@ public class ProfesseurService {
             if(nbLigne == 1 && record.get("Id").equals("Id") && record.get("RNE").equals("RNE")) continue;
 
             Long idVille = villeService.getOrCreate(record.get("Ville"));
-            Long idEtab = etablissementService.getOrCreate(record.get("RNE"));
+            Long idEtab = etablissementService.getOrCreate(record.get("RNE")).getId();
             Long idSpec = specialiteService.getOrCreate(record.get("Specialite"));
 
             ProfesseurDto profDto = new ProfesseurDto(Long.getLong(record.get("Id")), record.get("Prenom"), record.get("Nom"), record.get("Email"), idVille, idEtab, idSpec, null);
 
             this.saveProfFromDto(profDto);
         }
-    }
-
-    public ProfesseurDto toDto(Professeur professeur){
-        //TODO
-        return new ProfesseurDto();
     }
 
     public void delete(Long id) { professeurRepository.deleteById(id); }

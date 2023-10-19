@@ -15,7 +15,7 @@ public class EtablissementDto {
   private String nom;
 
   @NotBlank(message = "RNE établissement requis")
-  @Size(min = 8, max = 8, message = "Longueur incorrecte")
+  @Size(max = 8, message = "Longueur incorrecte")
   private String rne;
 
   private String code;

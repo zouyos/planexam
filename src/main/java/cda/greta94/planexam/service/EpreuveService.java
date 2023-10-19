@@ -68,7 +68,7 @@ public class EpreuveService {
 
       EtablissementDto etabDto = new EtablissementDto(Long.getLong(record.get("Id")), record.get("Nom"), record.get("RNE"), record.get("Code"), record.get("Ponctuel").startsWith("x") ? true : false, idVille, null);
 
-      // TODO appliquer la validation par injection du Validator
+      // TODO appliquer la validation par injection du Validator (+ vérifier en-tête)
 
       Etablissement etab = etablissementService.saveEtablissementFromEtablissementDto(etabDto);
       EtabEpreuve etabEpreuve = new EtabEpreuve();
@@ -117,11 +117,6 @@ public class EpreuveService {
       d = d.plusDays(1);
     }
     return resultat;
-  }
-
-  public EpreuveDto toDto(Epreuve epreuve){
-    //TODO
-    return new EpreuveDto();
   }
 
   public void delete(Long id) {
