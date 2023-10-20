@@ -2,7 +2,7 @@ package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.service.EtablissementService;
 import cda.greta94.planexam.service.JourService;
-import cda.greta94.planexam.service.NbrJuryService;
+import cda.greta94.planexam.service.JourEtabEpreuveService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,12 +14,12 @@ public class ApiController {
 
     private JourService jourService;
 
-    private NbrJuryService nbrJuryService;
+    private JourEtabEpreuveService jourEtabEpreuveService;
 
-    public ApiController(EtablissementService etablissementService, JourService jourService, NbrJuryService nbrJuryService) {
+    public ApiController(EtablissementService etablissementService, JourService jourService, JourEtabEpreuveService jourEtabEpreuveService) {
         this.etablissementService = etablissementService;
         this.jourService = jourService;
-        this.nbrJuryService = nbrJuryService;
+        this.jourEtabEpreuveService = jourEtabEpreuveService;
     }
 
     @GetMapping("/etablissement/ponctuel/{id}/{value}")
@@ -31,7 +31,7 @@ public class ApiController {
     public void updateNbrJurys(@PathVariable(name = "jourId") Long jourId,
                                @PathVariable(name = "etabEpreuveId") Long etabEpreuveId,
                                @PathVariable(name = "nbr") int nbr) {
-        nbrJuryService.createNbrJuriesById(jourId, etabEpreuveId, nbr);
+        jourEtabEpreuveService.createNbrJuriesById(jourId, etabEpreuveId, nbr);
     }
 
     @GetMapping("/epreuve/jour/{id}/{value}")

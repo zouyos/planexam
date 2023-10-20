@@ -19,23 +19,22 @@ public class Jury {
     @JoinColumn(name = "prof_2_id")
     private Professeur prof2;
 
-  @ManyToOne
-  @JoinColumn(name = "etab_epreuve_id")
-  private EtabEpreuve etabEpreuve;
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "JOUR_ETAB_EPREUVE_ETABEPREUVEID", referencedColumnName = "etab_epreuve_id"),
+            @JoinColumn(name = "JOUR_ETAB_EPREUVE_JOURID", referencedColumnName = "jour_id")
+    })
+    private JourEtabEpreuve jourEtabEpreuve;
 
-  @ManyToOne
-  @JoinColumn(name = "jour_id")
-  private Jour jour;
+    public JourEtabEpreuve getJourEtabEpreuve() {
+        return jourEtabEpreuve;
+    }
 
-  public EtabEpreuve getEtabEpreuve() {
-    return etabEpreuve;
-  }
+    public void setJourEtabEpreuve(JourEtabEpreuve jourEtabEpreuve) {
+        this.jourEtabEpreuve = jourEtabEpreuve;
+    }
 
-  public void setEtabEpreuve(EtabEpreuve etabEpreuve) {
-    this.etabEpreuve = etabEpreuve;
-  }
-
-  public Long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -65,14 +64,6 @@ public class Jury {
 
     public void setProf1(Professeur prof1) {
         this.prof1 = prof1;
-    }
-
-    public Jour getJour() {
-        return jour;
-    }
-
-    public void setJour(Jour jour) {
-        this.jour = jour;
     }
 
     @Override

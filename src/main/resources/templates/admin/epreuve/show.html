@@ -50,7 +50,7 @@
                             <td th:each="jour : ${jours}">
                                 <input type="number"
                                        th:class="'totalNbr' + ${jour.id} + ' form-control input-sm'"
-                                       th:value="${unEtabEpreuve.getNbrJury(jour) == null ? 0 : unEtabEpreuve.getNbrJury(jour).nbr}"
+                                       th:value="${unEtabEpreuve.getNbrJury(jour) == null ? 0 : unEtabEpreuve.getNbrJury(jour).nbrJury}"
                                        th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
                                 />
                             </td>

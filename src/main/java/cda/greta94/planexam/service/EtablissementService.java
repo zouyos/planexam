@@ -20,16 +20,16 @@ public class EtablissementService {
   private EtablissementRepository etablissementRepository;
   private VilleService villeService;
   private VilleRepository villeRepository;
-  private NbrJuryRepository nbrJuryRepository;
+  private JourEtabEpreuveRepository jourEtabEpreuveRepository;
   private EtabEpreuveRepository etabEpreuveRepository;
   private final EpreuveRepository epreuveRepository;
 
-  public EtablissementService(EtablissementRepository etablissementRepository, VilleService villeService, VilleRepository villeRepository, NbrJuryRepository nbrJuryRepository, EtabEpreuveRepository etabEpreuveRepository,
+  public EtablissementService(EtablissementRepository etablissementRepository, VilleService villeService, VilleRepository villeRepository, JourEtabEpreuveRepository jourEtabEpreuveRepository, EtabEpreuveRepository etabEpreuveRepository,
                               EpreuveRepository epreuveRepository) {
     this.etablissementRepository = etablissementRepository;
     this.villeService = villeService;
     this.villeRepository = villeRepository;
-    this.nbrJuryRepository = nbrJuryRepository;
+    this.jourEtabEpreuveRepository = jourEtabEpreuveRepository;
     this.etabEpreuveRepository = etabEpreuveRepository;
     this.epreuveRepository = epreuveRepository;
   }
@@ -75,7 +75,7 @@ public class EtablissementService {
     return etablissementRepository.findByPonctuel(ponctuel);
   }
 
-  public Etablissement getOrCreate(String rne) {
+  public Long getOrCreate(String rne) {
     rne = rne.isEmpty() ? "N/A": rne;
     Etablissement etab = etablissementRepository.findByRne(rne).orElse(null);
     if (etab == null) {
@@ -83,9 +83,11 @@ public class EtablissementService {
       etab.setRne(rne);
       //TODO: Utiliser API qui retrouve le nom lycée par RNE
       etab.setNom("TODO");
+      //TODO: Transformer etab.nom en codifié
+      etab.setCode("TODO");
       etablissementRepository.save(etab);
     }
-    return etab;
+    return etab.getId();
   }
 
   public void updatePonctuelById(Long id, Boolean value) {

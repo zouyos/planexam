@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 public class EtabEpreuve {
@@ -12,7 +11,7 @@ public class EtabEpreuve {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", nullable = false)
   private Long id;
-  private int  nbrJuryMax;
+
   private int nbrCandidats;
 
   @ManyToOne
@@ -24,18 +23,15 @@ public class EtabEpreuve {
   private Etablissement etablissement;
 
   @OneToMany(mappedBy = "etabEpreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-  private List<Jury> juryList = new ArrayList<>();
-
-  @OneToMany(mappedBy = "etabEpreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-  private List<NbrJury> nbrJuries = new ArrayList<>();
+  private List<JourEtabEpreuve> jourEtabEpreuveList = new ArrayList<>();
 
   @OneToMany(mappedBy = "etabEpreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
   private List<Jour> jours = new ArrayList<>();
 
-  public NbrJury getNbrJury(Jour jour){
-    for (NbrJury jury: this.nbrJuries) {
-      if(jury.getJour().getId() == jour.getId()){
-        return jury;
+  public JourEtabEpreuve getNbrJury(Jour jour){
+    for (JourEtabEpreuve jourEtabEpreuve: this.jourEtabEpreuveList) {
+      if(jourEtabEpreuve.getJour().getId() == jour.getId()){
+        return jourEtabEpreuve;
       }
     }
     return null;
@@ -49,20 +45,12 @@ public class EtabEpreuve {
     this.etablissement = etablissement;
   }
 
-  public List<NbrJury> getNbrJuries() {
-    return nbrJuries;
+  public List<JourEtabEpreuve> getJourEtabEpreuveList() {
+    return jourEtabEpreuveList;
   }
 
-  public void setNbrJuries(List<NbrJury> nbrJuries) {
-    this.nbrJuries = nbrJuries;
-  }
-
-  public List<Jury> getJuryList() {
-    return juryList;
-  }
-
-  public void setJuryList(List<Jury> juryList) {
-    this.juryList = juryList;
+  public void setJourEtabEpreuveList(List<JourEtabEpreuve> jourEtabEpreuveList) {
+    this.jourEtabEpreuveList = jourEtabEpreuveList;
   }
 
   public Epreuve getEpreuve() {
@@ -91,8 +79,8 @@ public class EtabEpreuve {
 
   public int calcTotalNbrJury() {
     int resultat = 0;
-    for (NbrJury unNbr: this.nbrJuries) {
-      resultat += unNbr.getNbr();
+    for (JourEtabEpreuve jourEtabEpreuve: this.jourEtabEpreuveList) {
+      resultat += jourEtabEpreuve.getNbrJury();
     }
     return resultat;
   }

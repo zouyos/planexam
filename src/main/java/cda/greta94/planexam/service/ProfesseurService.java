@@ -79,7 +79,7 @@ public class ProfesseurService {
             if(nbLigne == 1 && record.get("Id").equals("Id") && record.get("RNE").equals("RNE")) continue;
 
             Long idVille = villeService.getOrCreate(record.get("Ville"));
-            Long idEtab = etablissementService.getOrCreate(record.get("RNE")).getId();
+            Long idEtab = etablissementService.getOrCreate(record.get("RNE"));
             Long idSpec = specialiteService.getOrCreate(record.get("Specialite"));
 
             ProfesseurDto profDto = new ProfesseurDto(Long.getLong(record.get("Id")), record.get("Prenom"), record.get("Nom"), record.get("Email"), idVille, idEtab, idSpec, null);

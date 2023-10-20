@@ -1,6 +1,6 @@
 package cda.greta94.planexam.controller.admin;
 
-import cda.greta94.planexam.dao.NbrJuryRepository;
+import cda.greta94.planexam.dao.JourEtabEpreuveRepository;
 import cda.greta94.planexam.dto.EpreuveDto;
 import cda.greta94.planexam.service.*;
 import jakarta.validation.Valid;
@@ -21,15 +21,15 @@ public class EpreuveController {
 
   private EtablissementService etablissementService;
 
-  private NbrJuryRepository nbrJuryRepository;
+  private JourEtabEpreuveRepository jourEtabEpreuveRepository;
 
   private EtabEpreuveService etabEpreuveService;
 
-  public EpreuveController(EpreuveService epreuveService, JourService jourService, EtablissementService etablissementService, NbrJuryRepository nbrJuryRepository, EtabEpreuveService etabEpreuveService) {
+  public EpreuveController(EpreuveService epreuveService, JourService jourService, EtablissementService etablissementService, JourEtabEpreuveRepository jourEtabEpreuveRepository, EtabEpreuveService etabEpreuveService) {
     this.epreuveService = epreuveService;
     this.jourService = jourService;
     this.etablissementService = etablissementService;
-    this.nbrJuryRepository = nbrJuryRepository;
+    this.jourEtabEpreuveRepository = jourEtabEpreuveRepository;
     this.etabEpreuveService = etabEpreuveService;
   }
 
