@@ -1,5 +1,6 @@
 package cda.greta94.planexam.dto;
 
+import cda.greta94.planexam.model.EtabEpreuve;
 import cda.greta94.planexam.model.Jour;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,15 +23,18 @@ public class EpreuveDto {
 
   private List<Jour> jours = new ArrayList<>();
 
+  private List<EtabEpreuve> etabsEpreuve = new ArrayList<>();
+
   public EpreuveDto() {
   }
 
-  public EpreuveDto(Long id, String libelle, @NotNull Date dateDebut, @NotNull Date dateFin, List<Jour> jours) {
+  public EpreuveDto(Long id, String libelle, @NotNull Date dateDebut, @NotNull Date dateFin, List<Jour> jours, List<EtabEpreuve> etabsEpreuve) {
     this.id = id;
     this.libelle = libelle;
     this.dateDebut = dateDebut;
     this.dateFin = dateFin;
     this.jours = jours;
+    this.etabsEpreuve = etabsEpreuve;
   }
 
   public Long getId() {
@@ -63,5 +67,32 @@ public class EpreuveDto {
 
   public void setDateFin(Date dateFin) {
     this.dateFin = dateFin;
+  }
+
+  public List<Jour> getJours() {
+    return jours;
+  }
+
+  public void setJours(List<Jour> jours) {
+    this.jours = jours;
+  }
+
+  public List<EtabEpreuve> getEtabsEpreuve() {
+    return etabsEpreuve;
+  }
+
+  public void setEtabsEpreuve(List<EtabEpreuve> etabsEpreuve) {
+    this.etabsEpreuve = etabsEpreuve;
+  }
+
+  public int calcTotalNbrJury() {
+    int resultat = 0;
+    for (Jour jour: this.jours) {
+      resultat += jour.calcTotalNbrJury();
+    }
+    for (EtabEpreuve etabEpreuve: this.etabsEpreuve) {
+      resultat += etabEpreuve.calcTotalNbrJury();
+    }
+    return resultat;
   }
 }

@@ -52,7 +52,7 @@ public class EpreuveService {
 
   public EpreuveDto findEpreuveDtoById(Long id) {
     Epreuve epreuve = epreuveRepository.findById(id).orElseThrow(NotFoundEntityException::new);
-    return new EpreuveDto(epreuve.getId(), epreuve.getLibelle(), epreuve.getDateDebut(), epreuve.getDateFin(), (epreuve.getJours() != null) ? epreuve.getJours() : null);
+    return new EpreuveDto(epreuve.getId(), epreuve.getLibelle(), epreuve.getDateDebut(), epreuve.getDateFin(), (epreuve.getJours() != null) ? epreuve.getJours() : null, (epreuve.getEtabsEpreuve() != null) ? epreuve.getEtabsEpreuve() : null);
   }
 
   public void importEtablissementFromCSVFile(MultipartFile file, Long idEpreuve) throws IOException {

@@ -64,5 +64,4 @@ public class JourEtabEpreuve {
   public void setJour(Jour jour) {
     this.jour = jour;
   }
-
 }

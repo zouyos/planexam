@@ -20,6 +20,8 @@ for (const input of inputs) {
         }
         tr.lastElementChild.innerText = resultat
 
+        //pour les colonnes :
+
         //récupérer le nom de la classe de l'input ciblé commençant par 'totalNbr'
         let classe = ""
         let classes = e.target.classList
@@ -37,5 +39,7 @@ for (const input of inputs) {
         }
         //cibler la cellule 'total' du jour en question (lui donner un id dynamique) et y afficher le résultat
         document.querySelector('#'+classe).innerText = resultat2
+
+        document.querySelector("#totalJury").innerText = resultat + resultat2
     })
 }

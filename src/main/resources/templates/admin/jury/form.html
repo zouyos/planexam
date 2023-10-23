@@ -25,11 +25,6 @@
         <div class="card-body">
             <form th:object="${jury}" th:action="@{/admin/jury}" method="post">
                 <input type="hidden" th:field="${jury.id}">
-                <input
-                        type="hidden"
-                        th:name="${_csrf.parameterName}"
-                        th:value="${_csrf.token}"
-                />
                 <div class="my-2">
                     <label for="num">Numéro</label>
                     <input type="text" id="num" th:field="*{num}" class="form-control">
