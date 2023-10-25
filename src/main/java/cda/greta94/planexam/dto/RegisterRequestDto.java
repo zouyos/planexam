@@ -1,10 +1,9 @@
 package cda.greta94.planexam.dto;
 
 public class RegisterRequestDto {
+
   private String name;
-
   private String email;
-
   private String password;
 
   public String getName() {

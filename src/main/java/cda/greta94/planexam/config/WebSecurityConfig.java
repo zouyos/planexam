@@ -11,10 +11,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -23,6 +25,9 @@ public class WebSecurityConfig {
 
   @Autowired
   private UserDetailsService userDetailsService; // Service pour gérer les détails des utilisateurs
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   @Autowired
   private JwtAuthFilter jwtAuthFilter; // Filtre d'authentification basé sur JWT
@@ -40,36 +45,34 @@ public class WebSecurityConfig {
                       .permitAll()
               )
               .authorizeHttpRequests(auth -> auth
-                      .requestMatchers("/","/inscription", "/login", "/forgot-password", "/reset-password/**", "/css/**", "/js/**", "/img/**", "/favicon.ico", "/webjars/**", "/api/**").permitAll()
+
+                      .requestMatchers("/","/inscription", "/login", "/forgot-password", "/reset-password/**", "/css/**", "/js/**", "/img/**", "/favicon.ico", "/webjars/**", "/authenticate").permitAll()
                       .requestMatchers(HttpMethod.POST,("/inscription")).permitAll()
                       //Interdit la page si l'utilisateur n'est pas admin
-                      .requestMatchers("/admin/**").hasAuthority("admin")
+                      .requestMatchers("/admin/**", "/api/**").hasAuthority("admin")
                       .requestMatchers("/prof/**").hasAnyAuthority("prof","admin")
                       .anyRequest().authenticated()
+
               )
+          .sessionManagement((session) -> session
+              .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+          )
+          .authenticationProvider(authenticationProvider())
+          .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
               .build();
   }
 
-  @Bean
-  public PasswordEncoder getEncoder(){
-    return new BCryptPasswordEncoder();
-  }
+
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
     return config.getAuthenticationManager(); // Configure le gestionnaire d'authentification
   }
 
-  @Bean
-  public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/h2-console/**"));
-    // Permet d'accéder à la console H2 sans authentification (utile pour le développement)
-  }
-
   private AuthenticationProvider authenticationProvider() {
     final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
     authenticationProvider.setUserDetailsService(userDetailsService);
-    authenticationProvider.setPasswordEncoder(getEncoder());
+    authenticationProvider.setPasswordEncoder(this.passwordEncoder);
     return authenticationProvider; // Configure le fournisseur d'authentification pour l'application
   }
 }

@@ -4,7 +4,6 @@ public class AuthResponseDto {
   private String token;
 
   public AuthResponseDto(String token) {
-    super();
     this.token = token;
   }
 

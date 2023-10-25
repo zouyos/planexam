@@ -12,7 +12,7 @@ document.querySelector('#login-form').addEventListener('submit', function (event
   };
 
   // Envoyer la requête Fetch
-  fetch('/auth/authenticate', {
+  fetch('/authenticate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
