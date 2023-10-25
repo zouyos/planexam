@@ -40,6 +40,6 @@ for (const input of inputs) {
         //cibler la cellule 'total' du jour en question (lui donner un id dynamique) et y afficher le résultat
         document.querySelector('#'+classe).innerText = resultat2
 
-        document.querySelector("#totalJury").innerText = resultat + resultat2
+        // document.querySelector("#totalJury").innerText = resultat + resultat2
     })
 }

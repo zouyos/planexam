@@ -93,6 +93,6 @@ public class EpreuveDto {
     for (EtabEpreuve etabEpreuve: this.etabsEpreuve) {
       resultat += etabEpreuve.calcTotalNbrJury();
     }
-    return resultat;
+    return resultat/2;
   }
 }
