@@ -6,10 +6,12 @@ async function changeDispo(id, value){
     if (jwtToken) {
         // Si un JWT est trouvé, configure les options de la requête
         const requestOptions = {
-            method: 'GET', // Méthode HTTP GET
+            method: 'POST', // Méthode HTTP
             headers: {
-                'Authorization': `Bearer ${jwtToken}` // Ajoute le JWT dans l'en-tête d'autorisation
-            }
+                'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
+                'Set-Cookie': ''
+            },
+            credentials: 'omit'
         }
         await fetch("/api/epreuve/jour/" + id + "/" + value, requestOptions);
     } else {
@@ -18,12 +20,48 @@ async function changeDispo(id, value){
     }
 }
 
-async function changePonctuel(id, value){
-    await fetch("/api/etablissement/ponctuel/"+id+"/"+value);
+async function changeNbrJuries(jourId, etabEpreuveId, nbrJury){
+    // Récupère le JWT depuis la session de stockage du navigateur
+    const jwtToken = sessionStorage.getItem("jwt");
+
+    // Vérifie si un JWT existe dans la session de stockage
+    if (jwtToken) {
+        // Si un JWT est trouvé, configure les options de la requête
+        const requestOptions = {
+            method: 'POST', // Méthode HTTP
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
+                'Set-Cookie': ''
+            },
+            credentials: 'omit'
+        }
+        await fetch("/api/epreuve/nbr-juries/"+jourId+"/"+etabEpreuveId+"/"+nbrJury, requestOptions);
+    } else {
+        // Si aucun JWT n'est trouvé, affiche un message d'erreur dans la console
+        console.error("Pas de jwt");
+    }
 }
 
-async function changeNbrJuries(jourId, etabEpreuveId, nbrJury){
-    await fetch("/api/epreuve/nbr-juries/"+jourId+"/"+etabEpreuveId+"/"+nbrJury);
+async function changePonctuel(id, value){
+    // Récupère le JWT depuis la session de stockage du navigateur
+    const jwtToken = sessionStorage.getItem("jwt");
+
+    // Vérifie si un JWT existe dans la session de stockage
+    if (jwtToken) {
+        // Si un JWT est trouvé, configure les options de la requête
+        const requestOptions = {
+            method: 'POST', // Méthode HTTP
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
+                'Set-Cookie': ''
+            },
+            credentials: 'omit'
+        }
+        await fetch("/api/etablissement/ponctuel/"+id+"/"+value, requestOptions);
+    } else {
+        // Si aucun JWT n'est trouvé, affiche un message d'erreur dans la console
+        console.error("Pas de jwt");
+    }
 }
 
 let inputs = document.querySelectorAll("tbody tr input")

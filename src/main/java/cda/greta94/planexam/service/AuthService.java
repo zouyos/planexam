@@ -2,7 +2,6 @@ package cda.greta94.planexam.service;
 
 import cda.greta94.planexam.dto.AuthRequestDto;
 import cda.greta94.planexam.dto.AuthResponseDto;
-import cda.greta94.planexam.dto.RegisterRequestDto;
 import cda.greta94.planexam.model.Utilisateur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,21 +23,6 @@ public class AuthService {
 
   @Autowired
   private AuthenticationManager authenticationManager; // Gestionnaire d'authentification
-
-  public AuthResponseDto register(RegisterRequestDto dto) {
-    // Méthode d'inscription d'un nouvel utilisateur
-
-    Utilisateur utilisateur = new Utilisateur();
-    utilisateur.setEmail(dto.getEmail());
-    utilisateur.setMdp(passwordEncoder.encode(dto.getPassword()));
-    // Crée un nouvel utilisateur en utilisant les informations fournies
-
-    utilisateur = utilisateurService.create(utilisateur);
-    // Appelle le service utilisateur pour enregistrer l'utilisateur dans la base de données
-
-    return new AuthResponseDto(jwtService.generateToken(utilisateur.getEmail()));
-    // Génère un JWT pour l'utilisateur nouvellement inscrit et le renvoie dans une réponse
-  }
 
   public AuthResponseDto authenticate(AuthRequestDto dto) {
     // Méthode d'authentification d'un utilisateur existant

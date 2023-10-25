@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "/**", methods = {RequestMethod.GET, RequestMethod.POST})
 public class ApiController {
 
-
     private AuthService authService;
 
     private EtablissementService etablissementService;
@@ -40,19 +39,19 @@ public class ApiController {
         return ResponseEntity.ok(authService.authenticate(dto));
     }
 
-    @GetMapping("/api/etablissement/ponctuel/{id}/{value}")
+    @PostMapping("/api/etablissement/ponctuel/{id}/{value}")
     public void updatePonctuel(@PathVariable(name = "id") Long id, @PathVariable(name = "value") Boolean value) {
         etablissementService.updatePonctuelById(id, value);
     }
 
-    @GetMapping("/api/epreuve/nbr-juries/{jourId}/{etabEpreuveId}/{nbr}")
+    @PostMapping("/api/epreuve/nbr-juries/{jourId}/{etabEpreuveId}/{nbr}")
     public void updateNbrJurys(@PathVariable(name = "jourId") Long jourId,
                                @PathVariable(name = "etabEpreuveId") Long etabEpreuveId,
                                @PathVariable(name = "nbr") int nbr) {
         jourEtabEpreuveService.createNbrJuriesById(jourId, etabEpreuveId, nbr);
     }
 
-    @GetMapping("/api/epreuve/jour/{id}/{value}")
+    @PostMapping("/api/epreuve/jour/{id}/{value}")
     public void changeDispoJour(@PathVariable (name = "id") Long id,@PathVariable(name = "value") Boolean value){
         jourService.updateJourById(id,value);
     }

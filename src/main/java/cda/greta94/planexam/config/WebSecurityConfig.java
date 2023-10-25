@@ -45,24 +45,20 @@ public class WebSecurityConfig {
                       .permitAll()
               )
               .authorizeHttpRequests(auth -> auth
-
                       .requestMatchers("/","/inscription", "/login", "/forgot-password", "/reset-password/**", "/css/**", "/js/**", "/img/**", "/favicon.ico", "/webjars/**", "/authenticate").permitAll()
                       .requestMatchers(HttpMethod.POST,("/inscription")).permitAll()
                       //Interdit la page si l'utilisateur n'est pas admin
                       .requestMatchers("/admin/**", "/api/**").hasAuthority("admin")
                       .requestMatchers("/prof/**").hasAnyAuthority("prof","admin")
                       .anyRequest().authenticated()
-
               )
-          .sessionManagement((session) -> session
-              .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-          )
+          .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
           .authenticationProvider(authenticationProvider())
           .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-              .build();
+          //TODO: trouver l'URL et non le chemin du template
+          .exceptionHandling((exception) -> exception.accessDeniedPage("/admin/error/403"))
+          .build();
   }
-
-
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
