@@ -2,18 +2,24 @@ package cda.greta94.planexam.model;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Utilisateur {
+public class Utilisateur implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
     @Column(nullable = false,unique = true)
     @Basic(optional = false)
     private String email;
+
     @Column(nullable = false)
     @Basic(optional = false)
     private String mdp;
@@ -25,6 +31,14 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<JetonResetMdp> jetonResetMdps = new ArrayList<>();
+
+    public Utilisateur() { super(); }
+
+    public Utilisateur(String email, String mdp) {
+        super();
+        this.email = email;
+        this.mdp = mdp;
+    }
 
     public Role getRole() {
         return role;

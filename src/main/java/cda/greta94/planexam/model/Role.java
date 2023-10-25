@@ -1,5 +1,6 @@
 package cda.greta94.planexam.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,17 @@ public class Role {
     @Basic(optional = false)
     private String nom;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "role", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
     private List<Utilisateur> utilisateurs = new ArrayList<>();
+
+    public Role() {
+    }
+
+    public Role(Long id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
 
     public List<Utilisateur> getUtilisateurs() {
         return utilisateurs;

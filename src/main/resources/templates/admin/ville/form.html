@@ -25,11 +25,6 @@
         <div class="card-body">
             <form th:object="${ville}" th:action="@{/admin/ville}" method="post">
                 <input type="hidden" th:field="${ville.id}">
-                <input
-                        type="hidden"
-                        th:name="${_csrf.parameterName}"
-                        th:value="${_csrf.token}"
-                />
                 <div class="my-2">
                     <label for="nomVille">Nom</label>
                     <input type="text" id="nomVille" th:field="${ville.nom}" class="form-control">

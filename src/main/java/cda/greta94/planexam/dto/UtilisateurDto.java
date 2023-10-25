@@ -1,6 +1,7 @@
 package cda.greta94.planexam.dto;
 
 import cda.greta94.planexam.model.Role;
+import cda.greta94.planexam.model.Utilisateur;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,6 +21,7 @@ public class UtilisateurDto {
     private String mdp2NonEncode;
 
     private Role role;
+    
 
     public Long getId() {
         return id;

@@ -17,19 +17,12 @@
       <p>Attention structure attendue : "Id";"Prénom";Nom;"Email;"Ville";"RNE";"Spécialité" <i>(Fichier encodé en UTF-8)</i></p>
       <p><i>"RNE" corresspondant au code RNE de l'établissement</i></p>
       <form th:action="@{/admin/enseignants/import}" enctype="multipart/form-data" method="post">
-        <input
-                type="hidden"
-                th:name="${_csrf.parameterName}"
-                th:value="${_csrf.token}"
-        />
         <input type="file" name="file" class="my-2 form-control" />
         <button type="submit" class="btn btn-success">Importer</button>
       </form>
     </div>
   </div>
 </main>
-
-<!-- /.container -->
 
 <div th:replace="~{fragments/footer.html :: footer}"/>
 

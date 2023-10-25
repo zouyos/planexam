@@ -17,13 +17,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class SecurityUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
   private UtilisateurRepository utilisateurRepository;
   private PasswordEncoder encoder;
 
   @Autowired
-  public SecurityUserDetailsService(UtilisateurRepository utilisateurRepository, PasswordEncoder encoder) {
+  public UserDetailsServiceImpl(UtilisateurRepository utilisateurRepository, PasswordEncoder encoder) {
     this.utilisateurRepository = utilisateurRepository;
     this.encoder = encoder;
   }
@@ -38,23 +38,23 @@ public class SecurityUserDetailsService implements UserDetailsService {
   @Override
   @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    //Etape 1 : obtenir les infos de l'utilisateur cad un objet Utilisateur
-    Utilisateur utilisateur = utilisateurRepository.findByEmail(username);
-    //Etape 2 : Verification que on a bien un utilisateur ( cas si l'email n'est pas correct)
-    if (utilisateur == null) {
+    try {
+      //Etape 1 : obtenir les infos de l'utilisateur cad un objet Utilisateur
+      Utilisateur utilisateur = utilisateurRepository.findByEmail(username);
+      //Etape 2 : Verification que on a bien un utilisateur ( cas si l'email n'est pas correct)
+      //Etape 3 : Recupere le nom du role
+      String nomRole = utilisateur.getRole().getNom();
+      //Etape 3 bis (cas avec des Utilisateurs dans des classe séparées)
+      //String nomRole = utilisateur.getClass().getSimpleName();
+      //Etape 4 je consitue un liste de permissions
+      Set<GrantedAuthority> permissions = new HashSet<>();
+      //Etape 5 J'ajoute le nom du role dans la liste de permissions.
+      permissions.add(new SimpleGrantedAuthority(nomRole));
+      //Etape 6 je créer un objet User
+      User user = new User(utilisateur.getEmail(), utilisateur.getMdp(), permissions);
+      return user;
+    } catch (Exception e) {
       throw new UsernameNotFoundException("Utilisateur non trouvé : " + username);
     }
-    //Etape 3 : Recupere le nom du role
-    String nomRole = utilisateur.getRole().getNom();
-    //Etape 3 bis (cas avec des Utilisateurs dans des classe séparées)
-    //TODO
-    //String nomRole = utilisateur.getClass().getSimpleName();
-    //Etape 4 je consitue un liste de permissions
-    Set<GrantedAuthority> permissions = new HashSet<>();
-    //Etape 5 J'ajoute le nom du role dans la liste de permissions.
-    permissions.add(new SimpleGrantedAuthority(nomRole));
-    //Etape 6 je créer un objet User
-    User user = new User(utilisateur.getEmail(), utilisateur.getMdp(), permissions);
-    return user;
   }
 }

@@ -15,6 +15,14 @@ public class Specialite {
 
     private String libelle;
 
+    public Specialite() {
+    }
+
+    public Specialite(Long id, String libelle) {
+        this.id = id;
+        this.libelle = libelle;
+    }
+
     @OneToMany(mappedBy = "specialite")
     private List<Professeur> professeurs = new ArrayList<>();
 
