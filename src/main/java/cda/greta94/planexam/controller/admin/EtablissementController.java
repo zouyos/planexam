@@ -14,8 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 @RequestMapping("/admin")
 @Controller
 public class EtablissementController {
@@ -33,7 +32,7 @@ public class EtablissementController {
   @GetMapping(value = "/etablissements")
   public String index(Model model, @RequestParam(defaultValue = "") String nom, @RequestParam(defaultValue = "0") int page) {
     Pageable pageable = PageRequest.of(page, 20);
-    Page<Etablissement> etablissements = etablissementService.getPageEtrecherche(nom, pageable);
+    Page<Etablissement> etablissements = etablissementService.getPageEtRecherche(nom, pageable);
     model.addAttribute("pageNumber", page);
     model.addAttribute("pageEtablissements", etablissements);
     return "admin/etablissement/index";

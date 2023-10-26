@@ -25,11 +25,14 @@
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                             <td th:each="jour : ${jours}">
                                 <input type="checkbox"
                                        class="ms-3"
                                        th:checked="${jour.ouvre}"
-                                       th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked );'"
+                                       th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked);'"
+                                       th:data-confirm-delete="|Êtes-vous sûr de vouloir rendre indisponible ce jour : ${#dates.format(jour.dateJ, 'dd/MM')} ?|"
+                                       onchange="doAlert(this)"
                                 >
                             </td>
                             <td></td>
@@ -38,6 +41,7 @@
                             <th>Etablissements</th>
                             <th>RNE</th>
                             <th>Code</th>
+                            <th>Nbr candidats</th>
                             <th th:each="jour : ${jours}" th:text="${#dates.format(jour.dateJ, 'dd/MM')}"></th>
                             <th>Total</th>
                         </tr>
@@ -47,9 +51,16 @@
                             <td th:text="${unEtabEpreuve.etablissement.nom}"></td>
                             <td th:text="${unEtabEpreuve.etablissement.rne}"></td>
                             <td th:text="${unEtabEpreuve.etablissement.code}"></td>
+                            <td th:text="${unEtabEpreuve.nbrCandidats}">
+                                <input type="number"
+                                       class="form-control input-sm"
+                                       th:value="${unEtabEpreuve.nbrCandidats == null ? 0 : unEtabEpreuve.nbrCandidats}"
+                                />
+                                <!-- ajouter th:onchange -->
+                            </td>
                             <td th:each="jour : ${jours}">
                                 <input type="number"
-                                       max="5"
+                                       min="0"
                                        th:class="'totalNbr' + ${jour.id} + ' form-control input-sm'"
                                        th:value="${unEtabEpreuve.getNbrJury(jour) == null ? 0 : unEtabEpreuve.getNbrJury(jour).nbrJury}"
                                        th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
@@ -61,8 +72,9 @@
                             <th>Total par jour</th>
                             <td></td>
                             <td></td>
+                            <td></td>
                             <td th:each="jour : ${jours}" th:text="${jour.calcTotalNbrJury()}" th:id="'totalNbr' + ${jour.id}"></td>
-                            <td th:id="totalJury" th:text="'Total jurys à convoquer : ' + ${epreuveDto.calcTotalNbrJury()}"></td>
+                            <th th:id="totalJury" th:text="${epreuveDto.calcTotalNbrJury()}"></th>
                         </tr>
                     </tbody>
                 </table>

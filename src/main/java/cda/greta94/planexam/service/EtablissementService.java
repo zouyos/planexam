@@ -54,7 +54,7 @@ public class EtablissementService {
     return etablissementRepository.findAll(pageable);
   }
 
-  public Page<Etablissement> getPageEtrecherche(String nom, Pageable pageable) {
+  public Page<Etablissement> getPageEtRecherche(String nom, Pageable pageable) {
     return etablissementRepository.findByNomContainsIgnoreCaseOrderByRneAsc(nom, pageable);
   }
 

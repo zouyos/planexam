@@ -101,3 +101,8 @@ for (const input of inputs) {
         document.querySelector("#totalJury").innerText = resultat3
     })
 }
+function doAlert(checkboxElem) {
+    if (!checkboxElem.checked) {
+        return confirm(checkboxElem.getAttribute('data-confirm-delete'))
+    }
+}

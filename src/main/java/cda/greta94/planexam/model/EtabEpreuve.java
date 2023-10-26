@@ -77,6 +77,14 @@ public class EtabEpreuve {
     this.jours = jours;
   }
 
+  public int getNbrCandidats() {
+    return nbrCandidats;
+  }
+
+  public void setNbrCandidats(int nbrCandidats) {
+    this.nbrCandidats = nbrCandidats;
+  }
+
   public int calcTotalNbrJury() {
     int resultat = 0;
     for (JourEtabEpreuve jourEtabEpreuve: this.jourEtabEpreuveList) {

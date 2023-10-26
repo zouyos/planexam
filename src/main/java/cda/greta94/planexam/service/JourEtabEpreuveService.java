@@ -25,7 +25,7 @@ public class JourEtabEpreuveService {
     }
 
     public void createNbrJuriesById(Long jourId, Long etabEpreuveId, int nbrJury) {
-        Assert.isTrue(nbrJury >= 0 && nbrJury <= 5, "Le nombre de jurys ne peut excéder 5");
+        Assert.isTrue(nbrJury >= 0, "Le nombre de jurys ne peut pas être négatif");
         JourEtabEpreuve jourEtabEpreuve = new JourEtabEpreuve();
         JourEtabEpreuveId jourEtabEpreuveId = new JourEtabEpreuveId(etabEpreuveId, jourId);
         jourEtabEpreuve.setNbrJuryId(jourEtabEpreuveId);
