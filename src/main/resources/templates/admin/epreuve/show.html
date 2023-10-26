@@ -62,7 +62,7 @@
                             <td></td>
                             <td></td>
                             <td th:each="jour : ${jours}" th:text="${jour.calcTotalNbrJury()}" th:id="'totalNbr' + ${jour.id}"></td>
-                            <td th:id="totalJury" th:text="${epreuveDto.calcTotalNbrJury()}"></td>
+                            <td th:id="totalJury" th:text="'Total jurys à convoquer : ' + ${epreuveDto.calcTotalNbrJury()}"></td>
                         </tr>
                     </tbody>
                 </table>
