@@ -31,7 +31,7 @@
                                        class="ms-3"
                                        th:checked="${jour.ouvre}"
                                        th:onclick="'javascript:changeDispo(' + ${jour.id} + ', this.checked);'"
-                                       th:data-confirm-delete="|Êtes-vous sûr de vouloir rendre indisponible ce jour : ${#dates.format(jour.dateJ, 'dd/MM')} ?|"
+                                       th:data-confirm-delete="|Êtes-vous sûr de vouloir rendre indisponible ce jour : ${#dates.format(jour.dateJ, 'dd/MM')} ? Ceci réinitialisera tous les jurys pour ce jour.|"
                                        onchange="doAlert(this)"
                                 >
                             </td>
@@ -51,7 +51,7 @@
                             <td th:text="${unEtabEpreuve.etablissement.nom}"></td>
                             <td th:text="${unEtabEpreuve.etablissement.rne}"></td>
                             <td th:text="${unEtabEpreuve.etablissement.code}"></td>
-                            <td th:text="${unEtabEpreuve.nbrCandidats}">
+                            <td>
                                 <input type="number"
                                        class="form-control input-sm"
                                        th:value="${unEtabEpreuve.nbrCandidats == null ? 0 : unEtabEpreuve.nbrCandidats}"

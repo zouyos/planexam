@@ -43,8 +43,10 @@ public class UtilisateurService {
   public Utilisateur inscrireUser(UtilisateurDto dto) {
     Utilisateur user = this.convertToEntity(dto);
     checkEmailDuplication(user);
-    user.setRole(roleRepository.findById(2l).get());
+    user.setRole(roleRepository.findById(2L).get());
     user.setMdp(encoder.encode(user.getMdp()));
+    //Pour récup un mdp hashé et créer un compte admin dans le data.sql (penser à changer l'id) :
+    System.out.println(user.getMdp());
     return utilisateurRepository.save(user);
   }
 
@@ -81,11 +83,5 @@ public class UtilisateurService {
         throw new DuplicationException("Email duplication: " + email);
       }
     }
-  }
-
-  public Utilisateur create(Utilisateur utilisateur) {
-    utilisateur.setId(null);
-    checkEmailDuplication(utilisateur);
-    return utilisateurRepository.save(utilisateur);
   }
 }
