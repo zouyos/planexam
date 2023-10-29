@@ -1,22 +1,30 @@
-async function changeDispo(id, value){
-    // Récupère le JWT depuis la session de stockage du navigateur
-    const jwtToken = sessionStorage.getItem("jwt");
+async function changeDispo(id, input){
+    let resultatConfirm = false;
+    if (!input.checked) {
+        resultatConfirm = confirm(input.getAttribute('data-confirm-delete'))
+    }
+    if (resultatConfirm == true || input.checked) {
+        // Récupère le JWT depuis la session de stockage du navigateur
+        const jwtToken = sessionStorage.getItem("jwt");
 
-    // Vérifie si un JWT existe dans la session de stockage
-    if (jwtToken) {
-        // Si un JWT est trouvé, configure les options de la requête
-        const requestOptions = {
-            method: 'POST', // Méthode HTTP
-            headers: {
-                'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
-                'Set-Cookie': ''
-            },
-            credentials: 'omit'
+        // Vérifie si un JWT existe dans la session de stockage
+        if (jwtToken) {
+            // Si un JWT est trouvé, configure les options de la requête
+            const requestOptions = {
+                method: 'POST', // Méthode HTTP
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
+                    'Set-Cookie': ''
+                },
+                credentials: 'omit'
+            }
+            await fetch("/api/epreuve/jour/" + id + "/" + input.checked, requestOptions);
+        } else {
+            // Si aucun JWT n'est trouvé, affiche un message d'erreur dans la console
+            console.error("Pas de jwt");
         }
-        await fetch("/api/epreuve/jour/" + id + "/" + value, requestOptions);
     } else {
-        // Si aucun JWT n'est trouvé, affiche un message d'erreur dans la console
-        console.error("Pas de jwt");
+        input.checked = true
     }
 }
 
@@ -99,10 +107,9 @@ for (const input of inputs) {
             resultat3 += parseInt(input.value)
         }
         document.querySelector("#totalJury").innerText = resultat3
+
+        let jours = document.querySelectorAll('input[type=checkbox].'+classe)
+        console.log(jours)
+        //TODO
     })
-}
-function doAlert(checkboxElem) {
-    if (!checkboxElem.checked) {
-        return confirm(checkboxElem.getAttribute('data-confirm-delete'))
-    }
 }
