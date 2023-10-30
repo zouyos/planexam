@@ -28,7 +28,7 @@ public class EtabEpreuve {
   @OneToMany(mappedBy = "etabEpreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
   private List<Jour> jours = new ArrayList<>();
 
-  public JourEtabEpreuve getNbrJury(Jour jour){
+  public JourEtabEpreuve getJourEtabEpreuve(Jour jour){
     for (JourEtabEpreuve jourEtabEpreuve: this.jourEtabEpreuveList) {
       if(jourEtabEpreuve.getJour().getId() == jour.getId()){
         return jourEtabEpreuve;

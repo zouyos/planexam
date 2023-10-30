@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <div th:replace="~{fragments/header :: header-css(title='Voir une Epreuve')}"/>
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: menu}"/>
+
+<main class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <h2 class="text-center">Affectation des jurys</h2>
+    </div>
+    <div class="card-body">
+      <input type="hidden" th:field="${epreuveDto.id}">
+      <h2 th:text="${epreuveDto.libelle}"></h2>
+      <p th:text="'Date de début : ' + ${#dates.format(epreuveDto.dateDebut, 'dd/MM/YYYY')}"></p>
+      <p th:text="'Date de fin : ' + ${#dates.format(epreuveDto.dateFin, 'dd/MM/YYYY')}"></p>
+      <div class="my-2 table-responsive" style="transform: rotateX(180deg);">
+        <table class="table table-striped" style="transform: rotateX(180deg);">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th th:each="jour : ${jours}" th:text="${#dates.format(jour.dateJ, 'dd/MM')}" colspan="2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="prof : ${profs}">
+              <td th:text="${prof.nom}"></td>
+              <td th:text="${prof.prenom}"></td>
+              <span th:each="jour : ${jours}">
+                <td>
+                  <select name="code-etab" id="code-etab">
+                    <option th:each="etab : ${etabEpreuveList}" th:text="${etab.etablissement.code}"></option>
+                  </select>
+                </td>
+                <td>
+                  <select name="jury-jour-etab" id="jury-jour-etab">
+                    <option th:each="jury : ${juries}" th:text="${jury.num}"></option>
+                  </select>
+                </td>
+              </span>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="my-2">
+        <a th:href="@{/admin/epreuves}" class="btn btn-secondary">Retour</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div th:replace="~{fragments/footer.html :: footer}"/>
+<script src="/js/script.js"></script>
+</body>
+</html>

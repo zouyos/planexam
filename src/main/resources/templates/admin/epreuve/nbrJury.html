@@ -10,7 +10,7 @@
 <main class="container-fluid">
     <div class="card">
         <div class="card-header">
-            <h2 class="text-center">Assigner un nombre de jurys par jour et établissement</h2>
+            <h2 class="text-center">Définir un nombre de jurys par jour et établissement</h2>
         </div>
         <div class="card-body">
             <input type="hidden" th:field="${epreuveDto.id}">
@@ -61,7 +61,7 @@
                                 <input type="number"
                                        min="0"
                                        th:class="'totalNbr' + ${jour.id} + ' form-control input-sm'"
-                                       th:value="${unEtabEpreuve.getNbrJury(jour) == null ? 0 : unEtabEpreuve.getNbrJury(jour).nbrJury}"
+                                       th:value="${unEtabEpreuve.getJourEtabEpreuve(jour) == null ? 0 : unEtabEpreuve.getJourEtabEpreuve(jour).nbrJury}"
                                        th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
                                 />
                             </td>

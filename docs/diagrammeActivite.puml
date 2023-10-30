@@ -1,0 +1,41 @@
+@startuml
+start
+if (epreuveDto.getId() != null) then
+  -->[true] :Charger l'Epreuve existante par ID
+  :Charger l'Epreuve existante par ID
+  --> :Supprimer les jours associés
+else
+  -->[false] :Créer une nouvelle Epreuve
+  :Créer une nouvelle Epreuve
+  --> :Initialiser epreuve
+  :Initialiser epreuve
+  --> :Configurer libelle, dateDebut et dateFin
+  :Configurer libelle, dateDebut et dateFin
+  --> :Créer une liste de jours
+  :Créer une liste de jours
+  --> :Boucler sur les dates et créer des Jours
+  :Boucler sur les dates et créer des Jours
+  --> :Configurer les jours dans l'Epreuve
+  :Configurer les jours dans l'Epreuve
+  --> :Sauvegarder la nouvelle Epreuve
+  :Sauvegarder la nouvelle Epreuve
+endif
+:Supprimer les jours associés
+--> :Configurer libelle, dateDebut et dateFin
+:Configurer libelle, dateDebut et dateFin
+--> :Créer une liste de jours
+:Créer une liste de jours
+--> :Boucler sur les dates et créer des Jours
+:Boucler sur les dates et créer des Jours
+--> :Configurer les jours dans l'Epreuve
+:Configurer les jours dans l'Epreuve
+--> :Sauvegarder l'Epreuve mise à jour
+:Sauvegarder l'Epreuve mise à jour
+--> stop
+@enduml
+
+
+
+
+
+

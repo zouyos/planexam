@@ -25,12 +25,25 @@ public class EpreuveController {
 
   private EtabEpreuveService etabEpreuveService;
 
-  public EpreuveController(EpreuveService epreuveService, JourService jourService, EtablissementService etablissementService, JourEtabEpreuveRepository jourEtabEpreuveRepository, EtabEpreuveService etabEpreuveService) {
+  private JuryService juryService;
+
+  private ProfesseurService professeurService;
+
+  public EpreuveController(EpreuveService epreuveService,
+                           JourService jourService,
+                           EtablissementService etablissementService,
+                           JourEtabEpreuveRepository jourEtabEpreuveRepository,
+                           EtabEpreuveService etabEpreuveService,
+                           JuryService juryService,
+                           ProfesseurService professeurService
+  ) {
     this.epreuveService = epreuveService;
     this.jourService = jourService;
     this.etablissementService = etablissementService;
     this.jourEtabEpreuveRepository = jourEtabEpreuveRepository;
     this.etabEpreuveService = etabEpreuveService;
+    this.juryService = juryService;
+    this.professeurService = professeurService;
   }
 
   @GetMapping("/epreuves")
@@ -42,13 +55,24 @@ public class EpreuveController {
   @GetMapping("/epreuve/create")
   public String create(@ModelAttribute EpreuveDto epreuveDto) { return "admin/epreuve/form"; }
 
-  @GetMapping("/epreuve/show/{id}")
-  public String show(@PathVariable("id") Long id, Model model) {
+  @GetMapping("/epreuve/nbr-jury/{id}")
+  public String nbrJury(@PathVariable("id") Long id, Model model) {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
     model.addAttribute("epreuveDto", epreuveDto);
     model.addAttribute("jours", jourService.findByEpreuve(id));
     model.addAttribute("etabEpreuveList", etabEpreuveService.getByIdEpreuveAndPonctuel(id));
-    return "admin/epreuve/show";
+    return "admin/epreuve/nbrJury";
+  }
+
+  @GetMapping("/epreuve/jury/{id}")
+  public String jurys(@PathVariable("id") Long id, Model model) {
+    EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
+    model.addAttribute("epreuveDto", epreuveDto);
+    model.addAttribute("jours", jourService.findByEpreuve(id));
+    model.addAttribute("etabEpreuveList", etabEpreuveService.getByIdEpreuveAndPonctuel(id));
+    model.addAttribute("juries", juryService.getAll());
+    model.addAttribute("profs", professeurService.getAll());
+    return "admin/epreuve/jury";
   }
 
   @GetMapping("/epreuve/edit/{id}")

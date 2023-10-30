@@ -30,39 +30,34 @@ public class JwtAuthFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
-
+    // Vérifie si l'utilisateur n'est pas déjà authentifié
     if (SecurityContextHolder.getContext().getAuthentication() == null) {
-      // Vérifie si l'utilisateur n'est pas déjà authentifié
-
       final String authorization = request.getHeader("Authorization");
+      // Récupère l'en-tête "Authorization" et vérifie s'il commence par "Bearer"
       if (authorization != null && authorization.startsWith("Bearer ")) {
-        // Récupère l'en-tête "Authorization" et vérifie s'il commence par "Bearer"
-
-        final String token = authorization.substring(7); // Extrait le token JWT en retirant "Bearer "
-
-        final Claims claims = jwtService.getClaims(token); // Analyse le JWT pour obtenir ses revendications
-
+        // Extrait le token JWT en retirant "Bearer "
+        final String token = authorization.substring(7);
+        // Analyse le JWT pour obtenir ses revendications
+        final Claims claims = jwtService.getClaims(token);
+        // Vérifie si le JWT n'a pas expiré en comparant avec la date actuelle
         if (claims.getExpiration().after(new Date())) {
-          // Vérifie si le JWT n'a pas expiré en comparant avec la date actuelle
-
-          final String username = claims.getSubject(); // Récupère le nom d'utilisateur à partir du JWT
-          final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+          // Récupère le nom d'utilisateur à partir du JWT
+          final String username = claims.getSubject();
           // Charge les détails de l'utilisateur à partir du service UserDetailsService
-
+          final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+          // Crée un objet d'authentification UsernamePasswordAuthenticationToken
           final UsernamePasswordAuthenticationToken authToken =
               new UsernamePasswordAuthenticationToken(
-                  userDetails, null, userDetails.getAuthorities());
-          // Crée un objet d'authentification UsernamePasswordAuthenticationToken
-
-          authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                  userDetails, null, userDetails.getAuthorities()
+              );
           // Ajoute les détails de l'authentification basés sur la requête
-
-          SecurityContextHolder.getContext().setAuthentication(authToken);
+          authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
           // Définit l'authentification dans le contexte de sécurité
+          SecurityContextHolder.getContext().setAuthentication(authToken);
         }
       }
     }
-
-    filterChain.doFilter(request, response); // Poursuit la chaîne de filtres de sécurité
+    // Poursuit la chaîne de filtres de sécurité
+    filterChain.doFilter(request, response);
   }
 }
