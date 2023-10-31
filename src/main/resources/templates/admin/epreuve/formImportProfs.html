@@ -16,7 +16,7 @@
     <div class="card-body">
       <p>Attention structure attendue : "Id";"Prénom";Nom;"Email;"Ville";"RNE";"Spécialité" <i>(Fichier encodé en UTF-8)</i></p>
       <p><i>"RNE" corresspondant au code RNE de l'établissement</i></p>
-      <form th:action="@{/admin/enseignants/import}" enctype="multipart/form-data" method="post">
+      <form th:action="@{/admin/epreuve/enseignants/import}" enctype="multipart/form-data" method="post">
         <input type="file" name="file" class="my-2 form-control" />
         <button type="submit" class="btn btn-success">Importer</button>
       </form>

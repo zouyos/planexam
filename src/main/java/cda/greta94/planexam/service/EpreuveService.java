@@ -3,6 +3,7 @@ package cda.greta94.planexam.service;
 import cda.greta94.planexam.dao.*;
 import cda.greta94.planexam.dto.EpreuveDto;
 import cda.greta94.planexam.dto.EtablissementDto;
+import cda.greta94.planexam.dto.ProfesseurDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
 import cda.greta94.planexam.model.*;
 import org.apache.commons.csv.CSVFormat;
@@ -27,19 +28,25 @@ public class EpreuveService {
   private EtabEpreuveRepository etabEpreuveRepository;
   private VilleService villeService;
   private EtablissementService etablissementService;
+  private ProfesseurService professeurService;
+  private SpecialiteService specialiteService;
 
   @Autowired
   public EpreuveService(EpreuveRepository epreuveRepository,
                         JourRepository jourRepository,
                         EtabEpreuveRepository etabEpreuveRepository,
                         VilleService villeService,
-                        EtablissementService etablissementService)
+                        EtablissementService etablissementService,
+                        ProfesseurService professeurService,
+                        SpecialiteService specialiteService)
   {
     this.epreuveRepository = epreuveRepository;
     this.jourRepository = jourRepository;
     this.etabEpreuveRepository = etabEpreuveRepository;
     this.villeService = villeService;
     this.etablissementService = etablissementService;
+    this.professeurService = professeurService;
+    this.specialiteService = specialiteService;
   }
 
   public List<Epreuve> getAll() {
@@ -83,6 +90,25 @@ public class EpreuveService {
       etabEpreuve.setEpreuve(epreuve);
       etabEpreuve.setEtablissement(etab);
       etabEpreuveRepository.save(etabEpreuve);
+    }
+  }
+
+  public void importProfFromCSV(MultipartFile file) throws IOException {
+    Reader in = new InputStreamReader(file.getInputStream());
+    Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Id", "Prenom", "Nom", "Email", "Ville", "RNE", "Specialite").withDelimiter(';').parse(in);
+
+    int nbLigne = 0;
+    for (CSVRecord record : records) {
+      nbLigne++;
+      if(nbLigne == 1 && record.get("Id").equals("Id") && record.get("RNE").equals("RNE")) continue;
+
+      Long idVille = villeService.getOrCreate(record.get("Ville"));
+      Long idEtab = etablissementService.getOrCreate(record.get("RNE"));
+      Long idSpec = specialiteService.getOrCreate(record.get("Specialite"));
+
+      ProfesseurDto profDto = new ProfesseurDto(Long.getLong(record.get("Id")), record.get("Prenom"), record.get("Nom"), record.get("Email"), idVille, idEtab, idSpec, null);
+
+      professeurService.saveProfFromDto(profDto);
     }
   }
 

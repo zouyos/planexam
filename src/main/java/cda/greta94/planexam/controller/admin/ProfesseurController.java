@@ -72,25 +72,6 @@ public class ProfesseurController {
     return "redirect:/admin/enseignants";
   }
 
-  @GetMapping(value = "/enseignants/import")
-  public String formImportCSV() { return "admin/professeur/formImportCSV"; }
-
-  @PostMapping(value = "/enseignants/import")
-  public String importCSV(@RequestParam("file")MultipartFile file, RedirectAttributes redirAttrs) {
-    if (file.isEmpty()) {
-      redirAttrs.addFlashAttribute("errorMessage", "Please select a file to upload");
-      return "redirect:/admin/enseignants/import";
-    }
-    try {
-      professeurService.importProfFromCSV(file);
-    } catch(Exception e) {
-      redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
-      return "redirect:/admin/enseignants/import";
-    }
-    redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
-    return "redirect:/admin/enseignants";
-  }
-
   //Specialite
 
   @GetMapping("/specialites")

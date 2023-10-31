@@ -49,6 +49,7 @@ public class EpreuveController {
   @GetMapping("/epreuves")
   public String index(Model model) {
     model.addAttribute("epreuves", epreuveService.getAll());
+    model.addAttribute("profs", professeurService.getAll());
     return "admin/epreuve/index";
   }
 
@@ -115,8 +116,28 @@ public class EpreuveController {
       return "redirect:/admin/epreuve/import/"+idEpreuve;
     }
     // ok
-    redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
+    redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! \n" +
+            "Après avoir défini les nombres de jurys, passez à l'étape 3 sur la page de gestion des épreuves");
     return "redirect:/admin/epreuve/show/"+idEpreuve;
+  }
+
+  @GetMapping(value = "epreuve/enseignants/import")
+  public String formImportCSV() { return "admin/epreuve/formImportProfs"; }
+
+  @PostMapping(value = "epreuve/enseignants/import")
+  public String importCSV(@RequestParam("file")MultipartFile file, RedirectAttributes redirAttrs) {
+    if (file.isEmpty()) {
+      redirAttrs.addFlashAttribute("errorMessage", "Please select a file to upload");
+      return "redirect:/admin/epreuve/enseignants/import";
+    }
+    try {
+      epreuveService.importProfFromCSV(file);
+    } catch(Exception e) {
+      redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
+      return "redirect:/admin/epreuve/enseignants/import";
+    }
+    redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! Vous pouvez passer à l'étape 4");
+    return "redirect:/admin/epreuves";
   }
 
   @PostMapping("/epreuve/delete/{id}")
