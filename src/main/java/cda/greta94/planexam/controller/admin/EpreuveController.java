@@ -118,7 +118,7 @@ public class EpreuveController {
     // ok
     redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! \n" +
             "Après avoir défini les nombres de jurys, passez à l'étape 3 sur la page de gestion des épreuves");
-    return "redirect:/admin/epreuve/show/"+idEpreuve;
+    return "redirect:/admin/epreuve/nbr-jury/"+idEpreuve;
   }
 
   @GetMapping(value = "epreuve/enseignants/import")

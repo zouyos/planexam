@@ -17,7 +17,6 @@
       <th>Date début</th>
       <th>Date fin</th>
       <th></th>
-      <th></th>
       <th>Opérations</th>
     </tr>
     </thead>
@@ -26,16 +25,36 @@
       <td th:text="${epreuve.libelle}"></td>
       <td th:text="${epreuve.dateDebut}"></td>
       <td th:text="${epreuve.dateFin}"></td>
-      <td><a class="btn btn-success" th:href="@{/admin/epreuve/import/{id} (id=${epreuve.id})}">1 Importer une liste d'établissements</a></td>
-      <td><a th:href="@{/admin/epreuve/nbr-jury/{id} (id=${epreuve.id})}" class="btn btn-success" th:if="${epreuve.etabsEpreuve.size() != 0}">2 Définir les nombres de jurys prévisionnel</a></td>
-      <td><a class="btn btn-success" th:href="@{/admin/epreuve/enseignants/import}" th:if="${epreuve.etabsEpreuve.size() != 0}">3 Importer une liste d'enseignants</a></td>
-      <td><a th:href="@{/admin/epreuve/jury/{id} (id=${epreuve.id})}" class="btn btn-success" th:if="${epreuve.etabsEpreuve.size() != 0 && profs.size() != 0}">4 Composer et répartir les jurys</a></td>
       <td>
-        <a th:href="@{/admin/epreuve/edit/{id} (id=${epreuve.id})}" class="btn btn-primary m-2">Modifier les dates</a>
+        <table>
+          <tr>
+            <td class="row">
+              <a th:class="'my-1 btn ' + ${epreuve.etabsEpreuve.size() != 0 ? 'btn-success' : 'btn-warning'}" th:href="@{/admin/epreuve/import/{id} (id=${epreuve.id})}">1 Importer une liste d'établissements</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="row">
+              <a th:href="@{/admin/epreuve/nbr-jury/{id} (id=${epreuve.id})}" class="my-1 btn btn-success" th:if="${epreuve.etabsEpreuve.size() != 0}">2 Définir les nombres de jurys prévisionnel</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="row">
+              <a th:class="'my-1 btn ' + ${profs.size() != 0 ? 'btn-success' : 'btn-warning'}" th:href="@{/admin/epreuve/enseignants/import}" th:if="${epreuve.etabsEpreuve.size() != 0}">3 Importer une liste d'enseignants</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="row">
+              <a th:href="@{/admin/epreuve/jury/{id} (id=${epreuve.id})}" class="my-1 btn btn-success" th:if="${epreuve.etabsEpreuve.size() != 0 && profs.size() != 0}">4 Composer et répartir les jurys</a>
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td>
+        <a th:href="@{/admin/epreuve/edit/{id} (id=${epreuve.id})}" class="btn btn-primary me-1">Modifier les dates</a>
         <form th:action="@{/admin/epreuve/delete/{id} (id=${epreuve.id})}" method="post" style="display: inline">
           <button
             type="submit"
-            class="btn btn-danger m-2"
+            class="btn btn-danger ms-1"
             th:data-confirm-delete="|Êtes-vous sûr de vouloir supprimer cette épreuve : ${epreuve.libelle}?|"
             onclick="return confirm(this.getAttribute('data-confirm-delete'))"
           >
