@@ -105,8 +105,7 @@ public class EpreuveController {
           RedirectAttributes redirAttrs)
   {
     if (file.isEmpty()) {
-      // PATTERN PRG
-      redirAttrs.addFlashAttribute("errorMessage", "Please select a file to upload");
+      redirAttrs.addFlashAttribute("errorMessage", "Veuillez séléctionner un fichier à importer");
       return "redirect:/admin/epreuve/import/"+idEpreuve;
     }
     try {
@@ -116,8 +115,8 @@ public class EpreuveController {
       return "redirect:/admin/epreuve/import/"+idEpreuve;
     }
     // ok
-    redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! \n" +
-            "Après avoir défini les nombres de jurys, passez à l'étape 3 sur la page de gestion des épreuves");
+    redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! \n " +
+        "Après avoir défini les nombres de jurys, passez à l'étape 3 sur la page de gestion des épreuves");
     return "redirect:/admin/epreuve/nbr-jury/"+idEpreuve;
   }
 
