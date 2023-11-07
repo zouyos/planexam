@@ -31,8 +31,7 @@ public class JwtService {
     return Keys.hmacShaKeyFor(secretKey.getBytes()); // Obtient la clé secrète au format SecretKey
   }
 
-  public String generateToken(String username) {
-    // Méthode pour générer un JWT
+  public String generateToken(String username) { // Méthode pour générer un JWT
 
     Utilisateur utilisateur = utilisateurRepository.findByEmail(username);
     // Récupère les informations de l'utilisateur à partir du repository

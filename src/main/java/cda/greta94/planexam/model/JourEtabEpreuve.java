@@ -45,7 +45,7 @@ public class JourEtabEpreuve {
     return jourEtabEpreuveId;
   }
 
-  public void setNbrJuryId(JourEtabEpreuveId jourEtabEpreuveId) {
+  public void setJourEtabEpreuveId(JourEtabEpreuveId jourEtabEpreuveId) {
     this.jourEtabEpreuveId = jourEtabEpreuveId;
   }
 

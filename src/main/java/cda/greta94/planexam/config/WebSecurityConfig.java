@@ -35,7 +35,7 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
       return httpSecurity
-          .csrf(csrf -> csrf.disable())
+          //.csrf(csrf -> csrf.disable())
           .formLogin(form -> form
                       .loginPage("/login")
                       .permitAll()
@@ -61,8 +61,6 @@ public class WebSecurityConfig {
           .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
           .authenticationProvider(authenticationProvider())
           .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-          //TODO: trouver l'URL et non le chemin du template
-          .exceptionHandling((exception) -> exception.accessDeniedPage("/admin/error/403"))
           .build();
   }
 

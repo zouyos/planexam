@@ -18,10 +18,11 @@
             <p th:text="'Date de début : ' + ${#dates.format(epreuveDto.dateDebut, 'dd/MM/YYYY')}"></p>
             <p th:text="'Date de fin : ' + ${#dates.format(epreuveDto.dateFin, 'dd/MM/YYYY')}"></p>
             <p>Le tableau ne comprend pas les weekends - <span class="text-decoration-underline">Décocher jour si férié</span></p>
-            <div class="my-2">
-                <table class="table table-striped">
+            <div class="my-2 table-responsive" style="transform: rotateX(180deg);">
+                <table class="table table-striped" style="transform: rotateX(180deg);">
                     <thead>
                         <tr>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -41,6 +42,7 @@
                             <th>RNE</th>
                             <th>Code</th>
                             <th>Nbr candidats</th>
+                            <th>Jury à placer</th>
                             <th th:each="jour : ${jours}" th:text="${#dates.format(jour.dateJ, 'dd/MM')}"></th>
                             <th>Total</th>
                         </tr>
@@ -55,7 +57,14 @@
                                        class="form-control input-sm"
                                        th:value="${unEtabEpreuve.nbrCandidats == null ? 0 : unEtabEpreuve.nbrCandidats}"
                                 />
-                                <!-- ajouter th:onchange -->
+                            </td>
+                            <!-- TODO: ajouter th:onchange -->
+                            <td>
+                                <input type="number"
+                                       class="form-control input-sm"
+                                       value="0"
+                                />
+                                <!--th:value="${unEtabEpreuve.nbrCandidats == null ? 0 : #numbers.formatDecimal(unEtabEpreuve.nbrCandidats/5)}"-->
                             </td>
                             <td th:each="jour : ${jours}">
                                 <input type="number"
@@ -69,6 +78,7 @@
                         </tr>
                         <tr>
                             <th>Total par jour</th>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

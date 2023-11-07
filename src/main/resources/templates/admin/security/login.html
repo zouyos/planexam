@@ -10,6 +10,11 @@
 <main class="container">
     <h1 class="text-center">Login</h1>
     <form action="/login" method="post" id="login-form" class="form-control mt-5 mb-2">
+        <input
+                type="hidden"
+                th:name="${_csrf.parameterName}"
+                th:value="${_csrf.token}"
+        />
         <div><label><i class="fa-solid fa-at me-2"></i>Email</label><input id="username" name="username" type="text" class="form-control my-2"></div>
         <div><label><i class="fa-solid fa-key me-2"></i>Mot de passe</label><input id="password" name="password" type="password" class="form-control my-2"></div>
         <button class="btn btn-primary my-2">Connexion</button>

@@ -10,7 +10,7 @@
 <main class="container-fluid">
   <div class="card">
     <div class="card-header">
-      <h2 class="text-center">Affectation des jurys</h2>
+      <h2 class="text-center">Répartition des enseignants SLAM & Autre</h2>
     </div>
     <div class="card-body">
       <input type="hidden" th:field="${epreuveDto.id}">
@@ -20,17 +20,17 @@
       <div class="my-2 table-responsive" style="transform: rotateX(180deg);">
         <table class="table table-striped" style="transform: rotateX(180deg);">
           <thead>
-            <tr>
-              <th>Nom</th>
-              <th>Prénom</th>
-              <th th:each="jour : ${jours}" th:text="${#dates.format(jour.dateJ, 'dd/MM')}" colspan="2"></th>
-            </tr>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th th:each="jour : ${jours}" th:text="${#dates.format(jour.dateJ, 'dd/MM')}" colspan="2"></th>
+          </tr>
           </thead>
           <tbody>
-            <tr th:each="prof : ${profs}">
-              <td th:text="${prof.nom}"></td>
-              <td th:text="${prof.prenom}"></td>
-              <span th:each="jour : ${jours}">
+          <tr th:each="prof : ${profs}">
+            <td th:text="${prof.nom}"></td>
+            <td th:text="${prof.prenom}"></td>
+            <span th:each="jour : ${jours}">
                 <td>
                   <select name="code-etab" id="code-etab">
                     <option th:each="etab : ${etabEpreuveList}" th:text="${etab.etablissement.code}"></option>
@@ -38,7 +38,8 @@
                 </td>
                 <td>
                   <select name="num-jury" id="num-jury">
-                    <option>J!</option>
+                    <option></option>
+                    <option>J1</option>
                     <option>J2</option>
                     <option>J3</option>
                     <option>J4</option>
@@ -46,7 +47,7 @@
                   </select>
                 </td>
               </span>
-            </tr>
+          </tr>
           </tbody>
         </table>
       </div>

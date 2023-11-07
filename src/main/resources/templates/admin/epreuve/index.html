@@ -34,17 +34,22 @@
           </tr>
           <tr>
             <td class="row">
-              <a th:href="@{/admin/epreuve/nbr-jury/{id} (id=${epreuve.id})}" class="my-1 btn btn-success" th:if="${epreuve.etabsEpreuve.size() != 0}">2 - Définir les nombres de jurys prévisionnel</a>
+              <a th:href="@{/admin/epreuve/nbr-jury/{id} (id=${epreuve.id})}" th:class="'my-1 btn ' + ${nbrJury.size() != 0 ? 'btn-success' : 'btn-warning'}" th:if="${epreuve.etabsEpreuve.size() != 0}">2 - Définir les nombres de jurys prévisionnel</a>
             </td>
           </tr>
           <tr>
             <td class="row">
-              <a th:class="'my-1 btn ' + ${profs.size() != 0 ? 'btn-success' : 'btn-warning'}" th:href="@{/admin/epreuve/enseignants/import}" th:if="${epreuve.etabsEpreuve.size() != 0}">3 - Importer une liste d'enseignants</a>
+              <a th:class="'my-1 btn ' + ${profs.size() != 0 ? 'btn-success' : 'btn-warning'}" th:href="@{/admin/epreuve/enseignants/import}" th:if="${epreuve.etabsEpreuve.size() != 0 && nbrJury.size() != 0}">3 - Importer une liste d'enseignants</a>
             </td>
           </tr>
           <tr>
             <td class="row">
-              <a th:href="@{/admin/epreuve/jury/{id} (id=${epreuve.id})}" class="my-1 btn btn-success" th:if="${epreuve.etabsEpreuve.size() != 0 && profs.size() != 0}">4 - Composer et répartir les jurys</a>
+              <a th:href="@{/admin/epreuve/jury-sisr/{id} (id=${epreuve.id})}" th:class="'my-1 btn ' + ${jurys.size() != 0 ? 'btn-success' : 'btn-warning'}" th:if="${epreuve.etabsEpreuve.size() != 0 && profs.size() != 0}">4 - Répartir les jurys SISR</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="row">
+              <a th:href="@{/admin/epreuve/jury-slam/{id} (id=${epreuve.id})}" th:class="'my-1 btn ' + ${jurys.size() != 0 ? 'btn-success' : 'btn-warning'}" th:if="${epreuve.etabsEpreuve.size() != 0 && profs.size() != 0}">5 - Répartir les jurys SLAM & Autre</a>
             </td>
           </tr>
         </table>

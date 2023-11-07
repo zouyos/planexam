@@ -11,7 +11,6 @@ async function changeDispo(id, input){
         if (jwtToken) {
             // Si un JWT est trouvé, configure les options de la requête
             const requestOptions = {
-                method: 'POST', // Méthode HTTP
                 headers: {
                     'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
                     'Set-Cookie': ''
@@ -36,7 +35,6 @@ async function changeNbrJuries(jourId, etabEpreuveId, nbrJury){
     if (jwtToken) {
         // Si un JWT est trouvé, configure les options de la requête
         const requestOptions = {
-            method: 'POST', // Méthode HTTP
             headers: {
                 'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
                 'Set-Cookie': ''
@@ -58,7 +56,6 @@ async function changePonctuel(id, value){
     if (jwtToken) {
         // Si un JWT est trouvé, configure les options de la requête
         const requestOptions = {
-            method: 'POST', // Méthode HTTP
             headers: {
                 'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
                 'Set-Cookie': ''
@@ -107,9 +104,9 @@ for (const input of inputs) {
             resultat3 += parseInt(input.value)
         }
         document.querySelector("#totalJury").innerText = resultat3
-
-        let jours = document.querySelectorAll('input[type=checkbox].'+classe)
-        console.log(jours)
-        //TODO
     })
+
+    let jours = document.querySelectorAll('input[type=checkbox].'+classe)
+    console.log(jours)
+    //TODO
 }

@@ -1,7 +1,9 @@
 package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dao.JourEtabEpreuveRepository;
+import cda.greta94.planexam.dao.ProfesseurRepository;
 import cda.greta94.planexam.dto.EpreuveDto;
+import cda.greta94.planexam.model.Professeur;
 import cda.greta94.planexam.service.*;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,7 +31,7 @@ public class EpreuveController {
 
   private JuryService juryService;
 
-  private ProfesseurService professeurService;
+  private ProfesseurRepository professeurRepository;
 
   public EpreuveController(EpreuveService epreuveService,
                            JourService jourService,
@@ -35,7 +39,7 @@ public class EpreuveController {
                            JourEtabEpreuveRepository jourEtabEpreuveRepository,
                            EtabEpreuveService etabEpreuveService,
                            JuryService juryService,
-                           ProfesseurService professeurService
+                           ProfesseurRepository professeurRepository
   ) {
     this.epreuveService = epreuveService;
     this.jourService = jourService;
@@ -43,13 +47,15 @@ public class EpreuveController {
     this.jourEtabEpreuveRepository = jourEtabEpreuveRepository;
     this.etabEpreuveService = etabEpreuveService;
     this.juryService = juryService;
-    this.professeurService = professeurService;
+    this.professeurRepository = professeurRepository;
   }
 
   @GetMapping("/epreuves")
   public String index(Model model) {
     model.addAttribute("epreuves", epreuveService.getAll());
-    model.addAttribute("profs", professeurService.getAll());
+    model.addAttribute("profs", professeurRepository.findAll());
+    model.addAttribute("nbrJury", jourEtabEpreuveRepository.findAll());
+    model.addAttribute("jurys", juryService.getAll());
     return "admin/epreuve/index";
   }
 
@@ -65,15 +71,26 @@ public class EpreuveController {
     return "admin/epreuve/nbrJury";
   }
 
-  @GetMapping("/epreuve/jury/{id}")
-  public String jurys(@PathVariable("id") Long id, Model model) {
+  @GetMapping("/epreuve/jury-sisr/{id}")
+  public String jurysSISR(@PathVariable("id") Long id, Model model) {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
     model.addAttribute("epreuveDto", epreuveDto);
     model.addAttribute("jours", jourService.findByEpreuve(id));
     model.addAttribute("etabEpreuveList", etabEpreuveService.getByIdEpreuveAndPonctuel(id));
     model.addAttribute("juries", juryService.getAll());
-    model.addAttribute("profs", professeurService.getAll());
-    return "admin/epreuve/jury";
+    model.addAttribute("profs", professeurRepository.findBySpecialite_Libelle("SISR"));
+    return "admin/epreuve/jury-sisr";
+  }
+
+  @GetMapping("/epreuve/jury-slam/{id}")
+  public String jurysSLAM(@PathVariable("id") Long id, Model model) {
+    EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
+    model.addAttribute("epreuveDto", epreuveDto);
+    model.addAttribute("jours", jourService.findByEpreuve(id));
+    model.addAttribute("etabEpreuveList", etabEpreuveService.getByIdEpreuveAndPonctuel(id));
+    model.addAttribute("juries", juryService.getAll());
+    model.addAttribute("profs", professeurRepository.findBySpecialite_IdGreaterThan(1L));
+    return "admin/epreuve/jury-slam";
   }
 
   @GetMapping("/epreuve/edit/{id}")
@@ -116,7 +133,7 @@ public class EpreuveController {
     }
     // ok
     redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! \n " +
-        "Après avoir défini les nombres de jurys, passez à l'étape 3 sur la page de gestion des épreuves");
+        "Après avoir défini les nombres de jurys prévisionnels, passez à l'étape 3 sur la page de gestion des épreuves");
     return "redirect:/admin/epreuve/nbr-jury/"+idEpreuve;
   }
 
@@ -135,7 +152,7 @@ public class EpreuveController {
       redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
       return "redirect:/admin/epreuve/enseignants/import";
     }
-    redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! Vous pouvez passer à l'étape 4");
+    redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! Vous pouvez passer aux étapes 4 et 5");
     return "redirect:/admin/epreuves";
   }
 
