@@ -106,7 +106,15 @@ for (const input of inputs) {
         document.querySelector("#totalJury").innerText = resultat3
     })
 
-    let jours = document.querySelectorAll('input[type=checkbox].'+classe)
-    console.log(jours)
+    // let inputJours = document.querySelectorAll('input[type=checkbox]')
+    // let classeJour = ""
+    // let classesJour = inputJours.classList
+    // for (const classeElement of classesJour) {
+    //     if(classeElement.startsWith('jour')) {
+    //         classeJour = classeElement
+    //     }
+    // }
+    // let jours = document.querySelectorAll('input[type=checkbox].'+classeJour)
+    // console.log(jours)
     //TODO
 }

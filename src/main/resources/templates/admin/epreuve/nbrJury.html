@@ -29,7 +29,7 @@
                             <td></td>
                             <td th:each="jour : ${jours}">
                                 <input type="checkbox"
-                                       th:class="'ms-3 totalNbr'+${jour.id}"
+                                       th:class="'ms-3 jour'+${jour.id}"
                                        th:checked="${jour.ouvre}"
                                        th:onchange="'javascript:changeDispo(' + ${jour.id} + ', this);'"
                                        th:data-confirm-delete="|Êtes-vous sûr de vouloir rendre indisponible ce jour : ${#dates.format(jour.dateJ, 'dd/MM')} ? Ceci réinitialisera tous les jurys pour ce jour.|"
