@@ -24,6 +24,8 @@
             <td th:text="${jury.prof1 != null ? jury.prof1.nom + ' ' + jury.prof1.prenom : 'N/A'}"></td>
             <td th:text="${jury.prof2 != null ? jury.prof2.nom + ' ' + jury.prof2.prenom : 'N/A'}"></td>
             <td>
+                <!-- TODO -->
+                <a href="#" class="btn btn-success me-1">Voir détail</a>
                 <a th:href="@{/admin/jury/edit/{id} (id=${jury.id})}" class="btn btn-primary me-1">Modifier</a>
                 <form th:action="@{/admin/jury/delete/{id} (id=${jury.id})}" method="post" style="display: inline">
                     <button
