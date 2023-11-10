@@ -4,18 +4,21 @@ document.querySelector('#login-form').addEventListener('submit', function (event
   // Récupérer les valeurs des champs
   const email = document.querySelector('#username').value;
   const password = document.querySelector('#password').value;
+  const csrfToken = document.getElementById('csrfToken').value;
 
   // Construire l'objet de données pour la requête
   const data = {
     email: email,
-    password: password
+    password: password,
+    csrfToken: csrfToken
   };
 
   // Envoyer la requête Fetch
   fetch('/authenticate', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRF-TOKEN': csrfToken
     },
     body: JSON.stringify(data)
   })

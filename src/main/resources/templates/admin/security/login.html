@@ -12,6 +12,7 @@
     <form action="/login" method="post" id="login-form" class="form-control mt-5 mb-2">
         <input
                 type="hidden"
+                id="csrfToken"
                 th:name="${_csrf.parameterName}"
                 th:value="${_csrf.token}"
         />
