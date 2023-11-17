@@ -29,7 +29,7 @@
                             <td></td>
                             <td th:each="jour : ${jours}">
                                 <input type="checkbox"
-                                       th:class="'ms-3 jour'+${jour.id}"
+                                       th:class="'ms-3 jour totalNbr'+${jour.id}"
                                        th:checked="${jour.ouvre}"
                                        th:onchange="'javascript:changeDispo(' + ${jour.id} + ', this);'"
                                        th:data-confirm-delete="|Êtes-vous sûr de vouloir rendre indisponible ce jour : ${#dates.format(jour.dateJ, 'dd/MM')} ? Ceci réinitialisera tous les jurys pour ce jour.|"
@@ -54,6 +54,7 @@
                             <td th:text="${unEtabEpreuve.etablissement.code}"></td>
                             <td>
                                 <input type="number"
+                                       min="0"
                                        class="form-control input-sm"
                                        th:value="${unEtabEpreuve.nbrCandidats == null ? 0 : unEtabEpreuve.nbrCandidats}"
                                 />
@@ -61,6 +62,7 @@
                             <!-- TODO: ajouter th:onchange -->
                             <td>
                                 <input type="number"
+                                       min="0"
                                        class="form-control input-sm"
                                        value="0"
                                 />
@@ -69,7 +71,7 @@
                             <td th:each="jour : ${jours}">
                                 <input type="number"
                                        min="0"
-                                       th:class="'totalNbr' + ${jour.id} + ' form-control input-sm'"
+                                       th:class="'nbrJury form-control input-sm totalNbr'+${jour.id}"
                                        th:value="${unEtabEpreuve.getJourEtabEpreuve(jour) == null ? 0 : unEtabEpreuve.getJourEtabEpreuve(jour).nbrJury}"
                                        th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
                                 />
