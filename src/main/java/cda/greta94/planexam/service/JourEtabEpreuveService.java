@@ -26,15 +26,15 @@ public class JourEtabEpreuveService {
 
     public void createNbrJuriesById(Long jourId, Long etabEpreuveId, int nbrJury) {
         Assert.isTrue(nbrJury >= 0, "Le nombre de jurys ne peut pas être négatif");
+
         JourEtabEpreuveId jourEtabEpreuveId = new JourEtabEpreuveId(etabEpreuveId, jourId);
         JourEtabEpreuve jourEtabEpreuve = new JourEtabEpreuve();
         jourEtabEpreuve.setJourEtabEpreuveId(jourEtabEpreuveId);
+
+        jourEtabEpreuve.setJour(jourRepository.findById(jourId).orElseThrow(NotFoundEntityException::new));
+        jourEtabEpreuve.setEtabEpreuve(etabEpreuveRepository.findById(etabEpreuveId).orElseThrow(NotFoundEntityException::new));
         jourEtabEpreuve.setNbrJury(nbrJury);
 
-        EtabEpreuve etabEpreuve = etabEpreuveRepository.findById(etabEpreuveId).orElseThrow(NotFoundEntityException::new);
-        Jour jour = jourRepository.findById(jourId).orElseThrow(NotFoundEntityException::new);
-        jourEtabEpreuve.setJour(jour);
-        jourEtabEpreuve.setEtabEpreuve(etabEpreuve);
         jourEtabEpreuveRepository.save(jourEtabEpreuve);
     }
 }
