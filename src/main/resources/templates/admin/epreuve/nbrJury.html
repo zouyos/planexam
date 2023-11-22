@@ -55,12 +55,11 @@
                         <td>
                             <input type="number"
                                    min="0"
-                                   class="form-control nbrCand"
+                                   class="form-control input-lg nbrCand"
                                    th:value="${unEtabEpreuve.nbrCandidats == null ? 0 : unEtabEpreuve.nbrCandidats}"
                                    th:onchange="'javascript:changeNbrCandidats(' + ${unEtabEpreuve.id} + ', this.value);'"
                             />
                         </td>
-                        <!-- TODO: ajouter JS -->
                         <td>
                             <input type="number"
                                    min="0"

@@ -19,3 +19,7 @@ body {
 .input-md {
     width: 4rem;
 }
+
+.input-lg {
+    width: 4.5rem;
+}

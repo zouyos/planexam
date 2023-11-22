@@ -6,28 +6,43 @@ async function changeDispo(id, input){
     let resultatConfirm = false;
     if (!input.checked) {
         resultatConfirm = confirm(input.getAttribute('data-confirm-delete'))
+        if (resultatConfirm == true) {
+            const jwtToken = sessionStorage.getItem("jwt");
+            if (jwtToken) {
+                const requestOptions = {
+                    headers: {
+                        'Authorization': `Bearer ${jwtToken}`,
+                        'Set-Cookie': ''
+                    },
+                    credentials: 'omit'
+                }
+                await fetch("/api/epreuve/jour/" + id + "/" + false, requestOptions);
+                let classe = 'totalNbr' + id
+                let inputs = document.querySelectorAll('input[type=number].'+classe);
+                for (let i = 0; i < inputs.length; i++) {
+                    await changeNbrJuries(id, i+1, 0)
+                }
+            } else {
+                console.error("Pas de jwt");
+            }
+        } else {
+            input.checked = true
+        }
     }
-    if (resultatConfirm == true || input.checked) {
-        // Récupère le JWT depuis la session de stockage du navigateur
+    if (input.checked) {
         const jwtToken = sessionStorage.getItem("jwt");
-
-        // Vérifie si un JWT existe dans la session de stockage
         if (jwtToken) {
-            // Si un JWT est trouvé, configure les options de la requête
             const requestOptions = {
                 headers: {
-                    'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
+                    'Authorization': `Bearer ${jwtToken}`,
                     'Set-Cookie': ''
                 },
                 credentials: 'omit'
             }
-            await fetch("/api/epreuve/jour/" + id + "/" + input.checked, requestOptions);
+            await fetch("/api/epreuve/jour/" + id + "/" + true, requestOptions);
         } else {
-            // Si aucun JWT n'est trouvé, affiche un message d'erreur dans la console
             console.error("Pas de jwt");
         }
-    } else if(resultatConfirm == false) {
-        input.checked = true
     }
 }
 
@@ -47,47 +62,61 @@ async function changeNbrJuries(jourId, etabEpreuveId, nbrJury){
     }
 }
 
+//calculer les totaux
 let inputs = document.querySelectorAll("input.nbrJury")
+function calcTotalEtab(e) {
+    let tr = e.target.parentNode.parentNode
+    let resultat = 0
+    for (const element of tr.querySelectorAll("input.nbrJury")) {
+        resultat += parseInt(element.value)
+    }
+    tr.lastElementChild.innerText = resultat
+    //décrémenter jurys à convoquer
+    //TODO
+    //tr.querySelector("input.jurysConv").value--
+}
+function calcTotalJour(e) {
+    //récupérer le nom de la classe de l'input ciblé commençant par 'totalNbr'
+    let classe = ""
+    let classes = e.target.classList
+    for (const classeElement of classes) {
+        if(classeElement.startsWith('totalNbr')) {
+            classe = classeElement
+        }
+    }
+    //récupérer les inputs qui ont la même classe
+    let inputsCol = document.querySelectorAll('input[type=number].'+classe)
+    //sommer la valeur des inputs ayant la même classe
+    let resultat = 0
+    for (const inputCol of inputsCol) {
+        resultat += parseInt(inputCol.value)
+    }
+    //cibler la cellule 'total' du jour en question (lui donner un id dynamique) et y afficher le résultat
+    document.querySelector('#'+classe).innerText = resultat
+}
+function calcTotal() {
+    let resultat = 0
+    for (const input of inputs) {
+        resultat += parseInt(input.value)
+    }
+    document.querySelector("#totalJury").innerText = resultat
+}
 for (const input of inputs) {
     input.addEventListener("change", (e) => {
-        let tr = e.target.parentNode.parentNode
-        let resultat = 0
-        for (const element of tr.querySelectorAll("input.nbrJury")) {
-            resultat += parseInt(element.value)
-        }
-        tr.lastElementChild.innerText = resultat
-        tr.querySelector("input.jurysConv").value--
-
-        //pour les colonnes :
-
-        //récupérer le nom de la classe de l'input ciblé commençant par 'totalNbr'
-        let classe = ""
-        let classes = e.target.classList
-        for (const classeElement of classes) {
-            if(classeElement.startsWith('totalNbr')) {
-                classe = classeElement
-            }
-        }
-        //récupérer les inputs qui ont la même classe
-        let inputsCol = document.querySelectorAll('input[type=number].'+classe)
-        //sommer la valeur des inputs ayant la même classe
-        let resultat2 = 0
-        for (const inputCol of inputsCol) {
-            resultat2 += parseInt(inputCol.value)
-        }
-        //cibler la cellule 'total' du jour en question (lui donner un id dynamique) et y afficher le résultat
-        document.querySelector('#'+classe).innerText = resultat2
-
-        let resultat3 = 0
-        for (const input of inputs) {
-            resultat3 += parseInt(input.value)
-        }
-        document.querySelector("#totalJury").innerText = resultat3
+        calcTotalEtab(e)
+        calcTotalJour(e)
+        calcTotal()
     })
 }
+window.addEventListener("load", (e) => {
+    for (const input of inputs) {
+        calcTotalEtab(e)
+        calcTotalJour(e)
+        calcTotal()
+    }
+});
 
 //pour réinitialiser les jurys jours
-
 let inputsJours = document.querySelectorAll('input[type=checkbox]')
 for (const inputJour of inputsJours) {
     inputJour.addEventListener("change", (e) => {
@@ -99,27 +128,24 @@ for (const inputJour of inputsJours) {
             }
         }
         let inputsCol = document.querySelectorAll('input[type=number].'+classe)
-        console.log(inputsCol)
     })
 }
 
 //pour calc jury by nbrCand
-
+function calcJuryConv() {
+    let tr = e.target.parentNode.parentNode
+    let resultat = 0
+    resultat += Math.ceil(parseInt((e.target.value))/5)
+    tr.querySelector("input.jurysConv").value = resultat
+}
 let inputsCand = document.querySelectorAll("input.nbrCand")
 for (const input of inputsCand) {
     input.addEventListener("change", (e) => {
-        let tr = e.target.parentNode.parentNode
-        let resultat = 0
-        resultat += Math.ceil(parseInt((e.target.value))/5)
-        tr.querySelector("input.jurysConv").value = resultat
+        calcJuryConv()
     })
 }
-
 window.addEventListener("load", (e) => {
     for (const input of inputsCand) {
-        let tr = input.parentNode.parentNode
-        let resultat = 0
-        resultat += Math.ceil(parseInt((input.value))/5)
-        tr.querySelector("input.jurysConv").value = resultat
+        calcJuryConv()
     }
 });
