@@ -42,43 +42,43 @@
                             <th>RNE</th>
                             <th>Code</th>
                             <th>Nbr candidats</th>
-                            <th>Jury à placer</th>
+                            <th>Jurys à placer</th>
                             <th th:each="jour : ${jours}" th:text="${#dates.format(jour.dateJ, 'dd/MM')}"></th>
                             <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="unEtabEpreuve : ${etabEpreuveList}">
-                            <td th:text="${unEtabEpreuve.etablissement.nom}"></td>
-                            <td th:text="${unEtabEpreuve.etablissement.rne}"></td>
-                            <td th:text="${unEtabEpreuve.etablissement.code}"></td>
-                            <td>
-                                <input type="number"
-                                       min="0"
-                                       class="form-control input-sm"
-                                       th:value="${unEtabEpreuve.nbrCandidats == null ? 0 : unEtabEpreuve.nbrCandidats}"
-                                />
-                            </td>
-                            <!-- TODO: ajouter th:onchange -->
-                            <td>
-                                <input type="number"
-                                       min="0"
-                                       class="form-control input-sm"
-                                       value="0"
-                                />
-                                <!--th:value="${unEtabEpreuve.nbrCandidats == null ? 0 : #numbers.formatDecimal(unEtabEpreuve.nbrCandidats/5)}"-->
-                            </td>
-                            <td th:each="jour : ${jours}">
-                                <input type="number"
-                                       min="0"
-                                       th:class="'nbrJury form-control input-sm totalNbr'+${jour.id}"
-                                       th:value="${unEtabEpreuve.getJourEtabEpreuve(jour) == null ? 0 : unEtabEpreuve.getJourEtabEpreuve(jour).nbrJury}"
-                                       th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
-                                />
-                            </td>
-                            <td th:text="${unEtabEpreuve.calcTotalNbrJury()}"></td>
-                        </tr>
-                        <tr>
+                    <tr th:each="unEtabEpreuve : ${etabEpreuveList}">
+                        <td th:text="${unEtabEpreuve.etablissement.nom}"></td>
+                        <td th:text="${unEtabEpreuve.etablissement.rne}"></td>
+                        <td th:text="${unEtabEpreuve.etablissement.code}"></td>
+                        <td>
+                            <input type="number"
+                                   min="0"
+                                   class="form-control nbrCand"
+                                   th:value="${unEtabEpreuve.nbrCandidats == null ? 0 : unEtabEpreuve.nbrCandidats}"
+                                   th:onchange="'javascript:changeNbrCandidats(' + ${unEtabEpreuve.id} + ', this.value);'"
+                            />
+                        </td>
+                        <!-- TODO: ajouter JS -->
+                        <td>
+                            <input type="number"
+                                   min="0"
+                                   value="0"
+                                   class="form-control input-md jurysConv"
+                            />
+                        </td>
+                        <td th:each="jour : ${jours}">
+                            <input type="number"
+                                   min="0"
+                                   th:class="'nbrJury form-control input-sm totalNbr'+${jour.id}"
+                                   th:value="${unEtabEpreuve.getJourEtabEpreuve(jour) == null ? 0 : unEtabEpreuve.getJourEtabEpreuve(jour).nbrJury}"
+                                   th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
+                            />
+                        </td>
+                        <td th:text="${unEtabEpreuve.calcTotalNbrJury()}"></td>
+                    </tr>
+                    <tr>
                             <th>Total par jour</th>
                             <td></td>
                             <td></td>

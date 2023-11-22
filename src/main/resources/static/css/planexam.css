@@ -15,3 +15,7 @@ body {
 .input-sm {
     width: 3.6rem;
 }
+
+.input-md {
+    width: 4rem;
+}

@@ -30,7 +30,7 @@ public class JuryService {
 
     public JuryDto getJuryDtoById(Long id) {
         Jury jury = juryRepository.findById(id).orElseThrow(NotFoundEntityException::new);
-        return new JuryDto(jury.getId(), jury.getNum(), jury.getProf1(), jury.getProf2());
+        return new JuryDto(jury.getId(), jury.getNum(), jury.getProf1(), jury.getProf2(), jury.getJourEtabEpreuve());
     }
 
     public void saveJuryFromDto(JuryDto juryDto) {
@@ -43,6 +43,7 @@ public class JuryService {
         jury.setNum(juryDto.getNum());
         jury.setProf1(juryDto.getProf1());
         jury.setProf2(juryDto.getProf2());
+        jury.setJourEtabEpreuve(juryDto.getJourEtabEpreuve());
         juryRepository.save(jury);
     }
 

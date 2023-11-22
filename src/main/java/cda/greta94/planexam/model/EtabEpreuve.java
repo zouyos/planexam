@@ -25,9 +25,6 @@ public class EtabEpreuve {
   @OneToMany(mappedBy = "etabEpreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
   private List<JourEtabEpreuve> jourEtabEpreuveList = new ArrayList<>();
 
-  @OneToMany(mappedBy = "etabEpreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-  private List<Jour> jours = new ArrayList<>();
-
   public JourEtabEpreuve getJourEtabEpreuve(Jour jour){
     for (JourEtabEpreuve jourEtabEpreuve: this.jourEtabEpreuveList) {
       if(jourEtabEpreuve.getJour().getId() == jour.getId()){
@@ -69,14 +66,6 @@ public class EtabEpreuve {
     this.id = id;
   }
 
-  public List<Jour> getJours() {
-    return jours;
-  }
-
-  public void setJours(List<Jour> jours) {
-    this.jours = jours;
-  }
-
   public int getNbrCandidats() {
     return nbrCandidats;
   }
@@ -90,6 +79,12 @@ public class EtabEpreuve {
     for (JourEtabEpreuve jourEtabEpreuve: this.jourEtabEpreuveList) {
       resultat += jourEtabEpreuve.getNbrJury();
     }
+    return resultat;
+  }
+
+  public int calcTotalNbrCandidats() {
+    int resultat = 0;
+    resultat += this.nbrCandidats;
     return resultat;
   }
 }

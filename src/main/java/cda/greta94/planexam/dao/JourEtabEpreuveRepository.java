@@ -10,5 +10,4 @@ import org.springframework.data.repository.query.Param;
 
 public interface JourEtabEpreuveRepository extends JpaRepository<JourEtabEpreuve, Long> {
     JourEtabEpreuve findByJourEtabEpreuveId(JourEtabEpreuveId jourEtabEpreuveId);
-
 }

@@ -1,5 +1,6 @@
 package cda.greta94.planexam.dto;
 
+import cda.greta94.planexam.model.JourEtabEpreuve;
 import cda.greta94.planexam.model.Professeur;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,14 +21,19 @@ public class JuryDto {
     @NotNull(message = "Deux enseignants sont requis")
     private Professeur prof2;
 
+    @NotNull(message = "Veuillez assigner un jury à un jour et un établissement")
+    private JourEtabEpreuve jourEtabEpreuve;
+
+
     public JuryDto() {
     }
 
-    public JuryDto(Long id, String num, Professeur prof1, Professeur prof2) {
+    public JuryDto(Long id, String num, Professeur prof1, Professeur prof2, JourEtabEpreuve jourEtabEpreuve) {
         this.id = id;
         this.num = num;
         this.prof1 = prof1;
         this.prof2 = prof2;
+        this.jourEtabEpreuve = jourEtabEpreuve;
     }
 
     public Long getId() {
@@ -60,5 +66,13 @@ public class JuryDto {
 
     public void setProf2(Professeur prof2) {
         this.prof2 = prof2;
+    }
+
+    public JourEtabEpreuve getJourEtabEpreuve() {
+        return jourEtabEpreuve;
+    }
+
+    public void setJourEtabEpreuve(JourEtabEpreuve jourEtabEpreuve) {
+        this.jourEtabEpreuve = jourEtabEpreuve;
     }
 }

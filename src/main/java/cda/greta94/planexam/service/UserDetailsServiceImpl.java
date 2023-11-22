@@ -28,29 +28,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     this.encoder = encoder;
   }
 
-  /***
-   * Une méthode qui prend en param un nom d'utilisateur ou email qui provient du formulaire de login.
-   * Et retourne un objet User (class provenant de Security) avec un username, password (encodé), une liste de permissions
-   * @param username pseudo ou email du form de login
-   * @return  Un objet User (qui implement l'interface UserDetails)
-   * @throws UsernameNotFoundException
-   */
   @Override
   @Transactional(readOnly = true)
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     try {
-      //Etape 1 : obtenir les infos de l'utilisateur cad un objet Utilisateur
       Utilisateur utilisateur = utilisateurRepository.findByEmail(username);
-      //Etape 2 : Verification que on a bien un utilisateur ( cas si l'email n'est pas correct)
-      //Etape 3 : Recupere le nom du role
       String nomRole = utilisateur.getRole().getNom();
-      //Etape 3 bis (cas avec des Utilisateurs dans des classe séparées)
-      //String nomRole = utilisateur.getClass().getSimpleName();
-      //Etape 4 je consitue un liste de permissions
       Set<GrantedAuthority> permissions = new HashSet<>();
-      //Etape 5 J'ajoute le nom du role dans la liste de permissions.
       permissions.add(new SimpleGrantedAuthority(nomRole));
-      //Etape 6 je créer un objet User
       User user = new User(utilisateur.getEmail(), utilisateur.getMdp(), permissions);
       return user;
     } catch (Exception e) {

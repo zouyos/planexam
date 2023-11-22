@@ -24,7 +24,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig {
 
   @Autowired
-  private UserDetailsService userDetailsService; // Service pour gérer les détails des utilisateurs
+  private UserDetailsService userDetailsService;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -35,7 +35,6 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
       return httpSecurity
-          //.csrf(csrf -> csrf.disable())
           .formLogin(form -> form
                       .loginPage("/login")
                       .permitAll()
@@ -53,7 +52,6 @@ public class WebSecurityConfig {
                           "/authenticate",
                           "/css/**", "/js/**", "/img/**", "/favicon.ico", "/webjars/**").permitAll()
                       .requestMatchers(HttpMethod.POST, ("/inscription")).permitAll()
-                      //Interdit la page si l'utilisateur n'est pas admin
                       .requestMatchers("/admin/**", "/api/**").hasAuthority("admin")
                       .requestMatchers("/prof/**").hasAnyAuthority("prof","admin")
                       .anyRequest().authenticated()
@@ -73,6 +71,6 @@ public class WebSecurityConfig {
     final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
     authenticationProvider.setUserDetailsService(userDetailsService);
     authenticationProvider.setPasswordEncoder(this.passwordEncoder);
-    return authenticationProvider; // Configure le fournisseur d'authentification pour l'application
+    return authenticationProvider;
   }
 }

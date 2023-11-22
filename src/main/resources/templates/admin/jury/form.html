@@ -32,8 +32,13 @@
                 </div>
                 <div class="my-2">
                 <select id="prof1" class="form-control" th:field="*{prof1}">
-                    <option th:each="prof : ${profs}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
+                    <option th:each="prof : ${profsSISR}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
                 </select>
+                </div>
+                <div class="my-2">
+                    <select id="prof2" class="form-control" th:field="*{prof2}">
+                        <option th:each="prof : ${profs}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
+                    </select>
                 </div>
                 <div class="my-2">
                     <select id="prof2" class="form-control" th:field="*{prof2}">

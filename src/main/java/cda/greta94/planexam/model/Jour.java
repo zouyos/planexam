@@ -23,10 +23,6 @@ public class Jour {
   @OneToMany(mappedBy = "jour", cascade = CascadeType.ALL)
   private List<JourEtabEpreuve> jourEtabEpreuveList = new ArrayList<>();
 
-  @ManyToOne
-  @JoinColumn(name = "etab_epreuve_id")
-  private EtabEpreuve etabEpreuve;
-
   public Jour() {
   }
 
@@ -74,14 +70,6 @@ public class Jour {
 
   public void setJourEtabEpreuveList(List<JourEtabEpreuve> jourEtabEpreuveList) {
     this.jourEtabEpreuveList = jourEtabEpreuveList;
-  }
-
-  public EtabEpreuve getEtabEpreuve() {
-    return etabEpreuve;
-  }
-
-  public void setEtabEpreuve(EtabEpreuve etabEpreuve) {
-    this.etabEpreuve = etabEpreuve;
   }
 
   public int calcTotalNbrJury() {

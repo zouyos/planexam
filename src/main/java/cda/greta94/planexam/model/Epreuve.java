@@ -17,7 +17,7 @@ public class Epreuve {
   private Date dateDebut;
   private Date dateFin;
 
-  @OneToMany(mappedBy = "epreuve", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "epreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
   private List<Jour> jours = new ArrayList<>();
 
   @OneToMany(mappedBy = "epreuve", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)

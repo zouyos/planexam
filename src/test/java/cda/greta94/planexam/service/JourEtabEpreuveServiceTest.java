@@ -29,15 +29,12 @@ class JourEtabEpreuveServiceTest {
 
     @Test
     public void testCreateNbrJuriesById() {
-        // Données de test
         Long jourId = 1L;
         Long etabEpreuveId = 2L;
         int nbrJury = 4;
 
-        // Appeler la méthode testée
         jourEtabEpreuveService.createNbrJuriesById(jourId, etabEpreuveId, nbrJury);
 
-        // Vérifier le résultat en utilisant des assertions
         JourEtabEpreuve jourEtabEpreuve = jourEtabEpreuveRepository
                 .findByJourEtabEpreuveId(new JourEtabEpreuveId(etabEpreuveId, jourId));
         assertNotNull(jourEtabEpreuve, "Le jourEtabEpreuve ne doit pas être null");

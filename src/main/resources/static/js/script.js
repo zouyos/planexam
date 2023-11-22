@@ -1,3 +1,7 @@
+async function changeNbrCandidats(EtabEpreuveid, nbrCandidats) {
+    await fetch('/api/epreuve/nbr-candidats/' + EtabEpreuveid + '/' + nbrCandidats)
+}
+
 async function changeDispo(id, input){
     let resultatConfirm = false;
     if (!input.checked) {
@@ -28,22 +32,17 @@ async function changeDispo(id, input){
 }
 
 async function changeNbrJuries(jourId, etabEpreuveId, nbrJury){
-    // Récupère le JWT depuis la session de stockage du navigateur
     const jwtToken = sessionStorage.getItem("jwt");
-
-    // Vérifie si un JWT existe dans la session de stockage
     if (jwtToken) {
-        // Si un JWT est trouvé, configure les options de la requête
         const requestOptions = {
             headers: {
-                'Authorization': `Bearer ${jwtToken}`, // Ajoute le JWT dans l'en-tête d'autorisation
+                'Authorization': `Bearer ${jwtToken}`,
                 'Set-Cookie': ''
             },
             credentials: 'omit'
         }
         await fetch("/api/epreuve/nbr-juries/"+jourId+"/"+etabEpreuveId+"/"+nbrJury, requestOptions);
     } else {
-        // Si aucun JWT n'est trouvé, affiche un message d'erreur dans la console
         console.error("Pas de jwt");
     }
 }
@@ -57,6 +56,7 @@ for (const input of inputs) {
             resultat += parseInt(element.value)
         }
         tr.lastElementChild.innerText = resultat
+        tr.querySelector("input.jurysConv").value--
 
         //pour les colonnes :
 
@@ -94,7 +94,7 @@ for (const inputJour of inputsJours) {
         let classe = ""
         let classes = e.target.classList
         for (const classeElement of classes) {
-            if(classeElement.startsWith('totalNbr')) {
+            if (classeElement.startsWith('totalNbr')) {
                 classe = classeElement
             }
         }
@@ -102,3 +102,24 @@ for (const inputJour of inputsJours) {
         console.log(inputsCol)
     })
 }
+
+//pour calc jury by nbrCand
+
+let inputsCand = document.querySelectorAll("input.nbrCand")
+for (const input of inputsCand) {
+    input.addEventListener("change", (e) => {
+        let tr = e.target.parentNode.parentNode
+        let resultat = 0
+        resultat += Math.ceil(parseInt((e.target.value))/5)
+        tr.querySelector("input.jurysConv").value = resultat
+    })
+}
+
+window.addEventListener("load", (e) => {
+    for (const input of inputsCand) {
+        let tr = input.parentNode.parentNode
+        let resultat = 0
+        resultat += Math.ceil(parseInt((input.value))/5)
+        tr.querySelector("input.jurysConv").value = resultat
+    }
+});

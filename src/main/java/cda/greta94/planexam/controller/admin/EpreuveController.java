@@ -131,10 +131,8 @@ public class EpreuveController {
       redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
       return "redirect:/admin/epreuve/import/"+idEpreuve;
     }
-    // ok
-    redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! \n " +
-        "Après avoir défini les nombres de jurys prévisionnels, passez à l'étape 3 sur la page de gestion des épreuves");
-    return "redirect:/admin/epreuve/nbr-jury/"+idEpreuve;
+    redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
+    return "redirect:/admin/epreuves";
   }
 
   @GetMapping(value = "epreuve/enseignants/import")
@@ -152,7 +150,7 @@ public class EpreuveController {
       redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
       return "redirect:/admin/epreuve/enseignants/import";
     }
-    redirAttrs.addFlashAttribute("successMessage", "Importation réussie ! Vous pouvez passer aux étapes 4 et 5");
+    redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
     return "redirect:/admin/epreuves";
   }
 

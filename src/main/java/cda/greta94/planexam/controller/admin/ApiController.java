@@ -2,10 +2,7 @@ package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dto.AuthRequestDto;
 import cda.greta94.planexam.dto.AuthResponseDto;
-import cda.greta94.planexam.service.AuthService;
-import cda.greta94.planexam.service.EtablissementService;
-import cda.greta94.planexam.service.JourService;
-import cda.greta94.planexam.service.JourEtabEpreuveService;
+import cda.greta94.planexam.service.*;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,16 +18,20 @@ public class ApiController {
 
     private JourService jourService;
 
+    private EtabEpreuveService etabEpreuveService;
+
     private JourEtabEpreuveService jourEtabEpreuveService;
 
     public ApiController(
         EtablissementService etablissementService,
         JourService jourService,
+        EtabEpreuveService etabEpreuveService,
         JourEtabEpreuveService jourEtabEpreuveService,
         AuthService authService
     ) {
         this.etablissementService = etablissementService;
         this.jourService = jourService;
+        this.etabEpreuveService = etabEpreuveService;
         this.jourEtabEpreuveService = jourEtabEpreuveService;
         this.authService = authService;
     }
@@ -49,6 +50,24 @@ public class ApiController {
         etablissementService.updatePonctuelById(id, value);
     }
 
+    @GetMapping("/api/epreuve/jour/{id}/{value}")
+    public void changeDispoJour(@PathVariable (name = "id") Long id,
+                                @PathVariable(name = "value") Boolean value,
+                                HttpServletResponse httpResponse)
+    {
+        httpResponse.setHeader("Set-Cookie", "");
+        jourService.updateJourById(id,value);
+    }
+
+    @GetMapping("/api/epreuve/nbr-candidats/{etabEpreuveId}/{nbr}")
+    public void updateNbrJurys(@PathVariable(name = "etabEpreuveId") Long etabEpreuveId,
+                               @PathVariable(name = "nbr") int nbr,
+                               HttpServletResponse httpResponse)
+    {
+        httpResponse.setHeader("Set-Cookie", "");
+        etabEpreuveService.createNbrCandidats(etabEpreuveId, nbr);
+    }
+
     @GetMapping("/api/epreuve/nbr-juries/{jourId}/{etabEpreuveId}/{nbr}")
     public void updateNbrJurys(@PathVariable(name = "jourId") Long jourId,
                                @PathVariable(name = "etabEpreuveId") Long etabEpreuveId,
@@ -57,14 +76,5 @@ public class ApiController {
     {
         httpResponse.setHeader("Set-Cookie", "");
         jourEtabEpreuveService.createNbrJuriesById(jourId, etabEpreuveId, nbr);
-    }
-
-    @GetMapping("/api/epreuve/jour/{id}/{value}")
-    public void changeDispoJour(@PathVariable (name = "id") Long id,
-                                @PathVariable(name = "value") Boolean value,
-                                HttpServletResponse httpResponse)
-    {
-        httpResponse.setHeader("Set-Cookie", "");
-        jourService.updateJourById(id,value);
     }
 }
