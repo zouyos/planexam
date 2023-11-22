@@ -93,25 +93,6 @@ public class EpreuveService {
     }
   }
 
-  public void importProfFromCSV(MultipartFile file) throws IOException {
-    Reader in = new InputStreamReader(file.getInputStream());
-    Iterable<CSVRecord> records = CSVFormat.RFC4180.withHeader("Id", "Prenom", "Nom", "Email", "Ville", "RNE", "Specialite").withDelimiter(';').parse(in);
-
-    int nbLigne = 0;
-    for (CSVRecord record : records) {
-      nbLigne++;
-      if(nbLigne == 1 && record.get("Id").equals("Id") && record.get("RNE").equals("RNE")) continue;
-
-      Long idVille = villeService.getOrCreate(record.get("Ville"));
-      Long idEtab = etablissementService.getOrCreate(record.get("RNE"));
-      Long idSpec = specialiteService.getOrCreate(record.get("Specialite"));
-
-      ProfesseurDto profDto = new ProfesseurDto(Long.getLong(record.get("Id")), record.get("Prenom"), record.get("Nom"), record.get("Email"), idVille, idEtab, idSpec, null);
-
-      professeurService.saveProfFromDto(profDto);
-    }
-  }
-
   public void saveEpreuveFromEpreuveDto(EpreuveDto epreuveDto) {
     Epreuve epreuve = null;
     if (epreuveDto.getId() != null) {

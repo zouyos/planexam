@@ -25,8 +25,6 @@ public class JourEtabEpreuve {
   @OneToMany(mappedBy = "jourEtabEpreuve", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Jury> juries = new ArrayList<>();
 
-
-
   public List<Jury> getJuries() {
     return juries;
   }

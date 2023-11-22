@@ -135,25 +135,6 @@ public class EpreuveController {
     return "redirect:/admin/epreuves";
   }
 
-  @GetMapping(value = "epreuve/enseignants/import")
-  public String formImportCSV() { return "admin/epreuve/formImportProfs"; }
-
-  @PostMapping(value = "epreuve/enseignants/import")
-  public String importCSV(@RequestParam("file")MultipartFile file, RedirectAttributes redirAttrs) {
-    if (file.isEmpty()) {
-      redirAttrs.addFlashAttribute("errorMessage", "Please select a file to upload");
-      return "redirect:/admin/epreuve/enseignants/import";
-    }
-    try {
-      epreuveService.importProfFromCSV(file);
-    } catch(Exception e) {
-      redirAttrs.addFlashAttribute("errorMessage", e.getMessage());
-      return "redirect:/admin/epreuve/enseignants/import";
-    }
-    redirAttrs.addFlashAttribute("successMessage", "Importation réussie !");
-    return "redirect:/admin/epreuves";
-  }
-
   @PostMapping("/epreuve/delete/{id}")
   public String delete(@PathVariable("id") Long id) {
     epreuveService.delete(id);

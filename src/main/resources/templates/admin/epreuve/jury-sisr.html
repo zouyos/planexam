@@ -10,7 +10,7 @@
 <main class="container-fluid">
   <div class="card">
     <div class="card-header">
-      <h2 class="text-center">Répartition des enseignants SISR</h2>
+      <h2 class="text-center">Récapitulatif répartition des enseignants SISR</h2>
     </div>
     <div class="card-body">
       <input type="hidden" th:field="${epreuveDto.id}">
@@ -31,21 +31,8 @@
               <td th:text="${prof.nom}"></td>
               <td th:text="${prof.prenom}"></td>
               <span th:each="jour : ${jours}">
-                <td>
-                  <select name="code-etab" id="code-etab">
-                    <option th:each="etab : ${etabEpreuveList}" th:text="${etab.etablissement.code}"></option>
-                  </select>
-                </td>
-                <td>
-                  <select name="num-jury" id="num-jury">
-                    <option></option>
-                    <option>J1</option>
-                    <option>J2</option>
-                    <option>J3</option>
-                    <option>J4</option>
-                    <option>J5</option>
-                  </select>
-                </td>
+                <td>Code etab :</td>
+                <td>Num jury :</td>
               </span>
             </tr>
           </tbody>

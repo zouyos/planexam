@@ -24,7 +24,6 @@ public class JuryDto {
     @NotNull(message = "Veuillez assigner un jury à un jour et un établissement")
     private JourEtabEpreuve jourEtabEpreuve;
 
-
     public JuryDto() {
     }
 
