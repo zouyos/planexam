@@ -27,14 +27,14 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="prof : ${profs}">
-            <td th:text="${prof.nom}"></td>
-            <td th:text="${prof.prenom}"></td>
-            <span th:each="jour : ${jours}">
-              <td>Code etab :</td>
-              <td>Num jury :</td>
-            </span>
-          </tr>
+            <tr th:each="jury : ${juries}">
+              <td th:text="${jury.prof2.nom}"></td>
+              <td th:text="${jury.prof2.prenom}"></td>
+              <span th:each="jee : ${jees}">
+                <td th:text="${jee.etabEpreuve.etablissement.code}"></td>
+                <td th:text="${jury.num}"></td>
+              </span>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -46,6 +46,5 @@
 </main>
 
 <div th:replace="~{fragments/footer.html :: footer}"/>
-<script src="/js/script.js"></script>
 </body>
 </html>

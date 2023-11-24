@@ -24,26 +24,37 @@
         </div>
         <div class="card-body">
             <form th:object="${jury}" th:action="@{/admin/jury}" method="post">
-                <input type="hidden" th:field="${jury.id}">
+                <input type="hidden" th:field="${jury.id}" th:if="${jury.id != null}">
                 <div class="my-2">
                     <label for="num">Numéro</label>
                     <input type="text" id="num" th:field="*{num}" class="form-control">
                     <p th:if="${#fields.hasErrors('num')}" th:errors="*{num}" class="validation-message"></p>
                 </div>
                 <div class="my-2">
-                <select id="prof1" class="form-control" th:field="*{prof1}">
+                    <label for="prof1">Prof 1</label>
+                    <select id="prof1" class="form-control" th:field="*{prof1}">
                     <option th:each="prof : ${profsSISR}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
                 </select>
                 </div>
                 <div class="my-2">
+                    <label for="prof2">Prof 2</label>
                     <select id="prof2" class="form-control" th:field="*{prof2}">
-                        <option th:each="prof : ${profs}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
+                        <option th:each="prof : ${profsSLAM}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
                     </select>
                 </div>
-                <div class="my-2">
-                    <select id="prof2" class="form-control" th:field="*{prof2}">
-                        <option th:each="prof : ${profs}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
-                    </select>
+                <div th:if="${jees.size() != 0}">
+                    <div class="my-2">
+                        <label for="juryJour">Jour</label>
+                        <select id="juryJour" class="form-control" th:field="*{jour}">
+                            <option th:each="jee : ${jees}" th:value="${jee.jour.id}" th:text="${jee.jour.dateJ}"></option>
+                        </select>
+                    </div>
+                    <div class="my-2">
+                        <label for="juryEtab">Établissement</label>
+                        <select id="juryEtab" class="form-control" th:field="*{etabEpreuve}">
+                            <option th:each="jee : ${jees}" th:value="${jee.etabEpreuve.id}" th:text="${jee.etabEpreuve.etablissement.code}"></option>
+                        </select>
+                    </div>
                 </div>
                 <hr>
                 <div class="my-2">

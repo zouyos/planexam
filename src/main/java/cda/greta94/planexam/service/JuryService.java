@@ -1,9 +1,12 @@
 package cda.greta94.planexam.service;
 
+import cda.greta94.planexam.dao.JourEtabEpreuveRepository;
 import cda.greta94.planexam.dao.JuryRepository;
 import cda.greta94.planexam.dao.ProfesseurRepository;
 import cda.greta94.planexam.dto.JuryDto;
 import cda.greta94.planexam.exception.NotFoundEntityException;
+import cda.greta94.planexam.model.JourEtabEpreuve;
+import cda.greta94.planexam.model.JourEtabEpreuveId;
 import cda.greta94.planexam.model.Jury;
 import cda.greta94.planexam.model.Professeur;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +18,13 @@ import java.util.List;
 public class JuryService {
     private JuryRepository juryRepository;
     private ProfesseurRepository professeurRepository;
+    private JourEtabEpreuveRepository jourEtabEpreuveRepository;
 
     @Autowired
-    public JuryService(JuryRepository juryRepository, ProfesseurRepository professeurRepository) {
+    public JuryService(JuryRepository juryRepository, ProfesseurRepository professeurRepository, JourEtabEpreuveRepository jourEtabEpreuveRepository) {
         this.juryRepository = juryRepository;
         this.professeurRepository = professeurRepository;
+        this.jourEtabEpreuveRepository = jourEtabEpreuveRepository;
     }
 
     public List<Jury> getAll() { return juryRepository.findAll(); }
@@ -30,20 +35,31 @@ public class JuryService {
 
     public JuryDto getJuryDtoById(Long id) {
         Jury jury = juryRepository.findById(id).orElseThrow(NotFoundEntityException::new);
-        return new JuryDto(jury.getId(), jury.getNum(), jury.getProf1(), jury.getProf2(), jury.getJourEtabEpreuve());
+        return new JuryDto(
+                jury.getId(),
+                jury.getNum(),
+                jury.getProf1(),
+                jury.getProf2(),
+                jury.getJourEtabEpreuve().getJour(),
+                jury.getJourEtabEpreuve().getEtabEpreuve()
+        );
     }
 
     public void saveJuryFromDto(JuryDto juryDto) {
-        Jury jury = null;
+        Jury jury;
         if (juryDto.getId() != null) {
-            jury = juryRepository.findById(juryDto.getId()).orElseThrow(NotFoundEntityException::new);
+            jury = juryRepository.findById(juryDto.getId()).orElse(new Jury());
         } else {
-            if (jury == null) jury = new Jury();
+            jury = new Jury();
         }
         jury.setNum(juryDto.getNum());
         jury.setProf1(juryDto.getProf1());
         jury.setProf2(juryDto.getProf2());
-        jury.setJourEtabEpreuve(juryDto.getJourEtabEpreuve());
+
+        JourEtabEpreuveId jourEtabEpreuveId = new JourEtabEpreuveId(juryDto.getEtabEpreuve().getId(), juryDto.getJour().getId());
+        JourEtabEpreuve jourEtabEpreuve = jourEtabEpreuveRepository.findByJourEtabEpreuveId(jourEtabEpreuveId);
+        jury.setJourEtabEpreuve(jourEtabEpreuve);
+
         juryRepository.save(jury);
     }
 

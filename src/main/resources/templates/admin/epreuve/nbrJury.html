@@ -48,7 +48,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="unEtabEpreuve : ${etabEpreuveList}">
+                    <tr th:each="unEtabEpreuve : ${etabEpreuveList}" th:class="${unEtabEpreuve.id}">
                         <td th:text="${unEtabEpreuve.etablissement.nom}"></td>
                         <td th:text="${unEtabEpreuve.etablissement.rne}"></td>
                         <td th:text="${unEtabEpreuve.etablissement.code}"></td>
@@ -65,6 +65,7 @@
                                    min="0"
                                    value="0"
                                    class="form-control input-md jurysConv"
+                                   readonly
                             />
                         </td>
                         <td th:each="jour : ${jours}">
@@ -73,6 +74,7 @@
                                    th:class="'nbrJury form-control input-sm totalNbr'+${jour.id}"
                                    th:value="${unEtabEpreuve.getJourEtabEpreuve(jour) == null ? 0 : unEtabEpreuve.getJourEtabEpreuve(jour).nbrJury}"
                                    th:onchange="'javascript:changeNbrJuries(' + ${jour.id} + ',' + ${unEtabEpreuve.id} + ', this.value);'"
+                                   th:disabled="${!jour.ouvre}"
                             />
                         </td>
                         <td th:text="${unEtabEpreuve.calcTotalNbrJury()}"></td>

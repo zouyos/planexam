@@ -37,7 +37,7 @@ public class JuryController {
     @GetMapping("/jury/create")
     public String create(@ModelAttribute(name = "jury") JuryDto juryDto, Model model) {
         model.addAttribute("profsSISR", professeurRepository.findBySpecialite_Libelle("SISR"));
-        model.addAttribute("profs", professeurRepository.findBySpecialite_IdGreaterThan(1L));
+        model.addAttribute("profsSLAM", professeurRepository.findBySpecialite_IdGreaterThan(1L));
         model.addAttribute("jees", jourEtabEpreuveRepository.findAll());
         return "admin/jury/form";
     }
@@ -47,7 +47,7 @@ public class JuryController {
         JuryDto juryDto = juryService.getJuryDtoById(id);
         model.addAttribute("jury", juryDto);
         model.addAttribute("profsSISR", professeurRepository.findBySpecialite_Libelle("SISR"));
-        model.addAttribute("profs", professeurRepository.findBySpecialite_IdGreaterThan(1L));
+        model.addAttribute("profsSLAM", professeurRepository.findBySpecialite_IdGreaterThan(1L));
         model.addAttribute("jees", jourEtabEpreuveRepository.findAll());
         return "admin/jury/form";
     }

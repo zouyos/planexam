@@ -75,10 +75,11 @@ public class EpreuveController {
   public String jurysSISR(@PathVariable("id") Long id, Model model) {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
     model.addAttribute("epreuveDto", epreuveDto);
-    model.addAttribute("jours", jourService.findByEpreuve(id));
+    model.addAttribute("jours", jourService.getJoursAvecJury());
     model.addAttribute("etabEpreuveList", etabEpreuveService.getByIdEpreuveAndPonctuel(id));
     model.addAttribute("juries", juryService.getAll());
     model.addAttribute("profs", professeurRepository.findBySpecialite_Libelle("SISR"));
+    model.addAttribute("jees", jourEtabEpreuveRepository.findAll());
     return "admin/epreuve/jury-sisr";
   }
 
@@ -86,10 +87,11 @@ public class EpreuveController {
   public String jurysSLAM(@PathVariable("id") Long id, Model model) {
     EpreuveDto epreuveDto = epreuveService.findEpreuveDtoById(id);
     model.addAttribute("epreuveDto", epreuveDto);
-    model.addAttribute("jours", jourService.findByEpreuve(id));
+    model.addAttribute("jours", jourService.getJoursAvecJury());
     model.addAttribute("etabEpreuveList", etabEpreuveService.getByIdEpreuveAndPonctuel(id));
     model.addAttribute("juries", juryService.getAll());
     model.addAttribute("profs", professeurRepository.findBySpecialite_IdGreaterThan(1L));
+    model.addAttribute("jees", jourEtabEpreuveRepository.findAll());
     return "admin/epreuve/jury-slam";
   }
 

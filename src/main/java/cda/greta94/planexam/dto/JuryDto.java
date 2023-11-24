@@ -1,5 +1,7 @@
 package cda.greta94.planexam.dto;
 
+import cda.greta94.planexam.model.EtabEpreuve;
+import cda.greta94.planexam.model.Jour;
 import cda.greta94.planexam.model.JourEtabEpreuve;
 import cda.greta94.planexam.model.Professeur;
 import jakarta.validation.constraints.NotBlank;
@@ -21,18 +23,22 @@ public class JuryDto {
     @NotNull(message = "Deux enseignants sont requis")
     private Professeur prof2;
 
-    @NotNull(message = "Veuillez assigner un jury à un jour et un établissement")
-    private JourEtabEpreuve jourEtabEpreuve;
+    @NotNull(message = "Veuillez assigner un jury à un jour")
+    private Jour jour;
+
+    @NotNull(message = "Veuillez assigner un jury à un établissement")
+    private EtabEpreuve etabEpreuve;
 
     public JuryDto() {
     }
 
-    public JuryDto(Long id, String num, Professeur prof1, Professeur prof2, JourEtabEpreuve jourEtabEpreuve) {
+    public JuryDto(Long id, String num, Professeur prof1, Professeur prof2, Jour jour, EtabEpreuve etabEpreuve) {
         this.id = id;
         this.num = num;
         this.prof1 = prof1;
         this.prof2 = prof2;
-        this.jourEtabEpreuve = jourEtabEpreuve;
+        this.jour = jour;
+        this.etabEpreuve = etabEpreuve;
     }
 
     public Long getId() {
@@ -67,11 +73,19 @@ public class JuryDto {
         this.prof2 = prof2;
     }
 
-    public JourEtabEpreuve getJourEtabEpreuve() {
-        return jourEtabEpreuve;
+    public Jour getJour() {
+        return jour;
     }
 
-    public void setJourEtabEpreuve(JourEtabEpreuve jourEtabEpreuve) {
-        this.jourEtabEpreuve = jourEtabEpreuve;
+    public void setJour(Jour jour) {
+        this.jour = jour;
+    }
+
+    public EtabEpreuve getEtabEpreuve() {
+        return etabEpreuve;
+    }
+
+    public void setEtabEpreuve(EtabEpreuve etabEpreuve) {
+        this.etabEpreuve = etabEpreuve;
     }
 }

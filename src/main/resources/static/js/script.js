@@ -1,33 +1,48 @@
+//calls API
 async function changeNbrCandidats(EtabEpreuveid, nbrCandidats) {
-    await fetch('/api/epreuve/nbr-candidats/' + EtabEpreuveid + '/' + nbrCandidats)
+    const jwtToken = sessionStorage.getItem("jwt");
+    if (jwtToken) {
+        const requestOptions = {
+            headers: {
+                'Authorization': `Bearer ${jwtToken}`,
+                'Set-Cookie': ''
+            },
+            credentials: 'omit'
+        }
+        await fetch('/api/epreuve/nbr-candidats/' + EtabEpreuveid + '/' + nbrCandidats, requestOptions)
+    } else {
+        console.error("Pas de jwt");
+    }
 }
-
 async function changeDispo(id, input){
     let resultatConfirm = false;
     if (!input.checked) {
         resultatConfirm = confirm(input.getAttribute('data-confirm-delete'))
-        if (resultatConfirm == true) {
-            const jwtToken = sessionStorage.getItem("jwt");
-            if (jwtToken) {
-                const requestOptions = {
-                    headers: {
-                        'Authorization': `Bearer ${jwtToken}`,
-                        'Set-Cookie': ''
-                    },
-                    credentials: 'omit'
-                }
-                await fetch("/api/epreuve/jour/" + id + "/" + false, requestOptions);
-                let classe = 'totalNbr' + id
-                let inputs = document.querySelectorAll('input[type=number].'+classe);
-                for (let i = 0; i < inputs.length; i++) {
-                    await changeNbrJuries(id, i+1, 0)
-                }
-            } else {
-                console.error("Pas de jwt");
+    }
+    if (resultatConfirm == true) {
+        const jwtToken = sessionStorage.getItem("jwt");
+        if (jwtToken) {
+            const requestOptions = {
+                headers: {
+                    'Authorization': `Bearer ${jwtToken}`,
+                    'Set-Cookie': ''
+                },
+                credentials: 'omit'
+            }
+            await fetch("/api/epreuve/jour/" + id + "/" + false, requestOptions);
+            let classe = 'totalNbr' + id
+            let inputs = document.querySelectorAll('input[type=number].'+classe);
+            for (const input of inputs) {
+                let idEtab = parseInt(input.parentNode.parentNode.className)
+                await changeNbrJuries(id, idEtab, 0)
+                input.setAttribute('disabled', '')
+                input.value = 0
             }
         } else {
-            input.checked = true
+            console.error("Pas de jwt");
         }
+    } else {
+        input.checked = true
     }
     if (input.checked) {
         const jwtToken = sessionStorage.getItem("jwt");
@@ -40,12 +55,16 @@ async function changeDispo(id, input){
                 credentials: 'omit'
             }
             await fetch("/api/epreuve/jour/" + id + "/" + true, requestOptions);
+            let classe = 'totalNbr' + id
+            let inputs = document.querySelectorAll('input[type=number].'+classe);
+            inputs.forEach((input) => {
+                input.removeAttribute("disabled")
+            })
         } else {
             console.error("Pas de jwt");
         }
     }
 }
-
 async function changeNbrJuries(jourId, etabEpreuveId, nbrJury){
     const jwtToken = sessionStorage.getItem("jwt");
     if (jwtToken) {
@@ -62,10 +81,14 @@ async function changeNbrJuries(jourId, etabEpreuveId, nbrJury){
     }
 }
 
-//calculer les totaux
+//variables
 let inputs = document.querySelectorAll("input.nbrJury")
-function calcTotalEtab(e) {
-    let tr = e.target.parentNode.parentNode
+let inputsCand = document.querySelectorAll("input.nbrCand")
+let inputsJury = document.querySelectorAll("input.jurysConv")
+
+//déclarations fonctions
+function calcTotalEtab(input) {
+    let tr = input.parentNode.parentNode
     let resultat = 0
     for (const element of tr.querySelectorAll("input.nbrJury")) {
         resultat += parseInt(element.value)
@@ -75,10 +98,10 @@ function calcTotalEtab(e) {
     //TODO
     //tr.querySelector("input.jurysConv").value--
 }
-function calcTotalJour(e) {
+function calcTotalJour(input) {
     //récupérer le nom de la classe de l'input ciblé commençant par 'totalNbr'
     let classe = ""
-    let classes = e.target.classList
+    let classes = input.classList
     for (const classeElement of classes) {
         if(classeElement.startsWith('totalNbr')) {
             classe = classeElement
@@ -101,51 +124,57 @@ function calcTotal() {
     }
     document.querySelector("#totalJury").innerText = resultat
 }
-for (const input of inputs) {
-    input.addEventListener("change", (e) => {
-        calcTotalEtab(e)
-        calcTotalJour(e)
-        calcTotal()
-    })
-}
-window.addEventListener("load", (e) => {
-    for (const input of inputs) {
-        calcTotalEtab(e)
-        calcTotalJour(e)
-        calcTotal()
-    }
-});
-
-//pour réinitialiser les jurys jours
-let inputsJours = document.querySelectorAll('input[type=checkbox]')
-for (const inputJour of inputsJours) {
-    inputJour.addEventListener("change", (e) => {
-        let classe = ""
-        let classes = e.target.classList
-        for (const classeElement of classes) {
-            if (classeElement.startsWith('totalNbr')) {
-                classe = classeElement
-            }
-        }
-        let inputsCol = document.querySelectorAll('input[type=number].'+classe)
-    })
-}
-
-//pour calc jury by nbrCand
-function calcJuryConv() {
-    let tr = e.target.parentNode.parentNode
+function calcJuryConv(input) {
+    let tr = input.parentNode.parentNode
     let resultat = 0
-    resultat += Math.ceil(parseInt((e.target.value))/5)
+    resultat += Math.ceil(parseInt((input.value))/5)
     tr.querySelector("input.jurysConv").value = resultat
 }
-let inputsCand = document.querySelectorAll("input.nbrCand")
-for (const input of inputsCand) {
-    input.addEventListener("change", (e) => {
-        calcJuryConv()
+function changeColor(input) {
+    let tr = input.parentNode.parentNode
+    let inputJ = tr.querySelector("input.jurysConv")
+    if (inputJ.value > parseInt(tr.lastElementChild.innerText)) {
+        tr.lastElementChild.style.color = "orange"
+    }
+    if (inputJ.value == parseInt(tr.lastElementChild.innerText)) {
+        tr.lastElementChild.style.color = "green"
+    }
+    if (inputJ.value < parseInt(tr.lastElementChild.innerText)) {
+        tr.lastElementChild.style.color = "red"
+    }
+}
+
+//appels
+for (const input of inputs) {
+    input.addEventListener("change", () => {
+        calcTotalEtab(input)
+        calcTotalJour(input)
+        calcTotal()
+        changeColor(input)
     })
 }
-window.addEventListener("load", (e) => {
+for (const input of inputsCand) {
+    input.addEventListener("change", () => {
+        calcJuryConv(input)
+        changeColor(input)
+    })
+}
+for (const input of inputsJury) {
+    input.addEventListener("change", () => {
+        changeColor(input)
+    })
+}
+window.addEventListener("load", () => {
+    for (const input of inputs) {
+        calcTotalEtab(input)
+        calcTotalJour(input)
+    }
+    calcTotal()
     for (const input of inputsCand) {
-        calcJuryConv()
+        calcJuryConv(input)
+        changeColor(input)
+    }
+    for (const input of inputsJury) {
+        changeColor(input)
     }
 });

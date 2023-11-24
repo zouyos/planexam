@@ -51,8 +51,10 @@ public class JourService {
         jour.setEpreuve(epreuveService.findById(jourDto.getEpreuveId()));
     }
 
+    public List<Jour> getJoursAvecJury() {return jourRepository.findByJourEtabEpreuveList_JuriesNotNull(); }
+
     public void updateJourById(Long id, Boolean value) {
-        jourRepository.updateOuvreById(value,id);
+        this.jourRepository.updateOuvreById(value,id);
     }
 
     public void delete(Long id) { jourRepository.deleteById(id); }
