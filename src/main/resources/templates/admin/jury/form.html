@@ -42,19 +42,17 @@
                         <option th:each="prof : ${profsSLAM}" th:value="${prof.id}" th:text="${prof.nom + ' ' + prof.prenom}"></option>
                     </select>
                 </div>
-                <div th:if="${jees.size() != 0}">
-                    <div class="my-2">
-                        <label for="juryJour">Jour</label>
-                        <select id="juryJour" class="form-control" th:field="*{jour}">
-                            <option th:each="jee : ${jees}" th:value="${jee.jour.id}" th:text="${jee.jour.dateJ}"></option>
-                        </select>
-                    </div>
-                    <div class="my-2">
-                        <label for="juryEtab">Établissement</label>
-                        <select id="juryEtab" class="form-control" th:field="*{etabEpreuve}">
-                            <option th:each="jee : ${jees}" th:value="${jee.etabEpreuve.id}" th:text="${jee.etabEpreuve.etablissement.code}"></option>
-                        </select>
-                    </div>
+                <div class="my-2">
+                    <label for="juryJour">Jour</label>
+                    <select id="juryJour" class="form-control" th:field="*{jour}">
+                        <option th:each="jee : ${jees}" th:value="${jee.jour.id}" th:text="${jee.jour.dateJ}"></option>
+                    </select>
+                </div>
+                <div class="my-2">
+                    <label for="juryEtab">Établissement</label>
+                    <select id="juryEtab" class="form-control" th:field="*{etabEpreuve}">
+                        <option th:each="etab : ${etabs}" th:value="${etab.id}" th:text="${etab.etablissement.code}"></option>
+                    </select>
                 </div>
                 <hr>
                 <div class="my-2">
