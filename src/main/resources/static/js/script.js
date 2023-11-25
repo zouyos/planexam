@@ -35,9 +35,13 @@ async function changeDispo(id, input){
             for (const input of inputs) {
                 let idEtab = parseInt(input.parentNode.parentNode.className)
                 await changeNbrJuries(id, idEtab, 0)
-                input.setAttribute('disabled', '')
                 input.value = 0
+                calcTotalEtab(input)
+                calcTotalJour(input)
+                changeColor(input)
+                input.setAttribute('disabled', '')
             }
+            calcTotal()
         } else {
             console.error("Pas de jwt");
         }
