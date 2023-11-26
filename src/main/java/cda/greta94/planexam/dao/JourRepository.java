@@ -21,5 +21,7 @@ public interface JourRepository extends JpaRepository<Jour, Long> {
   @Query("update Jour e set e.ouvre = ?1 where e.id = ?2")
   int updateOuvreById(Boolean ouvre, Long id);
 
+  List<Jour> findDistinctByJourEtabEpreuveList_NbrJuryGreaterThan(int nbrJury);
+
   List<Jour> findByJourEtabEpreuveList_JuriesNotNull();
 }

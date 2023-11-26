@@ -2,6 +2,7 @@ package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dao.EtabEpreuveRepository;
 import cda.greta94.planexam.dao.JourEtabEpreuveRepository;
+import cda.greta94.planexam.dao.JourRepository;
 import cda.greta94.planexam.dao.ProfesseurRepository;
 import cda.greta94.planexam.dto.JuryDto;
 import cda.greta94.planexam.service.JourEtabEpreuveService;
@@ -19,15 +20,18 @@ public class JuryController {
 
     private JuryService juryService;
     private ProfesseurRepository professeurRepository;
+    private JourRepository jourRepository;
     private EtabEpreuveRepository etabEpreuveRepository;
     private JourEtabEpreuveRepository jourEtabEpreuveRepository;
 
     public JuryController(JuryService juryService,
                           ProfesseurRepository professeurRepository,
+                          JourRepository jourRepository,
                           EtabEpreuveRepository etabEpreuveRepository,
                           JourEtabEpreuveRepository jourEtabEpreuveRepository) {
         this.juryService = juryService;
         this.professeurRepository = professeurRepository;
+        this.jourRepository = jourRepository;
         this.etabEpreuveRepository = etabEpreuveRepository;
         this.jourEtabEpreuveRepository = jourEtabEpreuveRepository;
     }
@@ -44,7 +48,7 @@ public class JuryController {
     public String create(@ModelAttribute(name = "jury") JuryDto juryDto, Model model) {
         model.addAttribute("profsSISR", professeurRepository.findBySpecialite_Libelle("SISR"));
         model.addAttribute("profsSLAM", professeurRepository.findBySpecialite_IdGreaterThan(1L));
-        model.addAttribute("jees", jourEtabEpreuveRepository.findAll());
+        model.addAttribute("jours", jourRepository.findDistinctByJourEtabEpreuveList_NbrJuryGreaterThan(0));
         model.addAttribute("etabs", etabEpreuveRepository.findDistinctByJourEtabEpreuveList_NbrJuryGreaterThan(0));
         return "admin/jury/form";
     }
@@ -55,7 +59,7 @@ public class JuryController {
         model.addAttribute("jury", juryDto);
         model.addAttribute("profsSISR", professeurRepository.findBySpecialite_Libelle("SISR"));
         model.addAttribute("profsSLAM", professeurRepository.findBySpecialite_IdGreaterThan(1L));
-        model.addAttribute("jees", jourEtabEpreuveRepository.findAll());
+        model.addAttribute("jours", jourRepository.findDistinctByJourEtabEpreuveList_NbrJuryGreaterThan(0));
         model.addAttribute("etabs", etabEpreuveRepository.findDistinctByJourEtabEpreuveList_NbrJuryGreaterThan(0));
         return "admin/jury/form";
     }
