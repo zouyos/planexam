@@ -2,11 +2,15 @@ package cda.greta94.planexam.controller.admin;
 
 import cda.greta94.planexam.dto.AuthRequestDto;
 import cda.greta94.planexam.dto.AuthResponseDto;
+import cda.greta94.planexam.model.EtabEpreuve;
+import cda.greta94.planexam.model.Jour;
 import cda.greta94.planexam.service.*;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "/**", methods = {RequestMethod.GET, RequestMethod.POST})
@@ -60,7 +64,7 @@ public class ApiController {
     }
 
     @GetMapping("/api/epreuve/nbr-candidats/{etabEpreuveId}/{nbr}")
-    public void updateNbrJurys(@PathVariable(name = "etabEpreuveId") Long etabEpreuveId,
+    public void updateNbrCandidats(@PathVariable(name = "etabEpreuveId") Long etabEpreuveId,
                                @PathVariable(name = "nbr") int nbr,
                                HttpServletResponse httpResponse)
     {
@@ -76,5 +80,15 @@ public class ApiController {
     {
         httpResponse.setHeader("Set-Cookie", "");
         jourEtabEpreuveService.createNbrJuriesById(jourId, etabEpreuveId, nbr);
+    }
+
+    @GetMapping("/api/jury/etabs-epreuve/{jourId}")
+    public List<EtabEpreuve> getEtabsEpreuve(@PathVariable(name = "jourId") Long jourId) {
+        List<EtabEpreuve> etabsEpreuve = etabEpreuveService.getAll();
+        List<EtabEpreuve> etabs = new ArrayList<>();
+        for (EtabEpreuve etabEpreuve : etabsEpreuve) {
+            etabs.addAll(etabEpreuveService.getByJourEtabEpreuveList_JourEtabEpreuveId(etabEpreuve.getId(), jourId));
+        }
+        return etabs;
     }
 }

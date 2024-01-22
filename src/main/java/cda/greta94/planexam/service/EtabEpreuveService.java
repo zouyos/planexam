@@ -1,6 +1,7 @@
 package cda.greta94.planexam.service;
 
 import cda.greta94.planexam.dao.EtabEpreuveRepository;
+import cda.greta94.planexam.dao.JourEtabEpreuveRepository;
 import cda.greta94.planexam.exception.NotFoundEntityException;
 import cda.greta94.planexam.model.EtabEpreuve;
 import cda.greta94.planexam.model.JourEtabEpreuve;
@@ -13,6 +14,8 @@ import java.util.List;
 @Service
 public class EtabEpreuveService {
   private EtabEpreuveRepository etabEpreuveRepository;
+
+  private JourEtabEpreuveRepository jourEtabEpreuveRepository;
 
   public EtabEpreuveService(EtabEpreuveRepository etabEpreuveRepository) {
     this.etabEpreuveRepository = etabEpreuveRepository;
@@ -37,5 +40,14 @@ public class EtabEpreuveService {
     EtabEpreuve etabEpreuve = etabEpreuveRepository.findById(id).orElseThrow(NotFoundEntityException::new);
     etabEpreuve.setNbrCandidats(nbrCandidats);
     etabEpreuveRepository.save(etabEpreuve);
+  }
+
+  public List<EtabEpreuve> getByJourEtabEpreuveList_JourEtabEpreuveId(Long jourId, Long etabEpreuveId) {
+    JourEtabEpreuve jourEtabEpreuve = jourEtabEpreuveRepository.findByJourEtabEpreuveId_EtabEpreuveIdAndJourEtabEpreuveId_JourId(jourId, etabEpreuveId);
+    return etabEpreuveRepository.findByJourEtabEpreuveList_Jour_Id(jourId);
+  }
+
+  public List<EtabEpreuve> getByJourEtabEpreuveList_Jour_Id(Long jourId){
+    return etabEpreuveRepository.findByJourEtabEpreuveList_Jour_Id(jourId);
   }
 }
