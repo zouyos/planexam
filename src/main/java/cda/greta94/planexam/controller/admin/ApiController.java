@@ -84,7 +84,7 @@ public class ApiController {
 
     @GetMapping("/api/jury/etabs-epreuve/{jourId}")
     public List<EtabEpreuve> getEtabsEpreuve(@PathVariable(name = "jourId") Long jourId) {
-        List<EtabEpreuve> etabsEpreuve = etabEpreuveService.getAll();
+        List<EtabEpreuve> etabsEpreuve = etabEpreuveService.getByJourEtabEpreuveList_Jour_Id(jourId);
         List<EtabEpreuve> etabs = new ArrayList<>();
         for (EtabEpreuve etabEpreuve : etabsEpreuve) {
             etabs.addAll(etabEpreuveService.getByJourEtabEpreuveList_JourEtabEpreuveId(etabEpreuve.getId(), jourId));
